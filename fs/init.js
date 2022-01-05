@@ -1,103 +1,49 @@
 
 load('api_timer.js');
-load('api_neopixel.js');
 load('api_mqtt.js');
 load('api_i2c.js');
 load('api_gpio.js');
 load('api_esp32.js');
+load('api_rpc.js');
+load('api_sys.js');
 
-
-let random=ffi('float mgos_rand_range(float,float)');
-
-let iopin = 13, numPixels = 50, colorOrder = NeoPixel.GRB, i = 0;
-
-let strip = NeoPixel.create(iopin, numPixels, colorOrder);
-
-let FRAME_TICK_MS=5000;
-
-let colval;
-
-let activepalette=0;
-
-
-let topicu = '/mosiotnode/uplink';
-let topicd = '/mosiotnode/downlink';
+let topic_ul = '/mosiotnode/uplink';
+let topic_dl = '/mosiotnode/downlink';
 
 let LM75A_I2C_ADDR=0x48;
 let	GPIOLED =2;
 let MIN_TO_SLEEP = 2;
-// ********************************************************
-// Palette colors (RGB) are packed for compact code writting
-// 0xBBGGRR
-// ********************************************************	
-
-// **** Autumn palette ****
-// red=255,brown=1039,orange=16639,yellow=65535,silver=937807
-let autumn_palette=[255, 1039, 16639, 65535, 937807];
-let autumn_palette_size=autumn_palette.length;
-
-// **** Christmas palette ****
-// pomogreen=13056,sprigreen=39168,oryellow=52479,cinnabar=13260,firebrick=153
-let christmas_palette=[13056, 39168, 52479, 13260, 153];
-let christmas_palette_size=christmas_palette.length;
-
-// **** allwhite palette (max power output test) ****
-// allwhite=16777215
-let allwhite_palette=[16777215, 16777215, 16777215, 16777215, 16777215];
-let allwhite_palette_size=allwhite_palette.length;
+let NO_NET_TIMEOUT_SEG = 120;
+let DEVICE_ARCH;
+let DEVICE_ID;
 
 
 // *** LM75A onboard debug LED setup //
 GPIO.set_pull(GPIOLED,GPIO.PULL_NONE);
 GPIO.set_mode(GPIOLED,GPIO.MODE_OUTPUT);
+GPIO.write(GPIOLED,1);
 
 // *** LM75A sensor setup //
-// Address 1001+ABCD
+// Address 1001+A2A1A0
 // 0x48
 let LM75A=I2C.get();
 
+let message_ul={"id":"","temp":0.0};
 
-/**
-* return integer random number between min and max
-* @param {int} min random number interval
-* @param {int} max random number interval
-* @returns {int} generated random number
-*/
+// read self device info
+RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
+  DEVICE_ID = resp.id;
+  DEVICE_ARCH = resp.arch;
 
-let randomint=function(min,max){
-	let floatres;
-	let intres;
-	floatres=random(min,max+1)
-	intres=(0 | floatres);				// truncate decimal part
-
-	// extreme low probablility case:
-	if(intres>max)
-		{
-			intres = intres-1;
-		}
-	return intres;
-};
-
-// ************************************************
-// listen to MQTT server topic to change color palette
-// ************************************************
-
-MQTT.sub(topic,function(conn,topic,msg){
-	print('Topic:', topicd, 'message:', msg);
-	activepalette=JSON.parse(msg);
 },null);
 
 
-
-
 // ************************************************
-// read temperature each 10 segs
+// Get Temperature
 // ************************************************
-
-Timer.set(10000, Timer.REPEAT, function() {
+function getTempC(){
 	let temperature=I2C.readRegW(LM75A,LM75A_I2C_ADDR,0x00);
-	print('temperature',temperature);
-	let temperatureC = 0.12;
+	let temperatureC;
 	if(temperature < 32768)
 	{
 		temperatureC = (temperature/256);
@@ -106,9 +52,70 @@ Timer.set(10000, Timer.REPEAT, function() {
 	{
 		temperatureC =( (temperature - 65535)-1)/256;
 	}
-	
-	//let temperatureC = (temperature/256);
-	print('temperature C',temperatureC);
-	GPIO.toggle(GPIOLED);
+	return temperatureC;
+
+}
+
+// ************************************************
+// Build MQTT uplink message
+// ************************************************
+
+function buildMsgUl(){
+
+	message_ul.id=DEVICE_ID;
+	message_ul.temp=getTempC();
+
+}
+// ************************************************
+// No network connection timeout
+// ************************************************
+Timer.set(NO_NET_TIMEOUT_SEG*1000, 0, function() {	
+	print('Going to sleep, no network conn after:',NO_NET_TIMEOUT_SEG);
 	ESP32.deepSleep(MIN_TO_SLEEP * 60 * 1000 * 1000);
 }, null);
+
+
+// ************************************************
+// listen to MQTT server topic for dowlink data
+// ************************************************
+
+MQTT.sub(topic_dl,function(conn,topic,msg){
+	print('Topic:', topic, 'message:', msg);	
+},null);
+
+
+
+// ************************************************
+// read temperature each 10 segs
+// ************************************************
+
+Timer.set(10000, Timer.REPEAT, function() {
+		
+	buildMsgUl();
+	print('msg',JSON.stringify(message_ul));
+}, null);
+
+
+// ************************************************
+// MQTT connection is ok (WiFi also!)
+// ************************************************
+
+MQTT.setEventHandler(function(conn,ev,data){
+
+	if(ev === MQTT.EV_CONNACK)
+	{
+		print('got MQTT.EV_CONNACK');
+		if (DEVICE_ARCH === 'esp32')
+			{
+				buildMsgUl();
+				let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
+  				print('Published:', okul, topic_ul, '->', message_ul);
+  				// Wait for some time for downlink data before sleeping	  				
+  				Timer.set(5000, false, function (){
+  					print('Going to sleep for mins',MIN_TO_SLEEP);
+  					ESP32.deepSleep(MIN_TO_SLEEP * 60 * 1000 * 1000);     
+  				}, null);	       										
+			}
+	}
+
+},null);
