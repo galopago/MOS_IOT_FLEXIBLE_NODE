@@ -1,4 +1,3 @@
-
 load('api_timer.js');
 load('api_mqtt.js');
 load('api_i2c.js');
@@ -52,6 +51,27 @@ function getTempC(){
 	{
 		temperatureC =( (temperature - 65535)-1)/256;
 	}
+	//Converting to string and rounding decimals
+	let strtempc = JSON.stringify(temperatureC);
+	let indexofdot = strtempc.indexOf('.');
+	let sizeofstr = strtempc.length;
+	let numofdecimals;
+	if(indexofdot < 0)
+	{
+		// integer number with no decimals, so must add them
+		strtempc = strtempc+'.00'
+		numofdecimals=0;
+	}
+	else
+	{
+		// Count the number of decimals for adding or clipping
+		numofdecimals = sizeofstr-(indexofdot+1);								
+	}
+	
+	print("Text temp:",strtempc);
+	print("Size of string:"strtempc.length)
+	print("Index of dot:",indexofdot);
+	print("decimals:",numofdecimals);
 	return temperatureC;
 
 }
