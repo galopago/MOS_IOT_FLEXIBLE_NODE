@@ -27,7 +27,7 @@ GPIO.write(GPIOLED,1);
 // 0x48
 let LM75A=I2C.get();
 
-let message_ul={"id":"","temp":0.0};
+let message_ul={"id":"","temp":0.0,"bat":0.0};
 
 // read self device info
 RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
@@ -36,6 +36,54 @@ RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
 
 },null);
 
+// ************************************************
+// Round to x number of decimals return string
+// ************************************************
+function roundNdigitsTostr(number,digits){
+
+	let strtempc = JSON.stringify(number);
+	let indexofdot = strtempc.indexOf('.');
+	let sizeofstr = strtempc.length;
+	let actualdecimals;
+	
+	if(indexofdot < 0)
+	{
+		// integer number with no decimals, so must add them
+		strtempc = strtempc+'.'
+		indexofdot = strtempc.indexOf('.');
+		sizeofstr = strtempc.length;
+	}
+	
+	// Count the number of decimals for adding or clipping
+	actualdecimals = sizeofstr-(indexofdot+1);									
+		
+	if ( digits < 1 || digits === actualdecimals)
+	{
+		// do noting for 0 digits (use Math.round instead! ),negatives or same digits
+		return number;
+	}
+	
+	// digits need to be added
+	if(actualdecimals < digits)
+	{
+		let zeros = digits - actualdecimals;
+		for( let i=0; i<zeros; i++ )
+			{
+				strtempc = strtempc+'0'
+			}
+	}
+	
+	// digits need to be clipped
+	if(actualdecimals > digits)
+	{
+		strtempc=strtempc.slice(0,indexofdot+digits+1);				
+	}
+	
+	return strtempc	;
+	//print("Number in text rounded:",strtempc);
+	//print("Digits to round:",digits);
+	//print("Actualdecimals",actualdecimals);
+}
 
 // ************************************************
 // Get Temperature
@@ -51,27 +99,7 @@ function getTempC(){
 	{
 		temperatureC =( (temperature - 65535)-1)/256;
 	}
-	//Converting to string and rounding decimals
-	let strtempc = JSON.stringify(temperatureC);
-	let indexofdot = strtempc.indexOf('.');
-	let sizeofstr = strtempc.length;
-	let numofdecimals;
-	if(indexofdot < 0)
-	{
-		// integer number with no decimals, so must add them
-		strtempc = strtempc+'.00'
-		numofdecimals=0;
-	}
-	else
-	{
-		// Count the number of decimals for adding or clipping
-		numofdecimals = sizeofstr-(indexofdot+1);								
-	}
-	
-	print("Text temp:",strtempc);
-	print("Size of string:"strtempc.length)
-	print("Index of dot:",indexofdot);
-	print("decimals:",numofdecimals);
+		
 	return temperatureC;
 
 }
@@ -83,7 +111,9 @@ function getTempC(){
 function buildMsgUl(){
 
 	message_ul.id=DEVICE_ID;
-	message_ul.temp=getTempC();
+	
+	let temperatureCstr = roundNdigitsTostr(getTempC(),2);
+	message_ul.temp=temperatureCstr;
 
 }
 // ************************************************
