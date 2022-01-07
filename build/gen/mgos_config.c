@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_284682760/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_284682760/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_802640009/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_802640009/build/gen/mos_conf_schema.yml
  */
 
 #include "mgos_config.h"
@@ -15,7 +15,7 @@
 
 /* struct mgos_config */
 static const struct mgos_conf_entry mgos_config_schema_[] = {
-    {.type = CONF_TYPE_OBJECT, .key = "", .offset = 0, .num_desc = 253},
+    {.type = CONF_TYPE_OBJECT, .key = "", .offset = 0, .num_desc = 255},
     {.type = CONF_TYPE_OBJECT, .key = "debug", .offset = offsetof(struct mgos_config, debug), .num_desc = 12},
     {.type = CONF_TYPE_STRING, .key = "udp_log_addr", .offset = offsetof(struct mgos_config, debug.udp_log_addr)},
     {.type = CONF_TYPE_INT, .key = "udp_log_level", .offset = offsetof(struct mgos_config, debug.udp_log_level)},
@@ -29,16 +29,18 @@ static const struct mgos_conf_entry mgos_config_schema_[] = {
     {.type = CONF_TYPE_STRING, .key = "mg_mgr_hexdump_file", .offset = offsetof(struct mgos_config, debug.mg_mgr_hexdump_file)},
     {.type = CONF_TYPE_STRING, .key = "stdout_topic", .offset = offsetof(struct mgos_config, debug.stdout_topic)},
     {.type = CONF_TYPE_STRING, .key = "stderr_topic", .offset = offsetof(struct mgos_config, debug.stderr_topic)},
+    {.type = CONF_TYPE_OBJECT, .key = "sys", .offset = offsetof(struct mgos_config, sys), .num_desc = 5},
+    {.type = CONF_TYPE_INT, .key = "esp32_adc_vref", .offset = offsetof(struct mgos_config, sys.esp32_adc_vref)},
+    {.type = CONF_TYPE_INT, .key = "esp32_adc_width", .offset = offsetof(struct mgos_config, sys.esp32_adc_width)},
+    {.type = CONF_TYPE_STRING, .key = "tz_spec", .offset = offsetof(struct mgos_config, sys.tz_spec)},
+    {.type = CONF_TYPE_INT, .key = "wdt_timeout", .offset = offsetof(struct mgos_config, sys.wdt_timeout)},
+    {.type = CONF_TYPE_STRING, .key = "pref_ota_lib", .offset = offsetof(struct mgos_config, sys.pref_ota_lib)},
     {.type = CONF_TYPE_OBJECT, .key = "device", .offset = offsetof(struct mgos_config, device), .num_desc = 5},
     {.type = CONF_TYPE_STRING, .key = "id", .offset = offsetof(struct mgos_config, device.id)},
     {.type = CONF_TYPE_STRING, .key = "license", .offset = offsetof(struct mgos_config, device.license)},
     {.type = CONF_TYPE_STRING, .key = "mac", .offset = offsetof(struct mgos_config, device.mac)},
     {.type = CONF_TYPE_STRING, .key = "public_key", .offset = offsetof(struct mgos_config, device.public_key)},
     {.type = CONF_TYPE_STRING, .key = "sn", .offset = offsetof(struct mgos_config, device.sn)},
-    {.type = CONF_TYPE_OBJECT, .key = "sys", .offset = offsetof(struct mgos_config, sys), .num_desc = 3},
-    {.type = CONF_TYPE_STRING, .key = "tz_spec", .offset = offsetof(struct mgos_config, sys.tz_spec)},
-    {.type = CONF_TYPE_INT, .key = "wdt_timeout", .offset = offsetof(struct mgos_config, sys.wdt_timeout)},
-    {.type = CONF_TYPE_STRING, .key = "pref_ota_lib", .offset = offsetof(struct mgos_config, sys.pref_ota_lib)},
     {.type = CONF_TYPE_STRING, .key = "conf_acl", .offset = offsetof(struct mgos_config, conf_acl)},
     {.type = CONF_TYPE_OBJECT, .key = "update", .offset = offsetof(struct mgos_config, update), .num_desc = 17},
     {.type = CONF_TYPE_INT, .key = "timeout", .offset = offsetof(struct mgos_config, update.timeout)},
@@ -299,9 +301,30 @@ bool mgos_config_debug_parse_f(const char *fname, struct mgos_config_debug *cfg)
   return res;
 }
 
+/* struct mgos_config_sys */
+const struct mgos_conf_entry *mgos_config_sys_get_schema(void) {
+  return &mgos_config_schema_[14];
+}
+
+void mgos_config_sys_set_defaults(struct mgos_config_sys *cfg) {
+  cfg->esp32_adc_vref = 0;
+  cfg->esp32_adc_width = 3;
+  cfg->tz_spec = NULL;
+  cfg->wdt_timeout = 30;
+  cfg->pref_ota_lib = NULL;
+}
+bool mgos_config_sys_parse_f(const char *fname, struct mgos_config_sys *cfg) {
+  size_t len;
+  char *data = cs_read_file(fname, &len);
+  if (data == NULL) return false;
+  bool res = mgos_config_sys_parse(mg_mk_str_n(data, len), cfg);
+  free(data);
+  return res;
+}
+
 /* struct mgos_config_device */
 const struct mgos_conf_entry *mgos_config_device_get_schema(void) {
-  return &mgos_config_schema_[14];
+  return &mgos_config_schema_[20];
 }
 
 void mgos_config_device_set_defaults(struct mgos_config_device *cfg) {
@@ -320,28 +343,9 @@ bool mgos_config_device_parse_f(const char *fname, struct mgos_config_device *cf
   return res;
 }
 
-/* struct mgos_config_sys */
-const struct mgos_conf_entry *mgos_config_sys_get_schema(void) {
-  return &mgos_config_schema_[20];
-}
-
-void mgos_config_sys_set_defaults(struct mgos_config_sys *cfg) {
-  cfg->tz_spec = NULL;
-  cfg->wdt_timeout = 30;
-  cfg->pref_ota_lib = NULL;
-}
-bool mgos_config_sys_parse_f(const char *fname, struct mgos_config_sys *cfg) {
-  size_t len;
-  char *data = cs_read_file(fname, &len);
-  if (data == NULL) return false;
-  bool res = mgos_config_sys_parse(mg_mk_str_n(data, len), cfg);
-  free(data);
-  return res;
-}
-
 /* struct mgos_config_update */
 const struct mgos_conf_entry *mgos_config_update_get_schema(void) {
-  return &mgos_config_schema_[25];
+  return &mgos_config_schema_[27];
 }
 
 void mgos_config_update_set_defaults(struct mgos_config_update *cfg) {
@@ -374,7 +378,7 @@ bool mgos_config_update_parse_f(const char *fname, struct mgos_config_update *cf
 
 /* struct mgos_config_shadow */
 const struct mgos_conf_entry *mgos_config_shadow_get_schema(void) {
-  return &mgos_config_schema_[43];
+  return &mgos_config_schema_[45];
 }
 
 void mgos_config_shadow_set_defaults(struct mgos_config_shadow *cfg) {
@@ -395,7 +399,7 @@ bool mgos_config_shadow_parse_f(const char *fname, struct mgos_config_shadow *cf
 
 /* struct mgos_config_rpc_ws */
 const struct mgos_conf_entry *mgos_config_rpc_ws_get_schema(void) {
-  return &mgos_config_schema_[62];
+  return &mgos_config_schema_[64];
 }
 
 void mgos_config_rpc_ws_set_defaults(struct mgos_config_rpc_ws *cfg) {
@@ -419,7 +423,7 @@ bool mgos_config_rpc_ws_parse_f(const char *fname, struct mgos_config_rpc_ws *cf
 
 /* struct mgos_config_rpc_uart */
 const struct mgos_conf_entry *mgos_config_rpc_uart_get_schema(void) {
-  return &mgos_config_schema_[71];
+  return &mgos_config_schema_[73];
 }
 
 void mgos_config_rpc_uart_set_defaults(struct mgos_config_rpc_uart *cfg) {
@@ -439,7 +443,7 @@ bool mgos_config_rpc_uart_parse_f(const char *fname, struct mgos_config_rpc_uart
 
 /* struct mgos_config_rpc */
 const struct mgos_conf_entry *mgos_config_rpc_get_schema(void) {
-  return &mgos_config_schema_[49];
+  return &mgos_config_schema_[51];
 }
 
 void mgos_config_rpc_set_defaults(struct mgos_config_rpc *cfg) {
@@ -469,7 +473,7 @@ bool mgos_config_rpc_parse_f(const char *fname, struct mgos_config_rpc *cfg) {
 
 /* struct mgos_config_dash */
 const struct mgos_conf_entry *mgos_config_dash_get_schema(void) {
-  return &mgos_config_schema_[76];
+  return &mgos_config_schema_[78];
 }
 
 void mgos_config_dash_set_defaults(struct mgos_config_dash *cfg) {
@@ -492,7 +496,7 @@ bool mgos_config_dash_parse_f(const char *fname, struct mgos_config_dash *cfg) {
 
 /* struct mgos_config_i2c */
 const struct mgos_conf_entry *mgos_config_i2c_get_schema(void) {
-  return &mgos_config_schema_[91];
+  return &mgos_config_schema_[93];
 }
 
 void mgos_config_i2c_set_defaults(struct mgos_config_i2c *cfg) {
@@ -514,7 +518,7 @@ bool mgos_config_i2c_parse_f(const char *fname, struct mgos_config_i2c *cfg) {
 
 /* struct mgos_config_i2c */
 const struct mgos_conf_entry *mgos_config_i2c1_get_schema(void) {
-  return &mgos_config_schema_[91];
+  return &mgos_config_schema_[93];
 }
 
 void mgos_config_i2c1_set_defaults(struct mgos_config_i2c *cfg) {
@@ -536,7 +540,7 @@ bool mgos_config_i2c1_parse_f(const char *fname, struct mgos_config_i2c *cfg) {
 
 /* struct mgos_config_mjs */
 const struct mgos_conf_entry *mgos_config_mjs_get_schema(void) {
-  return &mgos_config_schema_[98];
+  return &mgos_config_schema_[100];
 }
 
 void mgos_config_mjs_set_defaults(struct mgos_config_mjs *cfg) {
@@ -553,7 +557,7 @@ bool mgos_config_mjs_parse_f(const char *fname, struct mgos_config_mjs *cfg) {
 
 /* struct mgos_config_mqtt */
 const struct mgos_conf_entry *mgos_config_mqtt_get_schema(void) {
-  return &mgos_config_schema_[126];
+  return &mgos_config_schema_[128];
 }
 
 void mgos_config_mqtt_set_defaults(struct mgos_config_mqtt *cfg) {
@@ -594,7 +598,7 @@ bool mgos_config_mqtt_parse_f(const char *fname, struct mgos_config_mqtt *cfg) {
 
 /* struct mgos_config_mqtt */
 const struct mgos_conf_entry *mgos_config_mqtt1_get_schema(void) {
-  return &mgos_config_schema_[126];
+  return &mgos_config_schema_[128];
 }
 
 void mgos_config_mqtt1_set_defaults(struct mgos_config_mqtt *cfg) {
@@ -635,7 +639,7 @@ bool mgos_config_mqtt1_parse_f(const char *fname, struct mgos_config_mqtt *cfg) 
 
 /* struct mgos_config_wifi_ap */
 const struct mgos_conf_entry *mgos_config_wifi_ap_get_schema(void) {
-  return &mgos_config_schema_[153];
+  return &mgos_config_schema_[155];
 }
 
 void mgos_config_wifi_ap_set_defaults(struct mgos_config_wifi_ap *cfg) {
@@ -667,7 +671,7 @@ bool mgos_config_wifi_ap_parse_f(const char *fname, struct mgos_config_wifi_ap *
 
 /* struct mgos_config_wifi_sta */
 const struct mgos_conf_entry *mgos_config_wifi_sta_get_schema(void) {
-  return &mgos_config_schema_[210];
+  return &mgos_config_schema_[212];
 }
 
 void mgos_config_wifi_sta_set_defaults(struct mgos_config_wifi_sta *cfg) {
@@ -702,7 +706,7 @@ bool mgos_config_wifi_sta_parse_f(const char *fname, struct mgos_config_wifi_sta
 
 /* struct mgos_config_wifi_sta */
 const struct mgos_conf_entry *mgos_config_wifi_sta1_get_schema(void) {
-  return &mgos_config_schema_[210];
+  return &mgos_config_schema_[212];
 }
 
 void mgos_config_wifi_sta1_set_defaults(struct mgos_config_wifi_sta *cfg) {
@@ -737,7 +741,7 @@ bool mgos_config_wifi_sta1_parse_f(const char *fname, struct mgos_config_wifi_st
 
 /* struct mgos_config_wifi_sta */
 const struct mgos_conf_entry *mgos_config_wifi_sta2_get_schema(void) {
-  return &mgos_config_schema_[210];
+  return &mgos_config_schema_[212];
 }
 
 void mgos_config_wifi_sta2_set_defaults(struct mgos_config_wifi_sta *cfg) {
@@ -772,7 +776,7 @@ bool mgos_config_wifi_sta2_parse_f(const char *fname, struct mgos_config_wifi_st
 
 /* struct mgos_config_wifi */
 const struct mgos_conf_entry *mgos_config_wifi_get_schema(void) {
-  return &mgos_config_schema_[152];
+  return &mgos_config_schema_[154];
 }
 
 void mgos_config_wifi_set_defaults(struct mgos_config_wifi *cfg) {
@@ -797,7 +801,7 @@ bool mgos_config_wifi_parse_f(const char *fname, struct mgos_config_wifi *cfg) {
 
 /* struct mgos_config_board_led1 */
 const struct mgos_conf_entry *mgos_config_board_led1_get_schema(void) {
-  return &mgos_config_schema_[236];
+  return &mgos_config_schema_[238];
 }
 
 void mgos_config_board_led1_set_defaults(struct mgos_config_board_led1 *cfg) {
@@ -815,7 +819,7 @@ bool mgos_config_board_led1_parse_f(const char *fname, struct mgos_config_board_
 
 /* struct mgos_config_board_led2 */
 const struct mgos_conf_entry *mgos_config_board_led2_get_schema(void) {
-  return &mgos_config_schema_[239];
+  return &mgos_config_schema_[241];
 }
 
 void mgos_config_board_led2_set_defaults(struct mgos_config_board_led2 *cfg) {
@@ -833,7 +837,7 @@ bool mgos_config_board_led2_parse_f(const char *fname, struct mgos_config_board_
 
 /* struct mgos_config_board_led3 */
 const struct mgos_conf_entry *mgos_config_board_led3_get_schema(void) {
-  return &mgos_config_schema_[242];
+  return &mgos_config_schema_[244];
 }
 
 void mgos_config_board_led3_set_defaults(struct mgos_config_board_led3 *cfg) {
@@ -851,7 +855,7 @@ bool mgos_config_board_led3_parse_f(const char *fname, struct mgos_config_board_
 
 /* struct mgos_config_board_btn1 */
 const struct mgos_conf_entry *mgos_config_board_btn1_get_schema(void) {
-  return &mgos_config_schema_[245];
+  return &mgos_config_schema_[247];
 }
 
 void mgos_config_board_btn1_set_defaults(struct mgos_config_board_btn1 *cfg) {
@@ -869,7 +873,7 @@ bool mgos_config_board_btn1_parse_f(const char *fname, struct mgos_config_board_
 
 /* struct mgos_config_board_btn2 */
 const struct mgos_conf_entry *mgos_config_board_btn2_get_schema(void) {
-  return &mgos_config_schema_[248];
+  return &mgos_config_schema_[250];
 }
 
 void mgos_config_board_btn2_set_defaults(struct mgos_config_board_btn2 *cfg) {
@@ -887,7 +891,7 @@ bool mgos_config_board_btn2_parse_f(const char *fname, struct mgos_config_board_
 
 /* struct mgos_config_board_btn3 */
 const struct mgos_conf_entry *mgos_config_board_btn3_get_schema(void) {
-  return &mgos_config_schema_[251];
+  return &mgos_config_schema_[253];
 }
 
 void mgos_config_board_btn3_set_defaults(struct mgos_config_board_btn3 *cfg) {
@@ -905,7 +909,7 @@ bool mgos_config_board_btn3_parse_f(const char *fname, struct mgos_config_board_
 
 /* struct mgos_config_board */
 const struct mgos_conf_entry *mgos_config_board_get_schema(void) {
-  return &mgos_config_schema_[235];
+  return &mgos_config_schema_[237];
 }
 
 void mgos_config_board_set_defaults(struct mgos_config_board *cfg) {
@@ -932,8 +936,8 @@ const struct mgos_conf_entry *mgos_config_get_schema(void) {
 
 void mgos_config_set_defaults(struct mgos_config *cfg) {
   mgos_config_debug_set_defaults(&cfg->debug);
-  mgos_config_device_set_defaults(&cfg->device);
   mgos_config_sys_set_defaults(&cfg->sys);
+  mgos_config_device_set_defaults(&cfg->device);
   cfg->conf_acl = "*";
   mgos_config_update_set_defaults(&cfg->update);
   mgos_config_shadow_set_defaults(&cfg->shadow);
@@ -1024,6 +1028,34 @@ const char * mgos_config_get_debug_stderr_topic(const struct mgos_config *cfg) {
 const char * mgos_config_get_default_debug_stderr_topic(void) { return NULL; }
 void mgos_config_set_debug_stderr_topic(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->debug.stderr_topic, v); }
 
+/* sys */
+const struct mgos_config_sys *mgos_config_get_sys(const struct mgos_config *cfg) { return &cfg->sys; }
+
+/* sys.esp32_adc_vref */
+int mgos_config_get_sys_esp32_adc_vref(const struct mgos_config *cfg) { return cfg->sys.esp32_adc_vref; }
+int mgos_config_get_default_sys_esp32_adc_vref(void) { return 0; }
+void mgos_config_set_sys_esp32_adc_vref(struct mgos_config *cfg, int v) { cfg->sys.esp32_adc_vref = v; }
+
+/* sys.esp32_adc_width */
+int mgos_config_get_sys_esp32_adc_width(const struct mgos_config *cfg) { return cfg->sys.esp32_adc_width; }
+int mgos_config_get_default_sys_esp32_adc_width(void) { return 3; }
+void mgos_config_set_sys_esp32_adc_width(struct mgos_config *cfg, int v) { cfg->sys.esp32_adc_width = v; }
+
+/* sys.tz_spec */
+const char * mgos_config_get_sys_tz_spec(const struct mgos_config *cfg) { return cfg->sys.tz_spec; }
+const char * mgos_config_get_default_sys_tz_spec(void) { return NULL; }
+void mgos_config_set_sys_tz_spec(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->sys.tz_spec, v); }
+
+/* sys.wdt_timeout */
+int mgos_config_get_sys_wdt_timeout(const struct mgos_config *cfg) { return cfg->sys.wdt_timeout; }
+int mgos_config_get_default_sys_wdt_timeout(void) { return 30; }
+void mgos_config_set_sys_wdt_timeout(struct mgos_config *cfg, int v) { cfg->sys.wdt_timeout = v; }
+
+/* sys.pref_ota_lib */
+const char * mgos_config_get_sys_pref_ota_lib(const struct mgos_config *cfg) { return cfg->sys.pref_ota_lib; }
+const char * mgos_config_get_default_sys_pref_ota_lib(void) { return NULL; }
+void mgos_config_set_sys_pref_ota_lib(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->sys.pref_ota_lib, v); }
+
 /* device */
 const struct mgos_config_device *mgos_config_get_device(const struct mgos_config *cfg) { return &cfg->device; }
 
@@ -1051,24 +1083,6 @@ void mgos_config_set_device_public_key(struct mgos_config *cfg, const char * v) 
 const char * mgos_config_get_device_sn(const struct mgos_config *cfg) { return cfg->device.sn; }
 const char * mgos_config_get_default_device_sn(void) { return NULL; }
 void mgos_config_set_device_sn(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->device.sn, v); }
-
-/* sys */
-const struct mgos_config_sys *mgos_config_get_sys(const struct mgos_config *cfg) { return &cfg->sys; }
-
-/* sys.tz_spec */
-const char * mgos_config_get_sys_tz_spec(const struct mgos_config *cfg) { return cfg->sys.tz_spec; }
-const char * mgos_config_get_default_sys_tz_spec(void) { return NULL; }
-void mgos_config_set_sys_tz_spec(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->sys.tz_spec, v); }
-
-/* sys.wdt_timeout */
-int mgos_config_get_sys_wdt_timeout(const struct mgos_config *cfg) { return cfg->sys.wdt_timeout; }
-int mgos_config_get_default_sys_wdt_timeout(void) { return 30; }
-void mgos_config_set_sys_wdt_timeout(struct mgos_config *cfg, int v) { cfg->sys.wdt_timeout = v; }
-
-/* sys.pref_ota_lib */
-const char * mgos_config_get_sys_pref_ota_lib(const struct mgos_config *cfg) { return cfg->sys.pref_ota_lib; }
-const char * mgos_config_get_default_sys_pref_ota_lib(void) { return NULL; }
-void mgos_config_set_sys_pref_ota_lib(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->sys.pref_ota_lib, v); }
 
 /* conf_acl */
 const char * mgos_config_get_conf_acl(const struct mgos_config *cfg) { return cfg->conf_acl; }

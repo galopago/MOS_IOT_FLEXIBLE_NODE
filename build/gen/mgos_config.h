@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_284682760/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_284682760/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_802640009/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_802640009/build/gen/mos_conf_schema.yml
  */
 
 #pragma once
@@ -52,6 +52,34 @@ static inline void mgos_config_debug_free(struct mgos_config_debug *cfg) {
   return mgos_conf_free(mgos_config_debug_get_schema(), cfg);
 }
 
+/* sys type struct mgos_config_sys */
+struct mgos_config_sys {
+  int esp32_adc_vref;
+  int esp32_adc_width;
+  const char * tz_spec;
+  int wdt_timeout;
+  const char * pref_ota_lib;
+};
+const struct mgos_conf_entry *mgos_config_sys_get_schema(void);
+void mgos_config_sys_set_defaults(struct mgos_config_sys *cfg);
+static inline bool mgos_config_sys_parse(struct mg_str json, struct mgos_config_sys *cfg) {
+  mgos_config_sys_set_defaults(cfg);
+  return mgos_conf_parse_sub(json, mgos_config_sys_get_schema(), cfg);
+}
+bool mgos_config_sys_parse_f(const char *fname, struct mgos_config_sys *cfg);
+static inline bool mgos_config_sys_emit(const struct mgos_config_sys *cfg, bool pretty, struct json_out *out) {
+  return mgos_conf_emit_json_out(cfg, NULL, mgos_config_sys_get_schema(), pretty, out);
+}
+static inline bool mgos_config_sys_emit_f(const struct mgos_config_sys *cfg, bool pretty, const char *fname) {
+  return mgos_conf_emit_f(cfg, NULL, mgos_config_sys_get_schema(), pretty, fname);
+}
+static inline bool mgos_config_sys_copy(const struct mgos_config_sys *src, struct mgos_config_sys *dst) {
+  return mgos_conf_copy(mgos_config_sys_get_schema(), src, dst);
+}
+static inline void mgos_config_sys_free(struct mgos_config_sys *cfg) {
+  return mgos_conf_free(mgos_config_sys_get_schema(), cfg);
+}
+
 /* device type struct mgos_config_device */
 struct mgos_config_device {
   const char * id;
@@ -78,32 +106,6 @@ static inline bool mgos_config_device_copy(const struct mgos_config_device *src,
 }
 static inline void mgos_config_device_free(struct mgos_config_device *cfg) {
   return mgos_conf_free(mgos_config_device_get_schema(), cfg);
-}
-
-/* sys type struct mgos_config_sys */
-struct mgos_config_sys {
-  const char * tz_spec;
-  int wdt_timeout;
-  const char * pref_ota_lib;
-};
-const struct mgos_conf_entry *mgos_config_sys_get_schema(void);
-void mgos_config_sys_set_defaults(struct mgos_config_sys *cfg);
-static inline bool mgos_config_sys_parse(struct mg_str json, struct mgos_config_sys *cfg) {
-  mgos_config_sys_set_defaults(cfg);
-  return mgos_conf_parse_sub(json, mgos_config_sys_get_schema(), cfg);
-}
-bool mgos_config_sys_parse_f(const char *fname, struct mgos_config_sys *cfg);
-static inline bool mgos_config_sys_emit(const struct mgos_config_sys *cfg, bool pretty, struct json_out *out) {
-  return mgos_conf_emit_json_out(cfg, NULL, mgos_config_sys_get_schema(), pretty, out);
-}
-static inline bool mgos_config_sys_emit_f(const struct mgos_config_sys *cfg, bool pretty, const char *fname) {
-  return mgos_conf_emit_f(cfg, NULL, mgos_config_sys_get_schema(), pretty, fname);
-}
-static inline bool mgos_config_sys_copy(const struct mgos_config_sys *src, struct mgos_config_sys *dst) {
-  return mgos_conf_copy(mgos_config_sys_get_schema(), src, dst);
-}
-static inline void mgos_config_sys_free(struct mgos_config_sys *cfg) {
-  return mgos_conf_free(mgos_config_sys_get_schema(), cfg);
 }
 
 /* update type struct mgos_config_update */
@@ -779,8 +781,8 @@ static inline void mgos_config_board_free(struct mgos_config_board *cfg) {
 /* <root> type struct mgos_config */
 struct mgos_config {
   struct mgos_config_debug debug;
-  struct mgos_config_device device;
   struct mgos_config_sys sys;
+  struct mgos_config_device device;
   const char * conf_acl;
   struct mgos_config_update update;
   struct mgos_config_shadow shadow;
@@ -942,6 +944,62 @@ static inline const char * mgos_sys_config_get_default_debug_stderr_topic(void) 
 void mgos_config_set_debug_stderr_topic(struct mgos_config *cfg, const char * v);
 static inline void mgos_sys_config_set_debug_stderr_topic(const char * v) { mgos_config_set_debug_stderr_topic(&mgos_sys_config, v); }
 
+/* sys */
+#define MGOS_CONFIG_HAVE_SYS
+#define MGOS_SYS_CONFIG_HAVE_SYS
+const struct mgos_config_sys *mgos_config_get_sys(const struct mgos_config *cfg);
+static inline const struct mgos_config_sys *mgos_sys_config_get_sys(void) { return mgos_config_get_sys(&mgos_sys_config); }
+
+/* sys.esp32_adc_vref */
+#define MGOS_CONFIG_HAVE_SYS_ESP32_ADC_VREF
+#define MGOS_SYS_CONFIG_HAVE_SYS_ESP32_ADC_VREF
+int mgos_config_get_sys_esp32_adc_vref(const struct mgos_config *cfg);
+int mgos_config_get_default_sys_esp32_adc_vref(void);
+static inline int mgos_sys_config_get_sys_esp32_adc_vref(void) { return mgos_config_get_sys_esp32_adc_vref(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sys_esp32_adc_vref(void) { return mgos_config_get_default_sys_esp32_adc_vref(); }
+void mgos_config_set_sys_esp32_adc_vref(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sys_esp32_adc_vref(int v) { mgos_config_set_sys_esp32_adc_vref(&mgos_sys_config, v); }
+
+/* sys.esp32_adc_width */
+#define MGOS_CONFIG_HAVE_SYS_ESP32_ADC_WIDTH
+#define MGOS_SYS_CONFIG_HAVE_SYS_ESP32_ADC_WIDTH
+int mgos_config_get_sys_esp32_adc_width(const struct mgos_config *cfg);
+int mgos_config_get_default_sys_esp32_adc_width(void);
+static inline int mgos_sys_config_get_sys_esp32_adc_width(void) { return mgos_config_get_sys_esp32_adc_width(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sys_esp32_adc_width(void) { return mgos_config_get_default_sys_esp32_adc_width(); }
+void mgos_config_set_sys_esp32_adc_width(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sys_esp32_adc_width(int v) { mgos_config_set_sys_esp32_adc_width(&mgos_sys_config, v); }
+
+/* sys.tz_spec */
+#define MGOS_CONFIG_HAVE_SYS_TZ_SPEC
+#define MGOS_SYS_CONFIG_HAVE_SYS_TZ_SPEC
+const char * mgos_config_get_sys_tz_spec(const struct mgos_config *cfg);
+const char * mgos_config_get_default_sys_tz_spec(void);
+static inline const char * mgos_sys_config_get_sys_tz_spec(void) { return mgos_config_get_sys_tz_spec(&mgos_sys_config); }
+static inline const char * mgos_sys_config_get_default_sys_tz_spec(void) { return mgos_config_get_default_sys_tz_spec(); }
+void mgos_config_set_sys_tz_spec(struct mgos_config *cfg, const char * v);
+static inline void mgos_sys_config_set_sys_tz_spec(const char * v) { mgos_config_set_sys_tz_spec(&mgos_sys_config, v); }
+
+/* sys.wdt_timeout */
+#define MGOS_CONFIG_HAVE_SYS_WDT_TIMEOUT
+#define MGOS_SYS_CONFIG_HAVE_SYS_WDT_TIMEOUT
+int mgos_config_get_sys_wdt_timeout(const struct mgos_config *cfg);
+int mgos_config_get_default_sys_wdt_timeout(void);
+static inline int mgos_sys_config_get_sys_wdt_timeout(void) { return mgos_config_get_sys_wdt_timeout(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sys_wdt_timeout(void) { return mgos_config_get_default_sys_wdt_timeout(); }
+void mgos_config_set_sys_wdt_timeout(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sys_wdt_timeout(int v) { mgos_config_set_sys_wdt_timeout(&mgos_sys_config, v); }
+
+/* sys.pref_ota_lib */
+#define MGOS_CONFIG_HAVE_SYS_PREF_OTA_LIB
+#define MGOS_SYS_CONFIG_HAVE_SYS_PREF_OTA_LIB
+const char * mgos_config_get_sys_pref_ota_lib(const struct mgos_config *cfg);
+const char * mgos_config_get_default_sys_pref_ota_lib(void);
+static inline const char * mgos_sys_config_get_sys_pref_ota_lib(void) { return mgos_config_get_sys_pref_ota_lib(&mgos_sys_config); }
+static inline const char * mgos_sys_config_get_default_sys_pref_ota_lib(void) { return mgos_config_get_default_sys_pref_ota_lib(); }
+void mgos_config_set_sys_pref_ota_lib(struct mgos_config *cfg, const char * v);
+static inline void mgos_sys_config_set_sys_pref_ota_lib(const char * v) { mgos_config_set_sys_pref_ota_lib(&mgos_sys_config, v); }
+
 /* device */
 #define MGOS_CONFIG_HAVE_DEVICE
 #define MGOS_SYS_CONFIG_HAVE_DEVICE
@@ -997,42 +1055,6 @@ static inline const char * mgos_sys_config_get_device_sn(void) { return mgos_con
 static inline const char * mgos_sys_config_get_default_device_sn(void) { return mgos_config_get_default_device_sn(); }
 void mgos_config_set_device_sn(struct mgos_config *cfg, const char * v);
 static inline void mgos_sys_config_set_device_sn(const char * v) { mgos_config_set_device_sn(&mgos_sys_config, v); }
-
-/* sys */
-#define MGOS_CONFIG_HAVE_SYS
-#define MGOS_SYS_CONFIG_HAVE_SYS
-const struct mgos_config_sys *mgos_config_get_sys(const struct mgos_config *cfg);
-static inline const struct mgos_config_sys *mgos_sys_config_get_sys(void) { return mgos_config_get_sys(&mgos_sys_config); }
-
-/* sys.tz_spec */
-#define MGOS_CONFIG_HAVE_SYS_TZ_SPEC
-#define MGOS_SYS_CONFIG_HAVE_SYS_TZ_SPEC
-const char * mgos_config_get_sys_tz_spec(const struct mgos_config *cfg);
-const char * mgos_config_get_default_sys_tz_spec(void);
-static inline const char * mgos_sys_config_get_sys_tz_spec(void) { return mgos_config_get_sys_tz_spec(&mgos_sys_config); }
-static inline const char * mgos_sys_config_get_default_sys_tz_spec(void) { return mgos_config_get_default_sys_tz_spec(); }
-void mgos_config_set_sys_tz_spec(struct mgos_config *cfg, const char * v);
-static inline void mgos_sys_config_set_sys_tz_spec(const char * v) { mgos_config_set_sys_tz_spec(&mgos_sys_config, v); }
-
-/* sys.wdt_timeout */
-#define MGOS_CONFIG_HAVE_SYS_WDT_TIMEOUT
-#define MGOS_SYS_CONFIG_HAVE_SYS_WDT_TIMEOUT
-int mgos_config_get_sys_wdt_timeout(const struct mgos_config *cfg);
-int mgos_config_get_default_sys_wdt_timeout(void);
-static inline int mgos_sys_config_get_sys_wdt_timeout(void) { return mgos_config_get_sys_wdt_timeout(&mgos_sys_config); }
-static inline int mgos_sys_config_get_default_sys_wdt_timeout(void) { return mgos_config_get_default_sys_wdt_timeout(); }
-void mgos_config_set_sys_wdt_timeout(struct mgos_config *cfg, int v);
-static inline void mgos_sys_config_set_sys_wdt_timeout(int v) { mgos_config_set_sys_wdt_timeout(&mgos_sys_config, v); }
-
-/* sys.pref_ota_lib */
-#define MGOS_CONFIG_HAVE_SYS_PREF_OTA_LIB
-#define MGOS_SYS_CONFIG_HAVE_SYS_PREF_OTA_LIB
-const char * mgos_config_get_sys_pref_ota_lib(const struct mgos_config *cfg);
-const char * mgos_config_get_default_sys_pref_ota_lib(void);
-static inline const char * mgos_sys_config_get_sys_pref_ota_lib(void) { return mgos_config_get_sys_pref_ota_lib(&mgos_sys_config); }
-static inline const char * mgos_sys_config_get_default_sys_pref_ota_lib(void) { return mgos_config_get_default_sys_pref_ota_lib(); }
-void mgos_config_set_sys_pref_ota_lib(struct mgos_config *cfg, const char * v);
-static inline void mgos_sys_config_set_sys_pref_ota_lib(const char * v) { mgos_config_set_sys_pref_ota_lib(&mgos_sys_config, v); }
 
 /* conf_acl */
 #define MGOS_CONFIG_HAVE_CONF_ACL

@@ -15,6 +15,7 @@ extern bool mgos_vfs_common_init(void);
 extern bool mgos_vfs_fs_lfs_init(void);
 extern bool mgos_vfs_fs_spiffs_init(void);
 extern bool mgos_core_init(void);
+extern bool mgos_adc_init(void);
 extern bool mgos_ota_http_client_init(void);
 extern bool mgos_shadow_init(void);
 extern bool mgos_ota_shadow_init(void);
@@ -110,6 +111,13 @@ const struct mgos_lib_info mgos_libs_info[] = {
     {.name = "core", .version = "1.0", .init = mgos_core_init},
 #else
     {.name = "core", .version = "1.0", .repo_version = "9cbb8437919696a4a8779ebb4d0cd78d99890ac6", .binary_libs = NULL, .init = mgos_core_init},
+#endif
+
+    // "adc". deps: [ "core" ]
+#if MGOS_LIB_INFO_VERSION == 1
+    {.name = "adc", .version = "1.0.0", .init = mgos_adc_init},
+#else
+    {.name = "adc", .version = "1.0.0", .repo_version = "80bd7797e66c9c9568ce11cdc9b639d28c6ae831", .binary_libs = NULL, .init = mgos_adc_init},
 #endif
 
     // "ca-bundle". deps: [ "core" ]

@@ -5,12 +5,18 @@ load('api_gpio.js');
 load('api_esp32.js');
 load('api_rpc.js');
 load('api_sys.js');
+load('api_adc.js');
+load('api_net.js');
 
 let topic_ul = '/mosiotnode/uplink';
 let topic_dl = '/mosiotnode/downlink';
 
 let LM75A_I2C_ADDR=0x48;
-let	GPIOLED =2;
+let	GPIOLED = 2;
+let	GPIOADC = 34;
+let ADCR1 = 68;
+let ADCR2 = 20;
+let ADCRES = 4095;
 let MIN_TO_SLEEP = 2;
 let NO_NET_TIMEOUT_SEG = 120;
 let DEVICE_ARCH;
@@ -21,13 +27,16 @@ let DEVICE_ID;
 GPIO.set_pull(GPIOLED,GPIO.PULL_NONE);
 GPIO.set_mode(GPIOLED,GPIO.MODE_OUTPUT);
 GPIO.write(GPIOLED,1);
+// *** ADC for battery voltage //
+ADC.enable(GPIOADC);
 
 // *** LM75A sensor setup //
 // Address 1001+A2A1A0
 // 0x48
 let LM75A=I2C.get();
 
-let message_ul={"id":"","temp":0.0,"bat":0.0};
+let message_ul={"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0};
+let message_header="POST /dbpost HTTP/1.1";
 
 // read self device info
 RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
@@ -84,6 +93,15 @@ function roundNdigitsTostr(number,digits){
 	//print("Digits to round:",digits);
 	//print("Actualdecimals",actualdecimals);
 }
+// **************************************************
+// Get Battery with voltage divider  +ADCR1/ADCR2-
+// **************************************************
+function getBatV(){
+
+	let rawadc = ADC.read(GPIOADC);	
+	let batV = ((rawadc*3.3*(ADCR1+ADCR2))/ADCR1)/ADCRES;	
+	return batV;
+}
 
 // ************************************************
 // Get Temperature
@@ -110,11 +128,14 @@ function getTempC(){
 
 function buildMsgUl(){
 
-	message_ul.id=DEVICE_ID;
-	
-	let temperatureCstr = roundNdigitsTostr(getTempC(),2);
-	message_ul.temp=temperatureCstr;
-
+	message_ul.sensor_id=DEVICE_ID;	
+	let extTemperatureCstr = roundNdigitsTostr(getTempC(),2);
+	message_ul.temperature_ext=extTemperatureCstr;
+	let intTemperatureCstr = roundNdigitsTostr((5/9)*(ESP32.temp()-32),2);
+	message_ul.temperature_int=intTemperatureCstr;	
+	let batVstr = getBatV();
+	message_ul.battery=roundNdigitsTostr(batVstr,2);
+		
 }
 // ************************************************
 // No network connection timeout
@@ -154,14 +175,46 @@ MQTT.setEventHandler(function(conn,ev,data){
 
 	if(ev === MQTT.EV_CONNACK)
 	{
+		Net.connect({
+   // Required. Port to listen on, 'tcp://PORT' or `udp://PORT`.
+   addr: 'galopago-iotnode.herokuapp.com:80',
+   // Optional. Called when connection is established.
+   onconnect: function(conn) {
+   		print('onconnect:');
+   		buildMsgUl();
+   		let tstr=JSON.stringify(message_ul);
+		let siz=tstr.length;
+		print("tstr:",tstr);
+   		Net.send(conn, 'POST /dbpost HTTP/1.1'+chr(13)+chr(10)); 
+ 		Net.send(conn, 'Host: galopago-iotnode.herokuapp.com'+chr(13)+chr(10)); 
+ 		Net.send(conn, 'Connection: close'+chr(13)+chr(10)); 
+ 		Net.send(conn, 'Content-Length: '); 		
+   		Net.send(conn, JSON.stringify(siz)+chr(13)+chr(10)); 
+   		Net.send(conn, chr(13)+chr(10)); 
+   		Net.send(conn, tstr+chr(13)+chr(10)); 
+   	}, 
+   // Optional. Called when new data is arrived.
+   ondata: function(conn, data) {
+   		print('Received from:', Net.ctos(conn, false, true, true), ':', data);    	
+    	Net.discard(conn, data.length);  // Discard received data   		
+   	},
+   // Optional. Called when protocol-specific event is triggered.
+   onevent: function(conn, data, ev, edata) {},
+   // Optional. Called when the connection is about to close.
+   onclose: function(conn) {print('onclose:')},
+   // Optional. Called when on connection error.
+   onerror: function(conn) {print('onerror:')},
+});
+
 		print('got MQTT.EV_CONNACK');
 		if (DEVICE_ARCH === 'esp32')
 			{
 				buildMsgUl();
+				// Publish thru MQTT
 				let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
-  				print('Published:', okul, topic_ul, '->', message_ul);
+  				print('Published:', okul, topic_ul, '->', message_ul);  			
   				// Wait for some time for downlink data before sleeping	  				
-  				Timer.set(5000, false, function (){
+  				Timer.set(7000, false, function (){
   					print('Going to sleep for mins',MIN_TO_SLEEP);
   					ESP32.deepSleep(MIN_TO_SLEEP * 60 * 1000 * 1000);     
   				}, null);	       										
@@ -169,3 +222,16 @@ MQTT.setEventHandler(function(conn,ev,data){
 	}
 
 },null);
+
+// ************************************************
+// HTTP Net?
+// ************************************************
+
+
+//client.println("POST /dbpost HTTP/1.1");
+//  client.println(String("Host: ") + server); 
+//  client.println("Connection: close\r\nContent-Type: application/json");
+//  client.print("Content-Length: ");
+//  client.println(jsonObject.length());
+//  client.println();
+//  client.println(jsonObject);

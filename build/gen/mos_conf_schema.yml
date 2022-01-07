@@ -1,3 +1,11 @@
+- - sys.esp32_adc_vref
+  - i
+  - 0
+  - title: ADC Vref, in mV
+- - sys.esp32_adc_width
+  - i
+  - 3
+  - title: ADC width, see ESP32 IDF
 - - debug.mbedtls_level
   - i
   - 1

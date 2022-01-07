@@ -1,5 +1,10 @@
 app_name: MOS_IOT_FLEXIBLE_NODE
 libs:
+- name: adc
+  location: https://github.com/mongoose-os-libs/adc
+  version: 2.20.0
+  user_version: 1.0.0
+  repo_version: 80bd7797e66c9c9568ce11cdc9b639d28c6ae831
 - name: ca-bundle
   location: https://github.com/mongoose-os-libs/ca-bundle
   version: 2.20.0

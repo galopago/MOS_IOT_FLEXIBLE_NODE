@@ -33,6 +33,8 @@ bool  mg_rpc_send_errorf(void *, int, char *, char *);
 void  mg_send(void *, void *, int);
 void  mg_set_protocol_http_websocket(void *);
 double  mg_time(void);
+int  mgos_adc_enable(int);
+int  mgos_adc_read(int);
 void * mgos_bind(char *, void (*)(void *, int, void *, void *), void *);
 void  mgos_bitbang_write_bits_js(int, int, int, void *, int);
 void  mgos_clear_timer(int);
@@ -173,6 +175,8 @@ const struct mgos_ffi_export ffi_exports[] = {
   {"mg_send", mg_send},
   {"mg_set_protocol_http_websocket", mg_set_protocol_http_websocket},
   {"mg_time", mg_time},
+  {"mgos_adc_enable", mgos_adc_enable},
+  {"mgos_adc_read", mgos_adc_read},
   {"mgos_bind", mgos_bind},
   {"mgos_bitbang_write_bits_js", mgos_bitbang_write_bits_js},
   {"mgos_clear_timer", mgos_clear_timer},
@@ -288,4 +292,4 @@ const struct mgos_ffi_export ffi_exports[] = {
   {"strdup", strdup},
   {"temprature_sens_read", temprature_sens_read},
 };
-const int ffi_exports_cnt = 138;
+const int ffi_exports_cnt = 140;
