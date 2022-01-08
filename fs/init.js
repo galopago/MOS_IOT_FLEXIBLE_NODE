@@ -188,6 +188,7 @@ MQTT.setEventHandler(function(conn,ev,data){
    		Net.send(conn, 'POST /dbpost HTTP/1.1'+chr(13)+chr(10)); 
  		Net.send(conn, 'Host: galopago-iotnode.herokuapp.com'+chr(13)+chr(10)); 
  		Net.send(conn, 'Connection: close'+chr(13)+chr(10)); 
+ 		Net.send(conn, 'Content-Type: application/json'+chr(13)+chr(10)); 
  		Net.send(conn, 'Content-Length: '); 		
    		Net.send(conn, JSON.stringify(siz)+chr(13)+chr(10)); 
    		Net.send(conn, chr(13)+chr(10)); 
