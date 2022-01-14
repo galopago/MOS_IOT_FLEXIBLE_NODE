@@ -2,5 +2,5 @@
   "arch": "esp32",
   "platform": "esp32",
   "app_name": "MOS_IOT_FLEXIBLE_NODE",
-  "build_time_ms": 58845
+  "build_time_ms": 55476
 }

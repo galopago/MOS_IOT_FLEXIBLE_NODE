@@ -17,6 +17,7 @@ let	GPIOADC = 34;
 let ADCR1 = 68;
 let ADCR2 = 20;
 let ADCRES = 4095;
+let ADCALFAC = 1.337;
 let MIN_TO_SLEEP = 2;
 let NO_NET_TIMEOUT_SEG = 120;
 let DEVICE_ARCH;
@@ -99,7 +100,13 @@ function roundNdigitsTostr(number,digits){
 function getBatV(){
 
 	let rawadc = ADC.read(GPIOADC);	
-	let batV = ((rawadc*3.3*(ADCR1+ADCR2))/ADCR1)/ADCRES;	
+	let vdivfac = (ADCR1+ADCR2)/ADCR2;
+	print('rawadc:',rawadc);
+	print('vdivfac:',vdivfac);
+	print('ADCRES:',ADCRES);
+	//let batV = (rawadc*3.3*vdivfac)/ADCRES;	
+	let batV = (rawadc*3.3*vdivfac*ADCALFAC)/ADCRES;	
+	//let batV = rawadc;	
 	return batV;
 }
 

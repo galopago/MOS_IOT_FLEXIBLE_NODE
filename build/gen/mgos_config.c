@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_872563359/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_872563359/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/gen/mos_conf_schema.yml
  */
 
 #include "mgos_config.h"
