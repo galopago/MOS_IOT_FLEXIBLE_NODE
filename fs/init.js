@@ -1,6 +1,5 @@
 load('api_timer.js');
 load('api_mqtt.js');
-//load('api_i2c.js');
 load('api_gpio.js');
 load('api_esp32.js');
 load('api_rpc.js');
@@ -10,22 +9,30 @@ load('api_net.js');
 load('api_arduino_onewire.js');
 load('ds18b20.js');
 
-let topic_ul = '/mosiotnode/uplink';
-let topic_dl = '/mosiotnode/downlink';
-
 let	GPIOLED = 				2;
 let	GPIOADC = 				34;
 let GPIODS18B20 = 			26;
-let ADCR1 = 				68;
-let ADCR2 = 				20;
+let ADCR1 = 				68;		// ADC voltage divider 'upper' resistor
+let ADCR2 = 				20;		// ADC voltage divider 'lower' resistor
 let ADCRES = 				4095;
-let ADCALFAC = 				1.337;
+let ADCALFAC = 				1.337;	// Qick and dirty calibration factor
 let MIN_TO_SLEEP = 			2;
 let NO_NET_TIMEOUT_SEG = 	120;
 
 let DEVICE_ARCH;
 let DEVICE_ID;
 
+let topic_ul =				'/mosiotnode/uplink';
+let topic_dl =				'/mosiotnode/downlink';
+let apphost =				'galopago-iotnode.herokuapp.com';
+let appport =				'80';
+
+let message_ul=				{"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0};
+let message_header =		'POST /dbpost HTTP/1.1'+chr(13)+chr(10); 
+let message_host =			'Host: '+apphost+chr(13)+chr(10); 
+let message_conn =			'Connection: close'+chr(13)+chr(10); 
+let message_type =			'Content-Type: application/json'+chr(13)+chr(10);
+let message_length =		'Content-Length: ';
 
 // *** onboard debug LED setup //
 GPIO.set_pull(GPIOLED,GPIO.PULL_NONE);
@@ -44,8 +51,8 @@ let rom = ['01234567'];
 // not found TEMP value
 let DS18B20NF = 99.99;
 
-// Search for sensors
-let searchSens = function() {
+// Search for ow sensors
+let owSearchSens = function() {
   let i = 0;
   // Setup the search to find the device type on the next call
   // to search() if it is present.
@@ -63,11 +70,6 @@ let searchSens = function() {
   }
   return i;
 };
-
-
-
-let message_ul={"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0};
-let message_header="POST /dbpost HTTP/1.1";
 
 // read self device info
 RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
@@ -146,7 +148,7 @@ function getBatV(){
 function getTempC(){
 	if (owsensors === 0)
 	{
-    	if ((owsensors = searchSens()) === 0)
+    	if ((owsensors = owSearchSens()) === 0)
     		{
       			print('No device found');      			
       			return DS18B20NF;      		
@@ -225,7 +227,7 @@ MQTT.setEventHandler(function(conn,ev,data){
 	{
 		Net.connect({
    // Required. Port to listen on, 'tcp://PORT' or `udp://PORT`.
-   addr: 'galopago-iotnode.herokuapp.com:80',
+   addr: apphost+':'+appport,
    // Optional. Called when connection is established.
    onconnect: function(conn) {
    		print('onconnect:');
@@ -233,11 +235,11 @@ MQTT.setEventHandler(function(conn,ev,data){
    		let tstr=JSON.stringify(message_ul);
 		let siz=tstr.length;
 		print("tstr:",tstr);
-   		Net.send(conn, 'POST /dbpost HTTP/1.1'+chr(13)+chr(10)); 
- 		Net.send(conn, 'Host: galopago-iotnode.herokuapp.com'+chr(13)+chr(10)); 
- 		Net.send(conn, 'Connection: close'+chr(13)+chr(10)); 
- 		Net.send(conn, 'Content-Type: application/json'+chr(13)+chr(10)); 
- 		Net.send(conn, 'Content-Length: '); 		
+   		Net.send(conn, message_header); 
+ 		Net.send(conn, message_host); 
+ 		Net.send(conn, message_conn); 
+ 		Net.send(conn, message_type); 
+ 		Net.send(conn, message_length); 		
    		Net.send(conn, JSON.stringify(siz)+chr(13)+chr(10)); 
    		Net.send(conn, chr(13)+chr(10)); 
    		Net.send(conn, tstr+chr(13)+chr(10)); 
