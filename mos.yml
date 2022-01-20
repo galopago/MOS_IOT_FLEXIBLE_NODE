@@ -16,13 +16,13 @@ filesystem:
 config_schema:
   - ["mqtt.server", "test.mosquitto.org"]
   - ["mqtt.enable", true ]  
-  - ["i2c", "o", {title: "I2C settings"}]
-  - ["i2c.unit_no", "i", 0, {title: "Which hardware unit to use, 0 or 1"}]
-  - ["i2c.enable", "b", true, {title: "Enable I2C"}]
-  - ["i2c.freq", "i", 100000, {title: "Clock frequency"}]
-  - ["i2c.debug", "b", false, {title: "Debug I2C bus activity"}]
-  - ["i2c.sda_gpio", "i", 26, {title: "GPIO to use for SDA"}]
-  - ["i2c.scl_gpio", "i", 27, {title: "GPIO to use for SCL"}]
+#  - ["i2c", "o", {title: "I2C settings"}]
+#  - ["i2c.unit_no", "i", 0, {title: "Which hardware unit to use, 0 or 1"}]
+#  - ["i2c.enable", "b", true, {title: "Enable I2C"}]
+#  - ["i2c.freq", "i", 100000, {title: "Clock frequency"}]
+#  - ["i2c.debug", "b", false, {title: "Debug I2C bus activity"}]
+#  - ["i2c.sda_gpio", "i", 26, {title: "GPIO to use for SDA"}]
+#  - ["i2c.scl_gpio", "i", 27, {title: "GPIO to use for SCL"}]
 
 # List of libraries used by this app, in order of initialisation
 libs:
@@ -42,6 +42,8 @@ libs:
   - origin: https://github.com/mongoose-os-libs/i2c
   - origin: https://github.com/mongoose-os-libs/adc
 
+# libs necessary for the current app
+  - origin: https://github.com/mongoose-os-libs/arduino-onewire
   
 # Used by the mos tool to catch mos binaries incompatible with this file format
 manifest_version: 2017-05-18

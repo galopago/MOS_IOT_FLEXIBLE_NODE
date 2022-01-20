@@ -35,6 +35,22 @@ void  mg_set_protocol_http_websocket(void *);
 double  mg_time(void);
 int  mgos_adc_enable(int);
 int  mgos_adc_read(int);
+void  mgos_arduino_onewire_close(void *);
+int  mgos_arduino_onewire_crc8(void *, char *, int);
+void * mgos_arduino_onewire_create(int);
+void  mgos_arduino_onewire_depower(void *);
+int  mgos_arduino_onewire_read(void *);
+int  mgos_arduino_onewire_read_bit(void *);
+void  mgos_arduino_onewire_read_bytes(void *, char *, int);
+int  mgos_arduino_onewire_reset(void *);
+void  mgos_arduino_onewire_reset_search(void *);
+int  mgos_arduino_onewire_search(void *, char *, int);
+void  mgos_arduino_onewire_select(void *, char *);
+void  mgos_arduino_onewire_skip(void *);
+void  mgos_arduino_onewire_target_search(void *, int);
+void  mgos_arduino_onewire_write(void *, int);
+void  mgos_arduino_onewire_write_bit(void *, int);
+void  mgos_arduino_onewire_write_bytes(void *, char *, int);
 void * mgos_bind(char *, void (*)(void *, int, void *, void *), void *);
 void  mgos_bitbang_write_bits_js(int, int, int, void *, int);
 void  mgos_clear_timer(int);
@@ -74,7 +90,6 @@ int  mgos_gpio_blink(int, int, int);
 int  mgos_gpio_disable_int(int);
 int  mgos_gpio_enable_int(int);
 int  mgos_gpio_read(int);
-int  mgos_gpio_read_out(int);
 int  mgos_gpio_set_button_handler(int,int,int,int,void(*)(int, void *), void *);
 int  mgos_gpio_set_int_handler(int,int,void(*)(int,void *),void *);
 int  mgos_gpio_set_mode(int,int);
@@ -102,6 +117,7 @@ void  mgos_mqtt_add_global_handler(void (*)(void *, int, void *, void *), void *
 bool  mgos_mqtt_global_is_connected();
 int  mgos_mqtt_pub(char *, void *, int, int, bool);
 void  mgos_mqtt_sub(char *, void (*)(void *, void *, int, void *, int, void *), void *);
+void  mgos_msleep(int);
 void  mgos_neopixel_clear(void *);
 void * mgos_neopixel_create(int, int, int);
 void  mgos_neopixel_set(void *, int, int, int, int);
@@ -177,6 +193,22 @@ const struct mgos_ffi_export ffi_exports[] = {
   {"mg_time", mg_time},
   {"mgos_adc_enable", mgos_adc_enable},
   {"mgos_adc_read", mgos_adc_read},
+  {"mgos_arduino_onewire_close", mgos_arduino_onewire_close},
+  {"mgos_arduino_onewire_crc8", mgos_arduino_onewire_crc8},
+  {"mgos_arduino_onewire_create", mgos_arduino_onewire_create},
+  {"mgos_arduino_onewire_depower", mgos_arduino_onewire_depower},
+  {"mgos_arduino_onewire_read", mgos_arduino_onewire_read},
+  {"mgos_arduino_onewire_read_bit", mgos_arduino_onewire_read_bit},
+  {"mgos_arduino_onewire_read_bytes", mgos_arduino_onewire_read_bytes},
+  {"mgos_arduino_onewire_reset", mgos_arduino_onewire_reset},
+  {"mgos_arduino_onewire_reset_search", mgos_arduino_onewire_reset_search},
+  {"mgos_arduino_onewire_search", mgos_arduino_onewire_search},
+  {"mgos_arduino_onewire_select", mgos_arduino_onewire_select},
+  {"mgos_arduino_onewire_skip", mgos_arduino_onewire_skip},
+  {"mgos_arduino_onewire_target_search", mgos_arduino_onewire_target_search},
+  {"mgos_arduino_onewire_write", mgos_arduino_onewire_write},
+  {"mgos_arduino_onewire_write_bit", mgos_arduino_onewire_write_bit},
+  {"mgos_arduino_onewire_write_bytes", mgos_arduino_onewire_write_bytes},
   {"mgos_bind", mgos_bind},
   {"mgos_bitbang_write_bits_js", mgos_bitbang_write_bits_js},
   {"mgos_clear_timer", mgos_clear_timer},
@@ -216,7 +248,6 @@ const struct mgos_ffi_export ffi_exports[] = {
   {"mgos_gpio_disable_int", mgos_gpio_disable_int},
   {"mgos_gpio_enable_int", mgos_gpio_enable_int},
   {"mgos_gpio_read", mgos_gpio_read},
-  {"mgos_gpio_read_out", mgos_gpio_read_out},
   {"mgos_gpio_set_button_handler", mgos_gpio_set_button_handler},
   {"mgos_gpio_set_int_handler", mgos_gpio_set_int_handler},
   {"mgos_gpio_set_mode", mgos_gpio_set_mode},
@@ -244,6 +275,7 @@ const struct mgos_ffi_export ffi_exports[] = {
   {"mgos_mqtt_global_is_connected", mgos_mqtt_global_is_connected},
   {"mgos_mqtt_pub", mgos_mqtt_pub},
   {"mgos_mqtt_sub", mgos_mqtt_sub},
+  {"mgos_msleep", mgos_msleep},
   {"mgos_neopixel_clear", mgos_neopixel_clear},
   {"mgos_neopixel_create", mgos_neopixel_create},
   {"mgos_neopixel_set", mgos_neopixel_set},
@@ -292,4 +324,4 @@ const struct mgos_ffi_export ffi_exports[] = {
   {"strdup", strdup},
   {"temprature_sens_read", temprature_sens_read},
 };
-const int ffi_exports_cnt = 140;
+const int ffi_exports_cnt = 156;

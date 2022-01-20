@@ -5,226 +5,232 @@ platform: esp32
 platforms:
 - esp32
 - esp8266
-- stm32
 author: mongoose-os
 description: Neopixel strip control example
 sources:
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/adc/src/esp32/esp32_adc.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos/src/mgos_freertos.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos/src/mgos_freertos_core_dump.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/src/mgos_mbedtls.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/src/esp32/esp32_aes.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/src/esp32/esp32_bignum.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aes.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aes_atca.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aesni.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/arc4.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aria.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/asn1parse.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/asn1write.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/base64.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/bignum.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/blowfish.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/camellia.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ccm.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/certs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/chacha20.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/chachapoly.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/cipher.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/cipher_wrap.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/cmac.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ctr_drbg.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/debug.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/des.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/dhm.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecdh.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecdsa.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecjpake.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecp.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecp_atca.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecp_curves.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/entropy.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/entropy_poll.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/error.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/gcm.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/havege.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/hkdf.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/hmac_drbg.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md2.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md4.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md5.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md_wrap.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/memory_buffer_alloc.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/net_sockets.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/nist_kw.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/oid.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/padlock.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pem.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pk.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pk_wrap.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkcs11.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkcs12.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkcs5.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkparse.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkwrite.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/platform.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/platform_util.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/poly1305.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ripemd160.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/rsa.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/rsa_internal.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/sha1.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/sha256.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/sha512.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_cache.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_ciphersuites.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_cli.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_cookie.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_srv.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_ticket.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_tls.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/threading.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/timing.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/version.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/version_features.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_create.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_crl.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_crt.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_csr.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509write_crt.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509write_csr.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/xtea.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/mgos_vfs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/mgos_vfs_dev.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/mgos_vfs_internal.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/esp32/esp32_fs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/esp32/esp32_fs_crypt.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/esp32/esp32_vfs_dev_partition.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/src/mgos_vfs_lfs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs/lfs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs/lfs_util.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs1/lfs1.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs1/lfs1_util.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/mgos_vfs_fs_spiffs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_cache.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_check.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_gc.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_hydrogen.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_nucleus.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/core/src/mgos_core.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/shadow/src/mgos_shadow.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mg_rpc.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mg_rpc_channel.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mg_rpc_channel_http.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mgos_rpc.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-ws/src/mgos_rpc_channel_ws.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-ws/src/mgos_rpc_ws.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c/src/mgos_i2c_master.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c/src/esp32/esp32_i2c_master.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/src/mos_mjs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mjs/mjs_no_common.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/esp32/src/esp32_mjs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/src/mgos_mqtt.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/src/mgos_mqtt_conn.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/src/mgos_mqtt_ws_conn.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/neopixel/src/mgos_neopixel.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-loopback/src/mg_rpc_channel_loopback.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-config/src/mgos_service_config.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-fs/src/mgos_service_fs.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-i2c/src/mgos_i2c_service.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-uart/src/mgos_rpc_channel_uart.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/lwip/src/mgos_lwip.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/mgos_wifi.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/mgos_wifi_sta.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/mjs_wifi.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/esp32/esp32_wifi.c
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/gen/mgos_deps_init.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/gen/mgos_deps_init.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/adc/src/esp32/esp32_adc.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos/src/mgos_freertos.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos/src/mgos_freertos_core_dump.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/src/mgos_mbedtls.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/src/esp32/esp32_aes.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/src/esp32/esp32_bignum.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aes.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aes_atca.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aesni.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/arc4.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aria.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/asn1parse.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/asn1write.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/base64.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/bignum.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/blowfish.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/camellia.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ccm.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/certs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/chacha20.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/chachapoly.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/cipher.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/cipher_wrap.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/cmac.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ctr_drbg.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/debug.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/des.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/dhm.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecdh.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecdsa.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecjpake.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecp.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecp_atca.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecp_curves.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/entropy.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/entropy_poll.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/error.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/gcm.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/havege.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/hkdf.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/hmac_drbg.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md2.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md4.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md5.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md_wrap.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/memory_buffer_alloc.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/net_sockets.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/nist_kw.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/oid.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/padlock.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pem.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pk.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pk_wrap.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkcs11.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkcs12.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkcs5.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkparse.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkwrite.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/platform.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/platform_util.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/poly1305.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ripemd160.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/rsa.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/rsa_internal.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/sha1.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/sha256.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/sha512.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_cache.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_ciphersuites.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_cli.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_cookie.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_srv.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_ticket.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_tls.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/threading.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/timing.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/version.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/version_features.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_create.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_crl.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_crt.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_csr.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509write_crt.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509write_csr.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/xtea.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/mgos_vfs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/mgos_vfs_dev.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/mgos_vfs_internal.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/esp32/esp32_fs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/esp32/esp32_fs_crypt.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/esp32/esp32_vfs_dev_partition.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/src/mgos_vfs_lfs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs/lfs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs/lfs_util.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs1/lfs1.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs1/lfs1_util.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/mgos_vfs_fs_spiffs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_cache.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_check.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_gc.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_hydrogen.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_nucleus.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/core/src/mgos_core.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/src/Print.cpp
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/src/WString.cpp
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/src/mgos_arduino.cpp
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/onewire/src/mgos_onewire.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/src/mgos_arduino_onewire_c.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/src/OneWire.cpp
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/src/mgos_arduino_onewire.cpp
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/shadow/src/mgos_shadow.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mg_rpc.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mg_rpc_channel.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mg_rpc_channel_http.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mgos_rpc.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-ws/src/mgos_rpc_channel_ws.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-ws/src/mgos_rpc_ws.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c/src/mgos_i2c_master.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c/src/esp32/esp32_i2c_master.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/src/mos_mjs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mjs/mjs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/esp32/src/esp32_mjs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt/src/mgos_mqtt.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt/src/mgos_mqtt_conn.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/neopixel/src/mgos_neopixel.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-loopback/src/mg_rpc_channel_loopback.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-config/src/mgos_service_config.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-fs/src/mgos_service_fs.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-i2c/src/mgos_i2c_service.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-uart/src/mgos_rpc_channel_uart.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/src/mgos_wifi.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/src/mjs_wifi.c
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/src/esp32/esp32_wifi.c
 includes:
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/adc/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/adc/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mongoose/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs1
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/include/spiffs
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/core/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/core/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-common/src
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-common/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-common/include/esp32
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-http-client/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/shadow/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-ws/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/dash/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mjs
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/neopixel/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-loopback/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-config/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-i2c/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-ota/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-uart/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/lwip/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/include
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/adc/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/adc/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mongoose/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs1
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/include/spiffs
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/core/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/core/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/include/sys
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/onewire/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-common/src
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-common/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-common/include/esp32
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-http-client/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/shadow/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-ws/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/dash/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/neopixel/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-loopback/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-config/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-i2c/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-ota/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-uart/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/include
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/include/esp32
 filesystem:
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ca-bundle/fs/ca.pem
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_bitbang.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_config.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_events.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_gpio.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_http.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_log.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_net.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_sys.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_timer.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/api_uart.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/fs/polyfill.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mjs/lib/api_dataview.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mjs/lib/api_file.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mjs/lib/api_math.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/adc/mjs_fs/api_adc.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-http-client/mjs_fs/api_ota.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/shadow/mjs_fs/api_shadow.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/mjs_fs/api_rpc.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/dash/mjs_fs/api_dash.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c/mjs_fs/api_i2c.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/mjs_fs/api_mqtt.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/neopixel/mjs_fs/api_neopixel.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/mjs_fs/api_wifi.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/esp32/fs/api_arch_uart.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/esp32/fs/api_esp32.js
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/fs/init.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ca-bundle/fs/ca.pem
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_bitbang.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_config.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_events.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_gpio.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_http.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_log.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_net.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_sys.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_timer.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/api_uart.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/fs/polyfill.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mjs/mjs/lib/api_dataview.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mjs/mjs/lib/api_file.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mjs/mjs/lib/api_math.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/adc/mjs_fs/api_adc.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/mjs_fs/api_arduino_onewire.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-http-client/mjs_fs/api_ota.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/shadow/mjs_fs/api_shadow.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/mjs_fs/api_rpc.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/dash/mjs_fs/api_dash.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c/mjs_fs/api_i2c.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt/mjs_fs/api_mqtt.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/neopixel/mjs_fs/api_neopixel.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/mjs_fs/api_wifi.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/esp32/fs/api_arch_uart.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/esp32/fs/api_esp32.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/fs/ds18b20.js
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/fs/init.js
 binary_libs:
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libmongoose-esp32-2.20.0.a
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libota-common-esp32-2.20.0.a
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libota-http-client-esp32-2.20.0.a
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libota-shadow-esp32-2.20.0.a
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libdash-esp32-2.20.0.a
-- /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/librpc-service-ota-esp32-2.20.0.a
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/objs/libmongoose-esp32-2.19.1.a
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/objs/libota-common-esp32-2.19.1.a
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/objs/libota-http-client-esp32-2.19.1.a
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/objs/libota-shadow-esp32-2.19.1.a
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/objs/libdash-esp32-2.19.1.a
+- /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/objs/librpc-service-ota-esp32-2.19.1.a
 modules:
-- name: mbedtls_module
+- origin: https://github.com/mongoose-os/mbedtls
   location: https://github.com/mongoose-os/mbedtls
-  version: 2.16.11-cesanta1
-- name: mjs_module
+  version: 2.16.6-cesanta1
+  name: mbedtls_module
+- origin: https://github.com/cesanta/mjs
   location: https://github.com/cesanta/mjs
-- name: mongoose-os
-  location: https://github.com/cesanta/mongoose-os
-  version: 2.20.0
+  name: mjs_module
 config_schema:
 - - sys.esp32_adc_vref
   - i
@@ -318,44 +324,6 @@ config_schema:
 - - update.commit_timeout
   - i
   - title: After applying update, wait for commit up to this long
-- - update.key0
-  - s
-  - ""
-  - title: Update signature verification key 0. ECDSA P-256, DER + Base64.
-- - update.key1
-  - s
-  - ""
-  - title: Update signature verification key 1. ECDSA P-256, DER + Base64.
-- - update.key2
-  - s
-  - ""
-  - title: Update signature verification key 2. ECDSA P-256, DER + Base64.
-- - update.key3
-  - s
-  - ""
-  - title: Update signature verification key 3. ECDSA P-256, DER + Base64.
-- - update.key4
-  - s
-  - ""
-  - title: Update signature verification key 4. ECDSA P-256, DER + Base64.
-- - update.key5
-  - s
-  - ""
-  - title: Update signature verification key 5. ECDSA P-256, DER + Base64.
-- - update.key6
-  - s
-  - ""
-  - title: Update signature verification key 6. ECDSA P-256, DER + Base64.
-- - update.key7
-  - s
-  - ""
-  - title: Update signature verification key 7. ECDSA P-256, DER + Base64.
-- - update.sig_req_mask
-  - i
-  - -1
-  - title: Update signature requirements. If >= 0, it is used as a bitmask where bit
-      0 corresponds to key 0, bit 1 to key 1, etc. All of the masked bits must be
-      set, i.e. if sig_req is 3, update must be signed by both key 0 and key 1.
 - - update.url
   - s
   - title: Fetch updates from here
@@ -421,22 +389,14 @@ config_schema:
   - i
   - 25
   - title: Max Queue Length
-- - rpc.max_non_persistent_channels
-  - i
-  - 20
-  - title: Maximum number of simultaneous non-persistent channels
 - - rpc.default_out_channel_idle_close_timeout
   - i
   - 10
   - title: Default idle close timeout for outbound channels
-- - rpc.acl
-  - s
-  - ""
-  - title: RPC ACL spec - JSON or @file
 - - rpc.acl_file
   - s
   - ""
-  - title: File with RPC ACL JSON; deprecated, used if rpc.acl is not set
+  - title: File with RPC ACL JSON
 - - rpc.auth_domain
   - s
   - RPC
@@ -445,10 +405,6 @@ config_schema:
   - s
   - ""
   - title: File with user credentials in the htdigest format
-- - rpc.auth_algo
-  - i
-  - 0
-  - title: 'Password file hashing algorithm: 0 - MD5, 1 - SHA256'
 - - rpc.ws
   - o
   - title: RPC over WebSocket settings
@@ -648,14 +604,6 @@ config_schema:
   - i
   - 5
   - title: Maximum queue length for buffering QoS 1+ messages. 0 to disable queue.
-- - mqtt.ws_enable
-  - b
-  - false
-  - title: Enable WebSocket encapsulation
-- - mqtt.ws_path
-  - s
-  - /mqtt
-  - title: Path to use for WebSocket handshake
 - - mqtt1
   - mqtt
   - title: Backup MQTT settings
@@ -767,18 +715,6 @@ config_schema:
   - s
   - title: Password
     type: password
-- - wifi.sta.bssid
-  - s
-  - title: Specific AP to connect to
-- - wifi.sta.channel
-  - i
-  - title: Specific channel to use when connecting
-- - wifi.sta.last_bssid
-  - s
-  - title: Used to store AP's BSSID for quick connect
-- - wifi.sta.last_channel
-  - i
-  - title: Used to store AP's channel for quick connect
 - - wifi.sta.user
   - s
   - title: Username for WPA-PEAP mode
@@ -819,22 +755,18 @@ config_schema:
   - title: WiFi Station Config 2
 - - wifi.sta2.enable
   - false
-- - wifi.sta_rssi_thr
-  - i
-  - -95
-  - title: Do not consider APs with weaker signal
-- - wifi.sta_connect_timeout
-  - i
-  - 15
-  - title: Timeout for connection, seconds
-- - wifi.sta_roam_rssi_thr
-  - i
-  - -80
-  - title: If connected to AP with weaker signal, try to find a better one.
-- - wifi.sta_roam_interval
+- - wifi.sta_cfg_idx
   - i
   - 0
-  - title: Scan for better APs at this interval. Set to positive number ot enable.
+  - title: WiFi station config index to use, 0, 1 or 2
+- - wifi.sta_connect_timeout
+  - i
+  - 30
+  - title: Timeout for connection, seconds
+- - wifi.ap.keep_enabled
+  - b
+  - true
+  - title: Keep AP enabled when station is on
 - - wifi.ap.bandwidth_20mhz
   - b
   - false
@@ -848,6 +780,10 @@ config_schema:
   - i
   - 0
   - title: 'Power save mode for station: 0 - none, 1 - min, 2 - max.'
+- - wifi.sta_all_chan_scan
+  - b
+  - true
+  - title: true to scan all channels or false to perform fast scan
 - - wifi.sta.protocol
   - s
   - BGN
@@ -922,33 +858,6 @@ config_schema:
   - test.mosquitto.org
 - - mqtt.enable
   - true
-- - i2c
-  - o
-  - title: I2C settings
-- - i2c.unit_no
-  - i
-  - 0
-  - title: Which hardware unit to use, 0 or 1
-- - i2c.enable
-  - b
-  - true
-  - title: Enable I2C
-- - i2c.freq
-  - i
-  - 100000
-  - title: Clock frequency
-- - i2c.debug
-  - b
-  - false
-  - title: Debug I2C bus activity
-- - i2c.sda_gpio
-  - i
-  - 26
-  - title: GPIO to use for SDA
-- - i2c.scl_gpio
-  - i
-  - 27
-  - title: GPIO to use for SCL
 build_vars:
   BOARD: ""
   ESP_IDF_EXTRA_COMPONENTS: |2
@@ -958,19 +867,20 @@ build_vars:
      CONFIG_FREERTOS_SUPPORT_STATIC_ALLOCATION=y
      CONFIG_WIFI_ENABLED=y CONFIG_ESP32_WIFI_SW_COEXIST_ENABLE=n CONFIG_ESP32_WIFI_STATIC_RX_BUFFER_NUM=4 CONFIG_ESP32_WIFI_DYNAMIC_RX_BUFFER_NUM=16 CONFIG_ESP32_WIFI_STATIC_TX_BUFFER=n CONFIG_ESP32_WIFI_DYNAMIC_TX_BUFFER=y CONFIG_ESP32_WIFI_TX_BUFFER_TYPE=1 CONFIG_ESP32_WIFI_DYNAMIC_TX_BUFFER_NUM=16 CONFIG_ESP32_WIFI_NVS_ENABLED=y CONFIG_ESP32_WIFI_RX_BA_WIN=4 CONFIG_ESP32_PHY_CALIBRATION_AND_DATA_STORAGE=y CONFIG_ESP32_PHY_INIT_DATA_IN_PARTITION=n
   MGOS: "1"
-  MGOS_ESP8266_LWIP: 1_SDK
   MGOS_HAVE_ADC: "1"
+  MGOS_HAVE_ARDUINO_COMPAT: "1"
+  MGOS_HAVE_ARDUINO_ONEWIRE: "1"
   MGOS_HAVE_CA_BUNDLE: "1"
   MGOS_HAVE_CORE: "1"
   MGOS_HAVE_DASH: "1"
   MGOS_HAVE_FREERTOS: "1"
   MGOS_HAVE_I2C: "1"
-  MGOS_HAVE_LWIP: "1"
   MGOS_HAVE_MBEDTLS: "1"
   MGOS_HAVE_MJS: "1"
   MGOS_HAVE_MONGOOSE: "1"
   MGOS_HAVE_MQTT: "1"
   MGOS_HAVE_NEOPIXEL: "1"
+  MGOS_HAVE_ONEWIRE: "1"
   MGOS_HAVE_OTA_COMMON: "1"
   MGOS_HAVE_OTA_HTTP_CLIENT: "1"
   MGOS_HAVE_OTA_SHADOW: "1"
@@ -989,12 +899,13 @@ build_vars:
   MGOS_HAVE_WIFI: "1"
   MGOS_HAVE_ZZ_BOARDS: "1"
   MGOS_MBEDTLS_ENABLE_ATCA: "0"
-  MGOS_MG_NET_IF: MG_NET_IF_LWIP_LOW_LEVEL
   MGOS_ROOT_FS_OPTS_LFS: '{"bs":4096,"is":128}'
   MGOS_ROOT_FS_OPTS_SPIFFS: '{"bs":4096,"ps":256,"es":4096}'
   MGOS_WIFI_ENABLE_AP_STA: "0"
 cdefs:
-  JSON_MAX_PATH_LEN: "128"
+  ARDUINO: "150"
+  ESP32: "1"
+  F_CPU: "160000000"
   LFS_NO_DEBUG: "1"
   MBEDTLS_FREE_CERT_CHAIN: "1"
   MBEDTLS_USER_CONFIG_FILE: \"mbedtls_platform_config.h\"
@@ -1008,35 +919,32 @@ cdefs:
   MG_ENABLE_SNTP: "1"
   MG_ENABLE_SSL: "1"
   MG_ENABLE_TUN: "0"
-  MG_EXT_MD5: "1"
-  MG_EXT_SHA1: "1"
-  MG_EXT_SHA256: "1"
   MG_LOG_DNS_FAILURES: "1"
-  MG_LWIP: "1"
   MG_MAX_DNS_ANSWERS: "16"
   MG_MAX_DNS_QUESTIONS: "16"
   MG_MAX_HTTP_REQUEST_SIZE: "3072"
-  MG_MAX_HTTP_SEND_MBUF: "1460"
+  MG_MAX_HTTP_SEND_MBUF: "256"
   MG_MAX_PATH: "256"
   MG_SSL_IF: MG_SSL_IF_MBEDTLS
   MG_SSL_IF_MBEDTLS_FREE_CERTS: "1"
   MGOS: "1"
-  MGOS_DEFAULT_NAMESERVER: \"8.8.8.8\"
   MGOS_ENABLE_RPC_CHANNEL_HTTP: "1"
   MGOS_ENABLE_SYS_SERVICE: "1"
   MGOS_ESP8266_WIFI_ENABLE_WPAENT: "0"
   MGOS_HAVE_ADC: "1"
+  MGOS_HAVE_ARDUINO_COMPAT: "1"
+  MGOS_HAVE_ARDUINO_ONEWIRE: "1"
   MGOS_HAVE_CA_BUNDLE: "1"
   MGOS_HAVE_CORE: "1"
   MGOS_HAVE_DASH: "1"
   MGOS_HAVE_FREERTOS: "1"
   MGOS_HAVE_I2C: "1"
-  MGOS_HAVE_LWIP: "1"
   MGOS_HAVE_MBEDTLS: "1"
   MGOS_HAVE_MJS: "1"
   MGOS_HAVE_MONGOOSE: "1"
   MGOS_HAVE_MQTT: "1"
   MGOS_HAVE_NEOPIXEL: "1"
+  MGOS_HAVE_ONEWIRE: "1"
   MGOS_HAVE_OTA_COMMON: "1"
   MGOS_HAVE_OTA_HTTP_CLIENT: "1"
   MGOS_HAVE_OTA_SHADOW: "1"
@@ -1055,461 +963,437 @@ cdefs:
   MGOS_HAVE_WIFI: "1"
   MGOS_HAVE_ZZ_BOARDS: "1"
   MGOS_LFS1_COMPAT: "0"
-  MGOS_LIC_ENABLE: "1"
-  MGOS_OTA_SIGN_ENABLE: "1"
   MGOS_ROOT_FS_OPTS_LFS: '{"bs":4096,"is":128}'
   MGOS_ROOT_FS_OPTS_SPIFFS: '{"bs":4096,"ps":256,"es":4096}'
   MGOS_WIFI_ENABLE_AP_STA: "1"
 tags:
 - js
 - hw
-libs_version: 2.20.0
-modules_version: 2.20.0
-mongoose_os_version: 2.20.0
+libs_version: 2.19.1
+modules_version: 2.19.1
+mongoose_os_version: 2.19.1
 manifest_version: "2017-05-18"
 libs_handled:
 - lib:
-    name: adc
+    origin: https://github.com/mongoose-os-libs/adc
     location: https://github.com/mongoose-os-libs/adc
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/adc
+    name: adc
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/adc
   init_deps:
   - core
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/adc/src/esp32/esp32_adc.c
-  version: 2.20.0
-  user_version: 1.0.0
-  repo_version: 80bd7797e66c9c9568ce11cdc9b639d28c6ae831
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/adc/src/esp32/esp32_adc.c
+  version: 1.0.0
 - lib:
-    name: freertos
+    origin: https://github.com/mongoose-os-libs/freertos
     location: https://github.com/mongoose-os-libs/freertos
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos
+    name: freertos
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos/src/mgos_freertos.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/freertos/src/mgos_freertos_core_dump.c
-  version: 2.20.0
-  user_version: 10.2.0
-  repo_version: f4b5ba5336f2f0fe3b183527790cf82e0644364e
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos/src/mgos_freertos.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/freertos/src/mgos_freertos_core_dump.c
+  version: 10.2.0
 - lib:
-    name: mbedtls
+    origin: https://github.com/mongoose-os-libs/mbedtls
     location: https://github.com/mongoose-os-libs/mbedtls
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls
+    name: mbedtls
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/src/mgos_mbedtls.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/src/esp32/esp32_aes.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mbedtls/src/esp32/esp32_bignum.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aes.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aes_atca.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aesni.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/arc4.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/aria.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/asn1parse.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/asn1write.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/base64.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/bignum.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/blowfish.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/camellia.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ccm.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/certs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/chacha20.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/chachapoly.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/cipher.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/cipher_wrap.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/cmac.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ctr_drbg.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/debug.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/des.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/dhm.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecdh.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecdsa.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecjpake.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecp.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecp_atca.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ecp_curves.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/entropy.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/entropy_poll.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/error.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/gcm.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/havege.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/hkdf.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/hmac_drbg.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md2.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md4.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md5.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/md_wrap.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/memory_buffer_alloc.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/net_sockets.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/nist_kw.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/oid.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/padlock.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pem.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pk.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pk_wrap.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkcs11.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkcs12.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkcs5.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkparse.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/pkwrite.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/platform.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/platform_util.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/poly1305.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ripemd160.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/rsa.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/rsa_internal.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/sha1.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/sha256.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/sha512.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_cache.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_ciphersuites.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_cli.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_cookie.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_srv.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_ticket.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/ssl_tls.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/threading.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/timing.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/version.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/version_features.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_create.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_crl.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_crt.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509_csr.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509write_crt.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/x509write_csr.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mbedtls/library/xtea.c
-  version: 2.20.0
-  user_version: 2.16.11-cesanta1
-  repo_version: 9971208d45aed1aec5b9e064145c3c8a7bb180f8
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/src/mgos_mbedtls.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/src/esp32/esp32_aes.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mbedtls/src/esp32/esp32_bignum.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aes.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aes_atca.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aesni.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/arc4.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/aria.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/asn1parse.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/asn1write.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/base64.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/bignum.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/blowfish.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/camellia.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ccm.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/certs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/chacha20.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/chachapoly.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/cipher.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/cipher_wrap.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/cmac.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ctr_drbg.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/debug.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/des.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/dhm.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecdh.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecdsa.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecjpake.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecp.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecp_atca.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ecp_curves.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/entropy.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/entropy_poll.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/error.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/gcm.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/havege.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/hkdf.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/hmac_drbg.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md2.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md4.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md5.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/md_wrap.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/memory_buffer_alloc.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/net_sockets.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/nist_kw.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/oid.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/padlock.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pem.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pk.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pk_wrap.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkcs11.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkcs12.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkcs5.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkparse.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/pkwrite.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/platform.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/platform_util.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/poly1305.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ripemd160.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/rsa.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/rsa_internal.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/sha1.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/sha256.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/sha512.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_cache.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_ciphersuites.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_cli.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_cookie.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_srv.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_ticket.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/ssl_tls.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/threading.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/timing.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/version.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/version_features.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_create.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_crl.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_crt.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509_csr.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509write_crt.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/x509write_csr.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mbedtls/library/xtea.c
+  version: 2.16.6-cesanta1
 - lib:
-    name: vfs-common
+    origin: https://github.com/mongoose-os-libs/vfs-common
     location: https://github.com/mongoose-os-libs/vfs-common
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common
+    name: vfs-common
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/mgos_vfs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/mgos_vfs_dev.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/mgos_vfs_internal.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/esp32/esp32_fs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/esp32/esp32_fs_crypt.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-common/src/esp32/esp32_vfs_dev_partition.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 23525d042fe865dbc8088513f510e26c62ae4800
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/mgos_vfs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/mgos_vfs_dev.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/mgos_vfs_internal.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/esp32/esp32_fs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/esp32/esp32_fs_crypt.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-common/src/esp32/esp32_vfs_dev_partition.c
+  version: "1.0"
 - lib:
-    name: mongoose
+    origin: https://github.com/mongoose-os-libs/mongoose
     location: https://github.com/mongoose-os-libs/mongoose
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mongoose
-  init_deps:
-  - lwip
-  binary_libs:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libmongoose-esp32-2.20.0.a
-  version: 2.20.0
-  user_version: "6.18"
-  repo_version: 24f3c520fdfd5d7c33ff2734d4be42aab75107e9
+    name: mongoose
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mongoose
+  version: "6.18"
 - lib:
-    name: vfs-fs-lfs
+    origin: https://github.com/mongoose-os-libs/vfs-fs-lfs
     location: https://github.com/mongoose-os-libs/vfs-fs-lfs
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs
+    name: vfs-fs-lfs
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs
   init_deps:
   - vfs-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/src/mgos_vfs_lfs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs/lfs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs/lfs_util.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs1/lfs1.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-lfs/littlefs1/lfs1_util.c
-  version: 2.20.0
-  user_version: 2.4.0
-  repo_version: b611462e03d431f9541f50763b3153552db81861
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/src/mgos_vfs_lfs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs/lfs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs/lfs_util.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs1/lfs1.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-lfs/littlefs1/lfs1_util.c
+  version: 2.2.0
 - lib:
-    name: vfs-fs-spiffs
+    origin: https://github.com/mongoose-os-libs/vfs-fs-spiffs
     location: https://github.com/mongoose-os-libs/vfs-fs-spiffs
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs
+    name: vfs-fs-spiffs
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs
   init_deps:
   - vfs-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/mgos_vfs_fs_spiffs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_cache.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_check.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_gc.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_hydrogen.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/vfs-fs-spiffs/src/spiffs/spiffs_nucleus.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 0c1d9d07a4bf900f08ca4a250e29e7f5931301c5
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/mgos_vfs_fs_spiffs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_cache.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_check.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_gc.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_hydrogen.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/vfs-fs-spiffs/src/spiffs/spiffs_nucleus.c
+  version: "1.0"
 - lib:
-    name: core
+    origin: https://github.com/mongoose-os-libs/core
     location: https://github.com/mongoose-os-libs/core
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/core
+    name: core
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/core
   init_deps:
   - freertos
-  - lwip
   - mongoose
   - ota-common
   - vfs-common
   - vfs-fs-lfs
   - vfs-fs-spiffs
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/core/src/mgos_core.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 9cbb8437919696a4a8779ebb4d0cd78d99890ac6
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/core/src/mgos_core.c
+  version: "1.0"
 - lib:
-    name: ca-bundle
-    location: https://github.com/mongoose-os-libs/ca-bundle
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ca-bundle
-  init_deps:
-  - core
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 82ddde1a7e95d316f0ef6a43ecfc265b0fbdaf4c
-- lib:
-    name: ota-common
-    location: https://github.com/mongoose-os-libs/ota-common
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-common
-  binary_libs:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libota-common-esp32-2.20.0.a
-  version: 2.20.0
-  user_version: 1.4.0
-  repo_version: a164ef6cf5f815b8ddd51b637f68f809a4840647
-- lib:
-    name: ota-http-client
-    location: https://github.com/mongoose-os-libs/ota-http-client
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-http-client
-  init_deps:
-  - core
-  - ota-common
-  binary_libs:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libota-http-client-esp32-2.20.0.a
-  version: 2.20.0
-  user_version: 1.0.1
-  repo_version: d6088c559c603f74a645a8b0dff135723c994f2d
-- lib:
-    name: shadow
-    location: https://github.com/mongoose-os-libs/shadow
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/shadow
+    origin: https://github.com/mongoose-os-libs/arduino-compat
+    location: https://github.com/mongoose-os-libs/arduino-compat
+    name: arduino-compat
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat
   init_deps:
   - core
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/shadow/src/mgos_shadow.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 355b109b82a9420c07c71911b095b316384a3315
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/src/Print.cpp
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/src/WString.cpp
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-compat/src/mgos_arduino.cpp
+  version: "1.0"
 - lib:
-    name: ota-shadow
+    origin: https://github.com/mongoose-os-libs/onewire
+    location: https://github.com/mongoose-os-libs/onewire
+    name: onewire
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/onewire
+  init_deps:
+  - core
+  sources:
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/onewire/src/mgos_onewire.c
+  version: "1.0"
+- lib:
+    origin: https://github.com/mongoose-os-libs/arduino-onewire
+    location: https://github.com/mongoose-os-libs/arduino-onewire
+    name: arduino-onewire
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire
+  init_deps:
+  - arduino-compat
+  - core
+  - onewire
+  sources:
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/src/mgos_arduino_onewire_c.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/src/OneWire.cpp
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/arduino-onewire/src/mgos_arduino_onewire.cpp
+  version: "1.0"
+- lib:
+    origin: https://github.com/mongoose-os-libs/ca-bundle
+    location: https://github.com/mongoose-os-libs/ca-bundle
+    name: ca-bundle
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ca-bundle
+  init_deps:
+  - core
+  version: "1.0"
+- lib:
+    origin: https://github.com/mongoose-os-libs/ota-common
+    location: https://github.com/mongoose-os-libs/ota-common
+    name: ota-common
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-common
+  version: 1.2.1
+- lib:
+    origin: https://github.com/mongoose-os-libs/ota-http-client
+    location: https://github.com/mongoose-os-libs/ota-http-client
+    name: ota-http-client
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-http-client
+  init_deps:
+  - core
+  - ota-common
+  version: "1.0"
+- lib:
+    origin: https://github.com/mongoose-os-libs/shadow
+    location: https://github.com/mongoose-os-libs/shadow
+    name: shadow
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/shadow
+  init_deps:
+  - core
+  sources:
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/shadow/src/mgos_shadow.c
+  version: "1.0"
+- lib:
+    origin: https://github.com/mongoose-os-libs/ota-shadow
     location: https://github.com/mongoose-os-libs/ota-shadow
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/ota-shadow
+    name: ota-shadow
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/ota-shadow
   init_deps:
   - core
   - ota-common
   - ota-http-client
   - shadow
-  binary_libs:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libota-shadow-esp32-2.20.0.a
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 2f00fbaf173b72f91417c6912b134318c13c5763
+  version: "1.0"
 - lib:
-    name: rpc-common
+    origin: https://github.com/mongoose-os-libs/rpc-common
     location: https://github.com/mongoose-os-libs/rpc-common
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common
+    name: rpc-common
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common
   init_deps:
   - core
   - mongoose
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mg_rpc.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mg_rpc_channel.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mg_rpc_channel_http.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-common/src/mgos_rpc.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 9f25f5900c1ac39eaa79e5e30c679de502eb1953
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mg_rpc.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mg_rpc_channel.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mg_rpc_channel_http.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-common/src/mgos_rpc.c
+  version: "1.0"
 - lib:
-    name: rpc-ws
+    origin: https://github.com/mongoose-os-libs/rpc-ws
     location: https://github.com/mongoose-os-libs/rpc-ws
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-ws
+    name: rpc-ws
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-ws
   init_deps:
   - core
   - rpc-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-ws/src/mgos_rpc_channel_ws.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-ws/src/mgos_rpc_ws.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 622229af41009f2f38a3373e0d95c05fc5c3c382
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-ws/src/mgos_rpc_channel_ws.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-ws/src/mgos_rpc_ws.c
+  version: "1.0"
 - lib:
-    name: dash
+    origin: https://github.com/mongoose-os-libs/dash
     location: https://github.com/mongoose-os-libs/dash
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/dash
+    name: dash
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/dash
   init_deps:
   - core
   - ota-shadow
   - rpc-ws
   - shadow
-  binary_libs:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/libdash-esp32-2.20.0.a
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 6cca1cca55f15e01fc92b71f485b3e17ac022547
+  version: "1.0"
 - lib:
-    name: i2c
+    origin: https://github.com/mongoose-os-libs/i2c
     location: https://github.com/mongoose-os-libs/i2c
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c
+    name: i2c
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c
   init_deps:
   - core
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c/src/mgos_i2c_master.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/i2c/src/esp32/esp32_i2c_master.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: cd740fa1b33b4b01bacc5a86a51fbe5d27c33f9c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c/src/mgos_i2c_master.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/i2c/src/esp32/esp32_i2c_master.c
+  version: "1.0"
 - lib:
-    name: mjs
+    origin: https://github.com/mongoose-os-libs/mjs
     location: https://github.com/mongoose-os-libs/mjs
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs
+    name: mjs
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs
   init_deps:
   - core
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/src/mos_mjs.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/modules/mjs/mjs_no_common.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mjs/esp32/src/esp32_mjs.c
-  version: 2.20.0
-  user_version: 1.0.0
-  repo_version: dc7442685da3d1b1b06fbf4102905a2fece286ee
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/src/mos_mjs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/modules/mjs/mjs.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mjs/esp32/src/esp32_mjs.c
+  version: "1.0"
 - lib:
-    name: mqtt
+    origin: https://github.com/mongoose-os-libs/mqtt
     location: https://github.com/mongoose-os-libs/mqtt
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt
+    name: mqtt
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt
   init_deps:
   - core
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/src/mgos_mqtt.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/src/mgos_mqtt_conn.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/mqtt/src/mgos_mqtt_ws_conn.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: f578d546d70844fdddd1809030d3fe44d11e6d9b
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt/src/mgos_mqtt.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/mqtt/src/mgos_mqtt_conn.c
+  version: "1.0"
 - lib:
-    name: neopixel
+    origin: https://github.com/mongoose-os-libs/neopixel
     location: https://github.com/mongoose-os-libs/neopixel
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/neopixel
+    name: neopixel
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/neopixel
   init_deps:
   - core
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/neopixel/src/mgos_neopixel.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 7f1d279178567ed4351079a3e220282123290234
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/neopixel/src/mgos_neopixel.c
+  version: "1.0"
 - lib:
-    name: rpc-loopback
+    origin: https://github.com/mongoose-os-libs/rpc-loopback
     location: https://github.com/mongoose-os-libs/rpc-loopback
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-loopback
+    name: rpc-loopback
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-loopback
   init_deps:
   - core
   - rpc-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-loopback/src/mg_rpc_channel_loopback.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 17eacc2087c58672b2cdd7f7f5860d3e0b673116
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-loopback/src/mg_rpc_channel_loopback.c
+  version: "1.0"
 - lib:
-    name: rpc-service-config
+    origin: https://github.com/mongoose-os-libs/rpc-service-config
     location: https://github.com/mongoose-os-libs/rpc-service-config
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-config
+    name: rpc-service-config
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-config
   init_deps:
   - core
   - rpc-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-config/src/mgos_service_config.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 821db3ffb8104de17bd511c67e423a4db6f59d44
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-config/src/mgos_service_config.c
+  version: "1.0"
 - lib:
-    name: rpc-service-fs
+    origin: https://github.com/mongoose-os-libs/rpc-service-fs
     location: https://github.com/mongoose-os-libs/rpc-service-fs
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-fs
+    name: rpc-service-fs
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-fs
   init_deps:
   - core
   - rpc-common
   - vfs-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-fs/src/mgos_service_fs.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 39437663b14759671a37e9670a46c65e5519c369
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-fs/src/mgos_service_fs.c
+  version: "1.0"
 - lib:
-    name: rpc-service-i2c
+    origin: https://github.com/mongoose-os-libs/rpc-service-i2c
     location: https://github.com/mongoose-os-libs/rpc-service-i2c
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-i2c
+    name: rpc-service-i2c
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-i2c
   init_deps:
   - core
   - i2c
   - rpc-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-i2c/src/mgos_i2c_service.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 242b3041b8c4f1772204dde3f2df5c2cd99abbb8
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-i2c/src/mgos_i2c_service.c
+  version: "1.0"
 - lib:
-    name: rpc-service-ota
+    origin: https://github.com/mongoose-os-libs/rpc-service-ota
     location: https://github.com/mongoose-os-libs/rpc-service-ota
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-service-ota
+    name: rpc-service-ota
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-service-ota
   init_deps:
   - core
   - ota-http-client
   - rpc-common
-  binary_libs:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/objs/librpc-service-ota-esp32-2.20.0.a
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 469f8867499cc070e9cdab8470dd72ce754af550
+  version: "1.0"
 - lib:
-    name: rpc-uart
+    origin: https://github.com/mongoose-os-libs/rpc-uart
     location: https://github.com/mongoose-os-libs/rpc-uart
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-uart
+    name: rpc-uart
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-uart
   init_deps:
   - core
   - rpc-common
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/rpc-uart/src/mgos_rpc_channel_uart.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: d58fee363e9e7176d9079b37c8ecfde1d5a2a3dd
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/rpc-uart/src/mgos_rpc_channel_uart.c
+  version: "1.0"
 - lib:
-    name: lwip
-    location: https://github.com/mongoose-os-libs/lwip
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/lwip
-  init_deps:
-  - freertos
-  sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/lwip/src/mgos_lwip.c
-  version: 2.20.0
-  user_version: 2.1.2
-  repo_version: 417e07ea1b5d37f59428caee93b6730798090460
-- lib:
-    name: wifi
+    origin: https://github.com/mongoose-os-libs/wifi
     location: https://github.com/mongoose-os-libs/wifi
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi
+    name: wifi
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi
   init_deps:
   - core
-  - lwip
   sources:
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/mgos_wifi.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/mgos_wifi_sta.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/mjs_wifi.c
-  - /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/wifi/src/esp32/esp32_wifi.c
-  version: 2.20.0
-  user_version: "1.0"
-  repo_version: 51febec3070cd40a6ce8aa18e76cc4bb20101149
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/src/mgos_wifi.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/src/mjs_wifi.c
+  - /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/wifi/src/esp32/esp32_wifi.c
+  version: "1.0"
 - lib:
-    name: zz_boards
+    origin: https://github.com/mongoose-os-libs/boards
     location: https://github.com/mongoose-os-libs/boards
-  path: /data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/deps/boards
-  version: 2.20.0
-  repo_version: a317361ee008969b8a96a2e7fa7eb243442dcb93
+    name: zz_boards
+  path: /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/deps/boards
 init_deps:
 - freertos
-- lwip
 - mongoose
 - ota-common
 - vfs-common
@@ -1517,6 +1401,9 @@ init_deps:
 - vfs-fs-spiffs
 - core
 - adc
+- arduino-compat
+- onewire
+- arduino-onewire
 - ca-bundle
 - ota-http-client
 - shadow

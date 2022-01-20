@@ -90,44 +90,6 @@
 - - update.commit_timeout
   - i
   - title: After applying update, wait for commit up to this long
-- - update.key0
-  - s
-  - ""
-  - title: Update signature verification key 0. ECDSA P-256, DER + Base64.
-- - update.key1
-  - s
-  - ""
-  - title: Update signature verification key 1. ECDSA P-256, DER + Base64.
-- - update.key2
-  - s
-  - ""
-  - title: Update signature verification key 2. ECDSA P-256, DER + Base64.
-- - update.key3
-  - s
-  - ""
-  - title: Update signature verification key 3. ECDSA P-256, DER + Base64.
-- - update.key4
-  - s
-  - ""
-  - title: Update signature verification key 4. ECDSA P-256, DER + Base64.
-- - update.key5
-  - s
-  - ""
-  - title: Update signature verification key 5. ECDSA P-256, DER + Base64.
-- - update.key6
-  - s
-  - ""
-  - title: Update signature verification key 6. ECDSA P-256, DER + Base64.
-- - update.key7
-  - s
-  - ""
-  - title: Update signature verification key 7. ECDSA P-256, DER + Base64.
-- - update.sig_req_mask
-  - i
-  - -1
-  - title: Update signature requirements. If >= 0, it is used as a bitmask where bit
-      0 corresponds to key 0, bit 1 to key 1, etc. All of the masked bits must be
-      set, i.e. if sig_req is 3, update must be signed by both key 0 and key 1.
 - - update.url
   - s
   - title: Fetch updates from here
@@ -193,22 +155,14 @@
   - i
   - 25
   - title: Max Queue Length
-- - rpc.max_non_persistent_channels
-  - i
-  - 20
-  - title: Maximum number of simultaneous non-persistent channels
 - - rpc.default_out_channel_idle_close_timeout
   - i
   - 10
   - title: Default idle close timeout for outbound channels
-- - rpc.acl
-  - s
-  - ""
-  - title: RPC ACL spec - JSON or @file
 - - rpc.acl_file
   - s
   - ""
-  - title: File with RPC ACL JSON; deprecated, used if rpc.acl is not set
+  - title: File with RPC ACL JSON
 - - rpc.auth_domain
   - s
   - RPC
@@ -217,10 +171,6 @@
   - s
   - ""
   - title: File with user credentials in the htdigest format
-- - rpc.auth_algo
-  - i
-  - 0
-  - title: 'Password file hashing algorithm: 0 - MD5, 1 - SHA256'
 - - rpc.ws
   - o
   - title: RPC over WebSocket settings
@@ -420,14 +370,6 @@
   - i
   - 5
   - title: Maximum queue length for buffering QoS 1+ messages. 0 to disable queue.
-- - mqtt.ws_enable
-  - b
-  - false
-  - title: Enable WebSocket encapsulation
-- - mqtt.ws_path
-  - s
-  - /mqtt
-  - title: Path to use for WebSocket handshake
 - - mqtt1
   - mqtt
   - title: Backup MQTT settings
@@ -539,18 +481,6 @@
   - s
   - title: Password
     type: password
-- - wifi.sta.bssid
-  - s
-  - title: Specific AP to connect to
-- - wifi.sta.channel
-  - i
-  - title: Specific channel to use when connecting
-- - wifi.sta.last_bssid
-  - s
-  - title: Used to store AP's BSSID for quick connect
-- - wifi.sta.last_channel
-  - i
-  - title: Used to store AP's channel for quick connect
 - - wifi.sta.user
   - s
   - title: Username for WPA-PEAP mode
@@ -591,22 +521,18 @@
   - title: WiFi Station Config 2
 - - wifi.sta2.enable
   - false
-- - wifi.sta_rssi_thr
-  - i
-  - -95
-  - title: Do not consider APs with weaker signal
-- - wifi.sta_connect_timeout
-  - i
-  - 15
-  - title: Timeout for connection, seconds
-- - wifi.sta_roam_rssi_thr
-  - i
-  - -80
-  - title: If connected to AP with weaker signal, try to find a better one.
-- - wifi.sta_roam_interval
+- - wifi.sta_cfg_idx
   - i
   - 0
-  - title: Scan for better APs at this interval. Set to positive number ot enable.
+  - title: WiFi station config index to use, 0, 1 or 2
+- - wifi.sta_connect_timeout
+  - i
+  - 30
+  - title: Timeout for connection, seconds
+- - wifi.ap.keep_enabled
+  - b
+  - true
+  - title: Keep AP enabled when station is on
 - - wifi.ap.bandwidth_20mhz
   - b
   - false
@@ -620,6 +546,10 @@
   - i
   - 0
   - title: 'Power save mode for station: 0 - none, 1 - min, 2 - max.'
+- - wifi.sta_all_chan_scan
+  - b
+  - true
+  - title: true to scan all channels or false to perform fast scan
 - - wifi.sta.protocol
   - s
   - BGN
@@ -694,30 +624,3 @@
   - test.mosquitto.org
 - - mqtt.enable
   - true
-- - i2c
-  - o
-  - title: I2C settings
-- - i2c.unit_no
-  - i
-  - 0
-  - title: Which hardware unit to use, 0 or 1
-- - i2c.enable
-  - b
-  - true
-  - title: Enable I2C
-- - i2c.freq
-  - i
-  - 100000
-  - title: Clock frequency
-- - i2c.debug
-  - b
-  - false
-  - title: Debug I2C bus activity
-- - i2c.sda_gpio
-  - i
-  - 26
-  - title: GPIO to use for SDA
-- - i2c.scl_gpio
-  - i
-  - 27
-  - title: GPIO to use for SCL

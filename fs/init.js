@@ -1,40 +1,70 @@
 load('api_timer.js');
 load('api_mqtt.js');
-load('api_i2c.js');
+//load('api_i2c.js');
 load('api_gpio.js');
 load('api_esp32.js');
 load('api_rpc.js');
 load('api_sys.js');
 load('api_adc.js');
 load('api_net.js');
+load('api_arduino_onewire.js');
+load('ds18b20.js');
 
 let topic_ul = '/mosiotnode/uplink';
 let topic_dl = '/mosiotnode/downlink';
 
-let LM75A_I2C_ADDR=0x48;
-let	GPIOLED = 2;
-let	GPIOADC = 34;
-let ADCR1 = 68;
-let ADCR2 = 20;
-let ADCRES = 4095;
-let ADCALFAC = 1.337;
-let MIN_TO_SLEEP = 2;
-let NO_NET_TIMEOUT_SEG = 120;
+let	GPIOLED = 				2;
+let	GPIOADC = 				34;
+let GPIODS18B20 = 			26;
+let ADCR1 = 				68;
+let ADCR2 = 				20;
+let ADCRES = 				4095;
+let ADCALFAC = 				1.337;
+let MIN_TO_SLEEP = 			2;
+let NO_NET_TIMEOUT_SEG = 	120;
+
 let DEVICE_ARCH;
 let DEVICE_ID;
 
 
-// *** LM75A onboard debug LED setup //
+// *** onboard debug LED setup //
 GPIO.set_pull(GPIOLED,GPIO.PULL_NONE);
 GPIO.set_mode(GPIOLED,GPIO.MODE_OUTPUT);
 GPIO.write(GPIOLED,1);
+
 // *** ADC for battery voltage //
 ADC.enable(GPIOADC);
 
-// *** LM75A sensor setup //
-// Address 1001+A2A1A0
-// 0x48
-let LM75A=I2C.get();
+// Initialize OneWire library
+let ow = OneWire.create(GPIODS18B20);
+// Number of sensors found on the 1-Wire bus
+let owsensors = 0;
+// Sensors addresses
+let rom = ['01234567'];
+// not found TEMP value
+let DS18B20NF = 99.99;
+
+// Search for sensors
+let searchSens = function() {
+  let i = 0;
+  // Setup the search to find the device type on the next call
+  // to search() if it is present.
+  ow.target_search(DEVICE_FAMILY.DS18B20);
+
+  while (ow.search(rom[i], 0/* Normal search mode */) === 1) {
+    // If no devices of the desired family are currently on the bus, 
+    // then another type will be found. We should check it.
+    if (rom[i][0].charCodeAt(0) !== DEVICE_FAMILY.DS18B20) {
+      break;
+    }
+    // Sensor found
+    print('Sensor#', i, 'address:', toHexStr(rom[i]));
+    rom[++i] = '01234567';
+  }
+  return i;
+};
+
+
 
 let message_ul={"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0};
 let message_header="POST /dbpost HTTP/1.1";
@@ -114,18 +144,29 @@ function getBatV(){
 // Get Temperature
 // ************************************************
 function getTempC(){
-	let temperature=I2C.readRegW(LM75A,LM75A_I2C_ADDR,0x00);
-	let temperatureC;
-	if(temperature < 32768)
+	if (owsensors === 0)
 	{
-		temperatureC = (temperature/256);
-	}
-	else
+    	if ((owsensors = searchSens()) === 0)
+    		{
+      			print('No device found');      			
+      			return DS18B20NF;      		
+    		}
+  	}
+	
+	for (let i = 0; i < owsensors; i++) 
 	{
-		temperatureC =( (temperature - 65535)-1)/256;
-	}
-		
-	return temperatureC;
+    	let t = getTemp(ow, rom[i]);
+    	if (isNaN(t)) 
+    	{
+      		print('No device found');
+      		return DS18B20NF;      		
+    	} 
+    	else 
+    	{
+      		print('Sensor#', i, 'Temperature:', t, '*C');
+      		return t;
+    	}
+	}	
 
 }
 

@@ -1,14 +1,12 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_ro_vars --c_global_name=mgos_sys_ro_vars --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/gen/ /mongoose-os/src/mgos_ro_vars_schema.yaml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_ro_vars --c_global_name=mgos_sys_ro_vars --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/gen/ /mongoose-os/src/mgos_ro_vars_schema.yaml
  */
 
 #include "mgos_ro_vars.h"
 
 #include <stdbool.h>
-
-#include "common/cs_file.h"
 
 #include "mgos_config_util.h"
 
@@ -36,14 +34,6 @@ void mgos_ro_vars_set_defaults(struct mgos_ro_vars *cfg) {
   cfg->fw_version = NULL;
   cfg->fw_timestamp = NULL;
   cfg->fw_id = NULL;
-}
-bool mgos_ro_vars_parse_f(const char *fname, struct mgos_ro_vars *cfg) {
-  size_t len;
-  char *data = cs_read_file(fname, &len);
-  if (data == NULL) return false;
-  bool res = mgos_ro_vars_parse(mg_mk_str_n(data, len), cfg);
-  free(data);
-  return res;
 }
 
 /* Global instance */

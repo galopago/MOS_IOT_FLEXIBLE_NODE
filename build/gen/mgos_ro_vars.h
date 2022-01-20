@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_ro_vars --c_global_name=mgos_sys_ro_vars --dest_dir=/data/fwbuild-volumes/2.20.0/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_143692175/build/gen/ /mongoose-os/src/mgos_ro_vars_schema.yaml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_ro_vars --c_global_name=mgos_sys_ro_vars --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_293722877/build/gen/ /mongoose-os/src/mgos_ro_vars_schema.yaml
  */
 
 #pragma once
@@ -32,7 +32,6 @@ static inline bool mgos_ro_vars_parse(struct mg_str json, struct mgos_ro_vars *c
   mgos_ro_vars_set_defaults(cfg);
   return mgos_conf_parse_sub(json, mgos_ro_vars_get_schema(), cfg);
 }
-bool mgos_ro_vars_parse_f(const char *fname, struct mgos_ro_vars *cfg);
 static inline bool mgos_ro_vars_emit(const struct mgos_ro_vars *cfg, bool pretty, struct json_out *out) {
   return mgos_conf_emit_json_out(cfg, NULL, mgos_ro_vars_get_schema(), pretty, out);
 }
