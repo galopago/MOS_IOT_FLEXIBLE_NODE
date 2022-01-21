@@ -6,18 +6,23 @@ load('api_rpc.js');
 load('api_sys.js');
 load('api_adc.js');
 load('api_net.js');
+load('api_file.js');
 load('api_arduino_onewire.js');
 load('ds18b20.js');
 
-let	GPIOLED = 				2;
-let	GPIOADC = 				34;
-let GPIODS18B20 = 			26;
-let ADCR1 = 				68;		// ADC voltage divider 'upper' resistor
-let ADCR2 = 				20;		// ADC voltage divider 'lower' resistor
-let ADCRES = 				4095;
-let ADCALFAC = 				1.337;	// Qick and dirty calibration factor
-let MIN_TO_SLEEP = 			2;
-let NO_NET_TIMEOUT_SEG = 	120;
+// Default hard coded values settings
+
+let	GPIOBOARDLED =					2;
+let	GPIOADC = 						34;
+let GPIODS18B20 = 					26;
+let ADCR1 = 						68;		// ADC voltage divider 'upper' resistor
+let ADCR2 = 						20;		// ADC voltage divider 'lower' resistor
+let ADCRES = 						4095;
+let ADCALFAC = 						1.337;	// Qick and dirty calibration factor
+let MINS_TO_SLEEP =					2;
+let NO_NET_TIMEOUT_SEG = 			120;
+let DOWNLINK_WINDOW_TIMER_SEG = 	7;
+let ENABLED_ONBOARD_DEBUG_LED = 	1;
 
 let DEVICE_ARCH;
 let DEVICE_ID;
@@ -34,10 +39,24 @@ let message_conn =			'Connection: close'+chr(13)+chr(10);
 let message_type =			'Content-Type: application/json'+chr(13)+chr(10);
 let message_length =		'Content-Length: ';
 
+// Reading config values from file, if a key not found, harcoded value used instead
+let settings = JSON.parse(File.read('settings.json'));
+if(settings.gpioboardled)
+{ GPIOBOARDLED=settings.gpioboardled;}
+if(settings.minstosleep)
+{ MINS_TO_SLEEP=settings.minstosleep;}
+if(settings.enabledled)
+{ ENABLED_ONBOARD_DEBUG_LED=settings.enabledled;}
+
 // *** onboard debug LED setup //
-GPIO.set_pull(GPIOLED,GPIO.PULL_NONE);
-GPIO.set_mode(GPIOLED,GPIO.MODE_OUTPUT);
-GPIO.write(GPIOLED,1);
+GPIO.set_pull(GPIOBOARDLED,GPIO.PULL_NONE);
+GPIO.set_mode(GPIOBOARDLED,GPIO.MODE_OUTPUT);
+
+// If enabled stay ON while processor is awake
+if ( ENABLED_ONBOARD_DEBUG_LED !== 0)
+{
+	GPIO.write(GPIOBOARDLED,1);
+}
 
 // *** ADC for battery voltage //
 ADC.enable(GPIOADC);
@@ -265,24 +284,13 @@ MQTT.setEventHandler(function(conn,ev,data){
 				let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
   				print('Published:', okul, topic_ul, '->', message_ul);  			
   				// Wait for some time for downlink data before sleeping	  				
-  				Timer.set(7000, false, function (){
-  					print('Going to sleep for mins',MIN_TO_SLEEP);
-  					ESP32.deepSleep(MIN_TO_SLEEP * 60 * 1000 * 1000);     
+  				Timer.set(DOWNLINK_WINDOW_TIMER_SEG*1000, false, function (){
+  					print('Going to sleep for ',MINS_TO_SLEEP,' mins');
+  					ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);     
   				}, null);	       										
 			}
 	}
 
 },null);
 
-// ************************************************
-// HTTP Net?
-// ************************************************
 
-
-//client.println("POST /dbpost HTTP/1.1");
-//  client.println(String("Host: ") + server); 
-//  client.println("Connection: close\r\nContent-Type: application/json");
-//  client.print("Content-Length: ");
-//  client.println(jsonObject.length());
-//  client.println();
-//  client.println(jsonObject);
