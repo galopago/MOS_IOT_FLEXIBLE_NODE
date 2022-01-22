@@ -1,4 +1,5 @@
 load('api_timer.js');
+load('api_config.js');
 load('api_mqtt.js');
 load('api_gpio.js');
 load('api_esp32.js');
@@ -27,8 +28,16 @@ let ENABLED_ONBOARD_DEBUG_LED = 	1;
 let DEVICE_ARCH;
 let DEVICE_ID;
 
+// read self device info
+DEVICE_ID=Cfg.get('device.id');
+RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
+  DEVICE_ARCH = resp.arch;
+},null);
+
 let topic_ul =				'/mosiotnode/uplink';
-let topic_dl =				'/mosiotnode/downlink';
+let topic_conf_ul =			'/mosiotnode/sendconf';
+let topic_dl =				'/mosiotnode/'+DEVICE_ID+'/downlink';
+//let topic_conf_dl =			'/mosiotnode/'+DEVICE_ID+'/readconf';
 let apphost =				'galopago-iotnode.herokuapp.com';
 let appport =				'80';
 
@@ -47,7 +56,38 @@ if(settings.minstosleep)
 { MINS_TO_SLEEP=settings.minstosleep;}
 if(settings.enabledled)
 { ENABLED_ONBOARD_DEBUG_LED=settings.enabledled;}
+if(settings.gpioadc)
+{ GPIOADC=settings.gpioadc;}
+if(settings.gpiods18b20)
+{ GPIODS18B20=settings.gpiods18b20;}
+if(settings.adcr1)
+{ ADCR1=settings.adcr1;}
+if(settings.adcr2)
+{ ADCR2=settings.adcr2;}
+if(settings.adcalfac)
+{ADCALFAC=settings.adcalfac;}
+if(settings.minstosleep)
+{MINS_TO_SLEEP=settings.minstosleep;}
+if(settings.segsnonetimeout)
+{NO_NET_TIMEOUT_SEG=settings.segsnonetimeout;}
+if(settings.segsdownlinktime)
+{DOWNLINK_WINDOW_TIMER_SEG=settings.segsdownlinktime;}
 
+print('Actual setup values:');
+print('DEVICE_ID:',DEVICE_ID);
+print('GPIOBOARDLED:',GPIOBOARDLED);
+print('MINS_TO_SLEEP:',MINS_TO_SLEEP);
+print('ENABLED_ONBOARD_DEBUG_LED:',ENABLED_ONBOARD_DEBUG_LED);
+print('GPIOADC:',GPIOADC);	
+print('GPIODS18B20:',GPIODS18B20);
+print('ADCR1:',ADCR1);
+print('ADCR2:',ADCR2);
+print('MINS_TO_SLEEP:',MINS_TO_SLEEP);
+print('NO_NET_TIMEOUT_SEG:',NO_NET_TIMEOUT_SEG);
+print('DOWNLINK_WINDOW_TIMER_SEG:',DOWNLINK_WINDOW_TIMER_SEG);
+
+
+	
 // *** onboard debug LED setup //
 GPIO.set_pull(GPIOBOARDLED,GPIO.PULL_NONE);
 GPIO.set_mode(GPIOBOARDLED,GPIO.MODE_OUTPUT);
@@ -90,12 +130,6 @@ let owSearchSens = function() {
   return i;
 };
 
-// read self device info
-RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
-  DEVICE_ID = resp.id;
-  DEVICE_ARCH = resp.arch;
-
-},null);
 
 // ************************************************
 // Round to x number of decimals return string
@@ -216,16 +250,6 @@ Timer.set(NO_NET_TIMEOUT_SEG*1000, 0, function() {
 
 
 // ************************************************
-// listen to MQTT server topic for dowlink data
-// ************************************************
-
-MQTT.sub(topic_dl,function(conn,topic,msg){
-	print('Topic:', topic, 'message:', msg);	
-},null);
-
-
-
-// ************************************************
 // read temperature each 10 segs
 // ************************************************
 
@@ -283,7 +307,8 @@ MQTT.setEventHandler(function(conn,ev,data){
 				// Publish thru MQTT
 				let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
   				print('Published:', okul, topic_ul, '->', message_ul);  			
-  				// Wait for some time for downlink data before sleeping	  				
+  				// Wait for some time for downlink data before sleeping
+  				print('Waiting ',DOWNLINK_WINDOW_TIMER_SEG,' seconds for downlink data');	  				
   				Timer.set(DOWNLINK_WINDOW_TIMER_SEG*1000, false, function (){
   					print('Going to sleep for ',MINS_TO_SLEEP,' mins');
   					ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);     
@@ -293,4 +318,70 @@ MQTT.setEventHandler(function(conn,ev,data){
 
 },null);
 
+// ************************************************
+// listen to MQTT server topic for dowlink commands
+// ************************************************
 
+MQTT.sub(topic_dl,function(conn,topic,msg){
+	print('Topic:', topic, 'message:', msg);		
+	let conf_dl = JSON.parse(msg);	
+		
+	if(conf_dl.gpioboardled)
+	{settings.gpioboardled = conf_dl.gpioboardled;}
+	
+	if(conf_dl.minstosleep)
+	{settings.minstosleep = conf_dl.minstosleep;}
+	
+	if(conf_dl.enabledled)
+	{settings.enabledled = conf_dl.enabledled;}
+	
+	if(conf_dl.gpioadc)
+	{settings.gpioadc=conf_dl.gpioadc;}
+
+	if(conf_dl.gpiods18b20)
+	{settings.gpiods18b20=conf_dl.gpiods18b20;}
+
+	if(conf_dl.adcr1)
+	{settings.adcr1=conf_dl.adcr1;}
+
+	if(conf_dl.adcr2)
+	{settings.adcr2=conf_dl.adcr2;}
+	
+	if(conf_dl.adcalfac)
+	{settings.adcalfac=conf_dl.adcalfac;}
+
+	if(conf_dl.minstosleep)
+	{settings.minstosleep=conf_dl.minstosleep;}
+	
+	if(conf_dl.segsnonetimeout)
+	{conf_dl.segsnonetimeout=settings.segsnonetimeout;}
+
+	if(conf_dl.segsdownlinktime)
+	{settings.segsdownlinktime=conf_dl.segsdownlinktime;}
+	
+	// {"readconf":true} publish actual setup
+	if(conf_dl.readconf)
+	{
+		if(conf_dl.readconf === true)
+		{
+			// add sensor id 
+			let settingstmp = settings;
+			settingstmp["sensor_id"]=DEVICE_ID;
+			let okul = MQTT.pub(topic_conf_ul, JSON.stringify(settingstmp), 1);
+		}		
+	}		
+	
+	// saving changes to config file
+	File.write(JSON.stringify(settings),'settings.json');
+	
+	// {"reboot":true} reboot system now
+	if(conf_dl.reboot )
+	{
+		if(conf_dl.reboot === true)
+		{
+			Sys.reboot(1);
+		}		
+	}		
+
+	
+},null);
