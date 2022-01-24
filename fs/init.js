@@ -28,12 +28,12 @@ let COUNTS_FOR_TX =					5;
 
 let DEVICE_ARCH;
 let DEVICE_ID;
+let WIFI_TX_FLAG;
+let TESTMODE;
 
 // read self device info
 DEVICE_ID=Cfg.get('device.id');
-RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
-  DEVICE_ARCH = resp.arch;
-},null);
+TESTMODE=Cfg.get('testmode.enable');
 
 let topic_ul =				'/mosiotnode/uplink';
 let topic_conf_ul =			'/mosiotnode/sendconf';
@@ -51,56 +51,56 @@ let message_length =		'Content-Length: ';
 // Reading config values from file, if a key not found, harcoded value used instead
 let settings = JSON.parse(File.read('settings.json'));
 
-if(settings.gpioboardled)
+if(settings.gpioboardled !== null)
 { GPIOBOARDLED=settings.gpioboardled;}
-if(settings.minstosleep)
+if(settings.minstosleep !== null)
 { MINS_TO_SLEEP=settings.minstosleep;}
-if(settings.enabledled)
+if(settings.enabledled !== null)
 { ENABLED_ONBOARD_DEBUG_LED=settings.enabledled;}
-if(settings.gpioadc)
+if(settings.gpioadc !== null)
 { GPIOADC=settings.gpioadc;}
-if(settings.gpiods18b20)
+if(settings.gpiods18b20 !== null)
 { GPIODS18B20=settings.gpiods18b20;}
-if(settings.adcr1)
+if(settings.adcr1 !== null)
 { ADCR1=settings.adcr1;}
-if(settings.adcr2)
+if(settings.adcr2 !== null)
 { ADCR2=settings.adcr2;}
-if(settings.adcalfac)
+if(settings.adcalfac !== null)
 {ADCALFAC=settings.adcalfac;}
-if(settings.minstosleep)
+if(settings.minstosleep !== null)
 {MINS_TO_SLEEP=settings.minstosleep;}
-if(settings.segsnonetimeout)
+if(settings.segsnonetimeout !== null)
 {NO_NET_TIMEOUT_SEG=settings.segsnonetimeout;}
-if(settings.segsdownlinktime)
+if(settings.segsdownlinktime !== null)
 {DOWNLINK_WINDOW_TIMER_SEG=settings.segsdownlinktime;}
-if(settings.countsfortx)
+if(settings.countsfortx !== null)
 {COUNTS_FOR_TX=settings.countsfortx;}
 
 print('Actual setup values:');
-print('DEVICE_ID:',DEVICE_ID);
-print('GPIOBOARDLED:',GPIOBOARDLED);
-print('MINS_TO_SLEEP:',MINS_TO_SLEEP);
-print('ENABLED_ONBOARD_DEBUG_LED:',ENABLED_ONBOARD_DEBUG_LED);
-print('GPIOADC:',GPIOADC);	
-print('GPIODS18B20:',GPIODS18B20);
-print('ADCR1:',ADCR1);
-print('ADCR2:',ADCR2);
-print('MINS_TO_SLEEP:',MINS_TO_SLEEP);
-print('NO_NET_TIMEOUT_SEG:',NO_NET_TIMEOUT_SEG);
-print('DOWNLINK_WINDOW_TIMER_SEG:',DOWNLINK_WINDOW_TIMER_SEG);
-print('COUNTS_FOR_TX',COUNTS_FOR_TX);
-
+print('---------------------------');
+print('DEVICE_ID:                 ',DEVICE_ID);
+print('GPIOBOARDLED:              ',GPIOBOARDLED);
+print('MINS_TO_SLEEP:             ',MINS_TO_SLEEP);
+print('ENABLED_ONBOARD_DEBUG_LED: ',ENABLED_ONBOARD_DEBUG_LED);
+print('GPIOADC:                   ',GPIOADC);	
+print('GPIODS18B20:               ',GPIODS18B20);
+print('ADCR1:                     ',ADCR1);
+print('ADCR2:                     ',ADCR2);
+print('MINS_TO_SLEEP:             ',MINS_TO_SLEEP);
+print('NO_NET_TIMEOUT_SEG:        ',NO_NET_TIMEOUT_SEG);
+print('DOWNLINK_WINDOW_TIMER_SEG: ',DOWNLINK_WINDOW_TIMER_SEG);
+print('COUNTS_FOR_TX              ',COUNTS_FOR_TX);
+print('---------------------------');
 // Reading samples count from file to determine if a WiFi transmission is needed
 let samplescount = JSON.parse(File.read('samplescount.json'));
 
-if(samplescount.counter !== null)
-{ 
-	let cntr = samplescount.counter;
-	print('samplescount.counter:',cntr);
-	// saving increased counter
-	samplescount.counter = samplescount.counter+1;
-	File.write(JSON.stringify(samplescount),'samplescount.json');
-}
+print("samplescount.counter:",samplescount.counter);
+if(samplescount.counter === COUNTS_FOR_TX-1)
+{WIFI_TX_FLAG=1;}
+else
+{WIFI_TX_FLAG=0;}
+print('WIFI_TX_FLAG:',WIFI_TX_FLAG);
+print('TESTMODE:',TESTMODE);
 	
 // *** onboard debug LED setup //
 GPIO.set_pull(GPIOBOARDLED,GPIO.PULL_NONE);
@@ -189,9 +189,7 @@ function roundNdigitsTostr(number,digits){
 	}
 	
 	return strtempc	;
-	//print("Number in text rounded:",strtempc);
-	//print("Digits to round:",digits);
-	//print("Actualdecimals",actualdecimals);
+
 }
 // **************************************************
 // Get Battery with voltage divider  +ADCR1/ADCR2-
@@ -200,12 +198,8 @@ function getBatV(){
 
 	let rawadc = ADC.read(GPIOADC);	
 	let vdivfac = (ADCR1+ADCR2)/ADCR2;
-	print('rawadc:',rawadc);
-	print('vdivfac:',vdivfac);
-	print('ADCRES:',ADCRES);
-	//let batV = (rawadc*3.3*vdivfac)/ADCRES;	
 	let batV = (rawadc*3.3*vdivfac*ADCALFAC)/ADCRES;	
-	//let batV = rawadc;	
+
 	return batV;
 }
 
@@ -259,19 +253,39 @@ function buildMsgUl(){
 // ************************************************
 Timer.set(NO_NET_TIMEOUT_SEG*1000, 0, function() {	
 	print('Going to sleep, no network conn after:',NO_NET_TIMEOUT_SEG);
-	ESP32.deepSleep(MIN_TO_SLEEP * 60 * 1000 * 1000);
-}, null);
-
-
-// ************************************************
-// read temperature each 10 segs
-// ************************************************
-
-Timer.set(10000, Timer.REPEAT, function() {
+	// reset counter and disable wifi
+	samplescount.counter = 0;
+	File.write(JSON.stringify(samplescount),'samplescount.json');	
+	Cfg.set({wifi:{sta:{enable:false}}});
+	Cfg.set({wifi:{ap:{enable:false}}});
 		
-	buildMsgUl();
-	print('msg',JSON.stringify(message_ul));
+	ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);
 }, null);
+
+
+// ************************************************
+// STORE/TRANSMIT LOGIC
+//
+// ************************************************
+if(WIFI_TX_FLAG === 0)
+{
+	print('Sampling and storing data');
+	buildMsgUl();
+			
+	// saving increased counter
+	samplescount.counter = samplescount.counter+1;
+	File.write(JSON.stringify(samplescount),'samplescount.json');	
+	// Enable wifi on next reboot?
+	if(samplescount.counter === COUNTS_FOR_TX-1)
+	{
+		Cfg.set({wifi:{sta:{enable:true}}});
+		Cfg.set({wifi:{ap:{enable:false}}});
+	}
+
+	print('Going to sleep for ',MINS_TO_SLEEP,' mins');
+  	ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);
+	
+}
 
 
 // ************************************************
@@ -280,54 +294,64 @@ Timer.set(10000, Timer.REPEAT, function() {
 
 MQTT.setEventHandler(function(conn,ev,data){
 
-	if(ev === MQTT.EV_CONNACK)
+	if(ev === MQTT.EV_CONNACK && WIFI_TX_FLAG === 1)
 	{
-		Net.connect({
-   // Required. Port to listen on, 'tcp://PORT' or `udp://PORT`.
-   addr: apphost+':'+appport,
-   // Optional. Called when connection is established.
-   onconnect: function(conn) {
-   		print('onconnect:');
-   		buildMsgUl();
-   		let tstr=JSON.stringify(message_ul);
-		let siz=tstr.length;
-		print("tstr:",tstr);
-   		Net.send(conn, message_header); 
- 		Net.send(conn, message_host); 
- 		Net.send(conn, message_conn); 
- 		Net.send(conn, message_type); 
- 		Net.send(conn, message_length); 		
-   		Net.send(conn, JSON.stringify(siz)+chr(13)+chr(10)); 
-   		Net.send(conn, chr(13)+chr(10)); 
-   		Net.send(conn, tstr+chr(13)+chr(10)); 
-   	}, 
-   // Optional. Called when new data is arrived.
-   ondata: function(conn, data) {
-   		print('Received from:', Net.ctos(conn, false, true, true), ':', data);    	
-    	Net.discard(conn, data.length);  // Discard received data   		
-   	},
-   // Optional. Called when protocol-specific event is triggered.
-   onevent: function(conn, data, ev, edata) {},
-   // Optional. Called when the connection is about to close.
-   onclose: function(conn) {print('onclose:')},
-   // Optional. Called when on connection error.
-   onerror: function(conn) {print('onerror:')},
-});
-
 		print('got MQTT.EV_CONNACK');
-		if (DEVICE_ARCH === 'esp32')
-			{
-				buildMsgUl();
-				// Publish thru MQTT
-				let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
-  				print('Published:', okul, topic_ul, '->', message_ul);  			
-  				// Wait for some time for downlink data before sleeping
-  				print('Waiting ',DOWNLINK_WINDOW_TIMER_SEG,' seconds for downlink data');	  				
-  				Timer.set(DOWNLINK_WINDOW_TIMER_SEG*1000, false, function (){
-  					print('Going to sleep for ',MINS_TO_SLEEP,' mins');
-  					ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);     
-  				}, null);	       										
-			}
+		buildMsgUl();
+		
+		// Sending data thru HTTP POST
+		Net.connect({
+   			// Required. Port to listen on, 'tcp://PORT' or `udp://PORT`.
+   			addr: apphost+':'+appport,
+   			// Optional. Called when connection is established.
+   			onconnect: function(conn) {
+   				print('onconnect:');   				
+   				let tstr=JSON.stringify(message_ul);
+				let siz=tstr.length;
+				print("tstr:",tstr);
+   				Net.send(conn, message_header); 
+ 				Net.send(conn, message_host); 
+ 				Net.send(conn, message_conn); 
+ 				Net.send(conn, message_type); 
+ 				Net.send(conn, message_length); 		
+   				Net.send(conn, JSON.stringify(siz)+chr(13)+chr(10)); 
+   				Net.send(conn, chr(13)+chr(10)); 
+   				Net.send(conn, tstr+chr(13)+chr(10)); 
+   			}, 
+   			// Optional. Called when new data is arrived.
+   			ondata: function(conn, data) {
+   				print('Received from:', Net.ctos(conn, false, true, true), ':', data);    	
+    			Net.discard(conn, data.length);  // Discard received data   		
+   			},
+   			// Optional. Called when protocol-specific event is triggered.
+   			onevent: function(conn, data, ev, edata) {},
+   			// Optional. Called when the connection is about to close.
+   			onclose: function(conn) {print('onclose:')},
+   			// Optional. Called when on connection error.
+   			onerror: function(conn) {print('onerror:')},
+
+		});
+
+		// Publish thru MQTT					
+		let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
+  		print('Published:', okul, topic_ul, '->', message_ul);  	
+
+		// reset counter
+		samplescount.counter = 0;
+		File.write(JSON.stringify(samplescount),'samplescount.json');	
+		print('samplescount.counter set to:',samplescount.counter);
+		// disable wifi
+		Cfg.set({wifi:{sta:{enable:false}}});
+		Cfg.set({wifi:{ap:{enable:false}}});
+		  				
+  		// Wait for some time for downlink data before sleeping
+  		print('Waiting ',DOWNLINK_WINDOW_TIMER_SEG,' seconds for downlink data');	  				  				
+  		
+  		Timer.set(DOWNLINK_WINDOW_TIMER_SEG*1000, false, function (){
+  			print('Going to sleep for ',MINS_TO_SLEEP,' mins');
+  			ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);     
+  		}, null);	       										
+  		  						  							
 	}
 
 },null);

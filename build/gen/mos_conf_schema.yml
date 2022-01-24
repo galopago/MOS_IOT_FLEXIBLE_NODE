@@ -624,3 +624,10 @@
   - test.mosquitto.org
 - - mqtt.enable
   - true
+- - testmode
+  - o
+  - title: testing mode settings
+- - testmode.enable
+  - b
+  - true
+  - title: Enable testmode

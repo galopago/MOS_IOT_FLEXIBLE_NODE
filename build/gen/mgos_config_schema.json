@@ -225,5 +225,7 @@
   ["board.btn2.pull_up", "b", {"title": "True if button is pulled up when inactive"}],
   ["board.btn3", "o", {}],
   ["board.btn3.pin", "i", {"title": "Button GPIO pin"}],
-  ["board.btn3.pull_up", "b", {"title": "True if button is pulled up when inactive"}]
+  ["board.btn3.pull_up", "b", {"title": "True if button is pulled up when inactive"}],
+  ["testmode", "o", {"title": "testing mode settings"}],
+  ["testmode.enable", "b", {"title": "Enable testmode"}]
 ]

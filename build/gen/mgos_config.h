@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_197311286/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_197311286/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_912843332/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_912843332/build/gen/mos_conf_schema.yml
  */
 
 #pragma once
@@ -734,6 +734,29 @@ static inline void mgos_config_board_free(struct mgos_config_board *cfg) {
   return mgos_conf_free(mgos_config_board_get_schema(), cfg);
 }
 
+/* testmode type struct mgos_config_testmode */
+struct mgos_config_testmode {
+  int enable;
+};
+const struct mgos_conf_entry *mgos_config_testmode_get_schema(void);
+void mgos_config_testmode_set_defaults(struct mgos_config_testmode *cfg);
+static inline bool mgos_config_testmode_parse(struct mg_str json, struct mgos_config_testmode *cfg) {
+  mgos_config_testmode_set_defaults(cfg);
+  return mgos_conf_parse_sub(json, mgos_config_testmode_get_schema(), cfg);
+}
+static inline bool mgos_config_testmode_emit(const struct mgos_config_testmode *cfg, bool pretty, struct json_out *out) {
+  return mgos_conf_emit_json_out(cfg, NULL, mgos_config_testmode_get_schema(), pretty, out);
+}
+static inline bool mgos_config_testmode_emit_f(const struct mgos_config_testmode *cfg, bool pretty, const char *fname) {
+  return mgos_conf_emit_f(cfg, NULL, mgos_config_testmode_get_schema(), pretty, fname);
+}
+static inline bool mgos_config_testmode_copy(const struct mgos_config_testmode *src, struct mgos_config_testmode *dst) {
+  return mgos_conf_copy(mgos_config_testmode_get_schema(), src, dst);
+}
+static inline void mgos_config_testmode_free(struct mgos_config_testmode *cfg) {
+  return mgos_conf_free(mgos_config_testmode_get_schema(), cfg);
+}
+
 /* <root> type struct mgos_config */
 struct mgos_config {
   struct mgos_config_debug debug;
@@ -751,6 +774,7 @@ struct mgos_config {
   struct mgos_config_mqtt mqtt1;
   struct mgos_config_wifi wifi;
   struct mgos_config_board board;
+  struct mgos_config_testmode testmode;
 };
 const struct mgos_conf_entry *mgos_config_get_schema(void);
 void mgos_config_set_defaults(struct mgos_config *cfg);
@@ -2938,6 +2962,22 @@ static inline int mgos_sys_config_get_board_btn3_pull_up(void) { return mgos_con
 static inline int mgos_sys_config_get_default_board_btn3_pull_up(void) { return mgos_config_get_default_board_btn3_pull_up(); }
 void mgos_config_set_board_btn3_pull_up(struct mgos_config *cfg, int v);
 static inline void mgos_sys_config_set_board_btn3_pull_up(int v) { mgos_config_set_board_btn3_pull_up(&mgos_sys_config, v); }
+
+/* testmode */
+#define MGOS_CONFIG_HAVE_TESTMODE
+#define MGOS_SYS_CONFIG_HAVE_TESTMODE
+const struct mgos_config_testmode *mgos_config_get_testmode(const struct mgos_config *cfg);
+static inline const struct mgos_config_testmode *mgos_sys_config_get_testmode(void) { return mgos_config_get_testmode(&mgos_sys_config); }
+
+/* testmode.enable */
+#define MGOS_CONFIG_HAVE_TESTMODE_ENABLE
+#define MGOS_SYS_CONFIG_HAVE_TESTMODE_ENABLE
+int mgos_config_get_testmode_enable(const struct mgos_config *cfg);
+int mgos_config_get_default_testmode_enable(void);
+static inline int mgos_sys_config_get_testmode_enable(void) { return mgos_config_get_testmode_enable(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_testmode_enable(void) { return mgos_config_get_default_testmode_enable(); }
+void mgos_config_set_testmode_enable(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_testmode_enable(int v) { mgos_config_set_testmode_enable(&mgos_sys_config, v); }
 
 bool mgos_sys_config_get(const struct mg_str key, struct mg_str *value);
 bool mgos_sys_config_set(const struct mg_str key, const struct mg_str value, bool free_strings);

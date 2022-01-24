@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_197311286/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_197311286/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_912843332/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_912843332/build/gen/mos_conf_schema.yml
  */
 
 #include "mgos_config.h"
@@ -13,7 +13,7 @@
 
 /* struct mgos_config */
 static const struct mgos_conf_entry mgos_config_schema_[] = {
-    {.type = CONF_TYPE_OBJECT, .key = "", .offset = 0, .num_desc = 227},
+    {.type = CONF_TYPE_OBJECT, .key = "", .offset = 0, .num_desc = 229},
     {.type = CONF_TYPE_OBJECT, .key = "debug", .offset = offsetof(struct mgos_config, debug), .num_desc = 12},
     {.type = CONF_TYPE_STRING, .key = "udp_log_addr", .offset = offsetof(struct mgos_config, debug.udp_log_addr)},
     {.type = CONF_TYPE_INT, .key = "udp_log_level", .offset = offsetof(struct mgos_config, debug.udp_log_level)},
@@ -241,6 +241,8 @@ static const struct mgos_conf_entry mgos_config_schema_[] = {
     {.type = CONF_TYPE_OBJECT, .key = "btn3", .offset = offsetof(struct mgos_config, board.btn3), .num_desc = 2},
     {.type = CONF_TYPE_INT, .key = "pin", .offset = offsetof(struct mgos_config, board.btn3.pin)},
     {.type = CONF_TYPE_BOOL, .key = "pull_up", .offset = offsetof(struct mgos_config, board.btn3.pull_up)},
+    {.type = CONF_TYPE_OBJECT, .key = "testmode", .offset = offsetof(struct mgos_config, testmode), .num_desc = 1},
+    {.type = CONF_TYPE_BOOL, .key = "enable", .offset = offsetof(struct mgos_config, testmode.enable)},
 };
 
 /* struct mgos_config_debug */
@@ -663,6 +665,15 @@ void mgos_config_board_set_defaults(struct mgos_config_board *cfg) {
   mgos_config_board_btn3_set_defaults(&cfg->btn3);
 }
 
+/* struct mgos_config_testmode */
+const struct mgos_conf_entry *mgos_config_testmode_get_schema(void) {
+  return &mgos_config_schema_[228];
+}
+
+void mgos_config_testmode_set_defaults(struct mgos_config_testmode *cfg) {
+  cfg->enable = true;
+}
+
 /* struct mgos_config */
 const struct mgos_conf_entry *mgos_config_get_schema(void) {
   return &mgos_config_schema_[0];
@@ -684,6 +695,7 @@ void mgos_config_set_defaults(struct mgos_config *cfg) {
   mgos_config_mqtt1_set_defaults(&cfg->mqtt1);
   mgos_config_wifi_set_defaults(&cfg->wifi);
   mgos_config_board_set_defaults(&cfg->board);
+  mgos_config_testmode_set_defaults(&cfg->testmode);
 }
 
 /* Global instance */
@@ -1773,6 +1785,14 @@ void mgos_config_set_board_btn3_pin(struct mgos_config *cfg, int v) { cfg->board
 int mgos_config_get_board_btn3_pull_up(const struct mgos_config *cfg) { return cfg->board.btn3.pull_up; }
 int mgos_config_get_default_board_btn3_pull_up(void) { return false; }
 void mgos_config_set_board_btn3_pull_up(struct mgos_config *cfg, int v) { cfg->board.btn3.pull_up = v; }
+
+/* testmode */
+const struct mgos_config_testmode *mgos_config_get_testmode(const struct mgos_config *cfg) { return &cfg->testmode; }
+
+/* testmode.enable */
+int mgos_config_get_testmode_enable(const struct mgos_config *cfg) { return cfg->testmode.enable; }
+int mgos_config_get_default_testmode_enable(void) { return true; }
+void mgos_config_set_testmode_enable(struct mgos_config *cfg, int v) { cfg->testmode.enable = v; }
 bool mgos_sys_config_get(const struct mg_str key, struct mg_str *value) {
   return mgos_config_get(key, value, &mgos_sys_config, mgos_config_schema());
 }
