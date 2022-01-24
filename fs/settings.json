@@ -10,4 +10,5 @@
 "minstosleep":2,
 "segsnonetimeout":120,
 "segsdownlinktime":7,
+"countsfortx":5
 }

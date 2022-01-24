@@ -24,6 +24,7 @@ let MINS_TO_SLEEP =					2;
 let NO_NET_TIMEOUT_SEG = 			120;
 let DOWNLINK_WINDOW_TIMER_SEG = 	7;
 let ENABLED_ONBOARD_DEBUG_LED = 	1;
+let COUNTS_FOR_TX =					5;
 
 let DEVICE_ARCH;
 let DEVICE_ID;
@@ -37,7 +38,6 @@ RPC.call(RPC.LOCAL, 'Sys.GetInfo', null, function(resp, ud) {
 let topic_ul =				'/mosiotnode/uplink';
 let topic_conf_ul =			'/mosiotnode/sendconf';
 let topic_dl =				'/mosiotnode/'+DEVICE_ID+'/downlink';
-//let topic_conf_dl =			'/mosiotnode/'+DEVICE_ID+'/readconf';
 let apphost =				'galopago-iotnode.herokuapp.com';
 let appport =				'80';
 
@@ -50,6 +50,7 @@ let message_length =		'Content-Length: ';
 
 // Reading config values from file, if a key not found, harcoded value used instead
 let settings = JSON.parse(File.read('settings.json'));
+
 if(settings.gpioboardled)
 { GPIOBOARDLED=settings.gpioboardled;}
 if(settings.minstosleep)
@@ -72,6 +73,8 @@ if(settings.segsnonetimeout)
 {NO_NET_TIMEOUT_SEG=settings.segsnonetimeout;}
 if(settings.segsdownlinktime)
 {DOWNLINK_WINDOW_TIMER_SEG=settings.segsdownlinktime;}
+if(settings.countsfortx)
+{COUNTS_FOR_TX=settings.countsfortx;}
 
 print('Actual setup values:');
 print('DEVICE_ID:',DEVICE_ID);
@@ -85,8 +88,19 @@ print('ADCR2:',ADCR2);
 print('MINS_TO_SLEEP:',MINS_TO_SLEEP);
 print('NO_NET_TIMEOUT_SEG:',NO_NET_TIMEOUT_SEG);
 print('DOWNLINK_WINDOW_TIMER_SEG:',DOWNLINK_WINDOW_TIMER_SEG);
+print('COUNTS_FOR_TX',COUNTS_FOR_TX);
 
+// Reading samples count from file to determine if a WiFi transmission is needed
+let samplescount = JSON.parse(File.read('samplescount.json'));
 
+if(samplescount.counter !== null)
+{ 
+	let cntr = samplescount.counter;
+	print('samplescount.counter:',cntr);
+	// saving increased counter
+	samplescount.counter = samplescount.counter+1;
+	File.write(JSON.stringify(samplescount),'samplescount.json');
+}
 	
 // *** onboard debug LED setup //
 GPIO.set_pull(GPIOBOARDLED,GPIO.PULL_NONE);
@@ -326,41 +340,41 @@ MQTT.sub(topic_dl,function(conn,topic,msg){
 	print('Topic:', topic, 'message:', msg);		
 	let conf_dl = JSON.parse(msg);	
 		
-	if(conf_dl.gpioboardled)
+	if(conf_dl.gpioboardled !== null)
 	{settings.gpioboardled = conf_dl.gpioboardled;}
 	
-	if(conf_dl.minstosleep)
+	if(conf_dl.minstosleep !== null)
 	{settings.minstosleep = conf_dl.minstosleep;}
 	
-	if(conf_dl.enabledled)
+	if(conf_dl.enabledled !== null)
 	{settings.enabledled = conf_dl.enabledled;}
 	
-	if(conf_dl.gpioadc)
+	if(conf_dl.gpioadc !== null)
 	{settings.gpioadc=conf_dl.gpioadc;}
 
-	if(conf_dl.gpiods18b20)
+	if(conf_dl.gpiods18b20 !== null)
 	{settings.gpiods18b20=conf_dl.gpiods18b20;}
 
-	if(conf_dl.adcr1)
+	if(conf_dl.adcr1 !== null)
 	{settings.adcr1=conf_dl.adcr1;}
 
-	if(conf_dl.adcr2)
+	if(conf_dl.adcr2 !== null)
 	{settings.adcr2=conf_dl.adcr2;}
 	
-	if(conf_dl.adcalfac)
+	if(conf_dl.adcalfac !== null)
 	{settings.adcalfac=conf_dl.adcalfac;}
 
-	if(conf_dl.minstosleep)
+	if(conf_dl.minstosleep !== null)
 	{settings.minstosleep=conf_dl.minstosleep;}
 	
-	if(conf_dl.segsnonetimeout)
+	if(conf_dl.segsnonetimeout !== null)
 	{conf_dl.segsnonetimeout=settings.segsnonetimeout;}
 
-	if(conf_dl.segsdownlinktime)
+	if(conf_dl.segsdownlinktime !== null)
 	{settings.segsdownlinktime=conf_dl.segsdownlinktime;}
 	
 	// {"readconf":true} publish actual setup
-	if(conf_dl.readconf)
+	if(conf_dl.readconf !== null )
 	{
 		if(conf_dl.readconf === true)
 		{
@@ -375,7 +389,7 @@ MQTT.sub(topic_dl,function(conn,topic,msg){
 	File.write(JSON.stringify(settings),'settings.json');
 	
 	// {"reboot":true} reboot system now
-	if(conf_dl.reboot )
+	if(conf_dl.reboot !== null)
 	{
 		if(conf_dl.reboot === true)
 		{
