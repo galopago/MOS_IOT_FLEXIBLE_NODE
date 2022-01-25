@@ -269,10 +269,11 @@ if(WIFI_TX_FLAG === 0 && TESTMODE === false )
 	print('Sampling and storing data');
 	buildMsgUl();
 	
-	DSTORE = File.read('datastore.ndjson');
-	DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
+	DSTORE = File.read('datastore.json');
+	//DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
+	DSTORE = DSTORE+JSON.stringify(message_ul)+',';
 	print('DSTORE:',DSTORE);
-	File.write(DSTORE,'datastore.ndjson');	
+	File.write(DSTORE,'datastore.json');	
 					
 	// saving increased counter
 	samplescount.counter = samplescount.counter+1;
@@ -301,10 +302,11 @@ MQTT.setEventHandler(function(conn,ev,data){
 		print('got MQTT.EV_CONNACK');
 		buildMsgUl();
 		
-		DSTORE = File.read('datastore.ndjson');
-		DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
+		DSTORE = File.read('datastore.json');
+		//DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
+		DSTORE = DSTORE+JSON.stringify(message_ul)+',';
 		print('DSTORE:',DSTORE);
-		File.write(DSTORE,'datastore.ndjson');	
+		File.write(DSTORE,'datastore.json');	
 
 		// Sending data thru HTTP POST
 		Net.connect({
@@ -314,7 +316,7 @@ MQTT.setEventHandler(function(conn,ev,data){
    			onconnect: function(conn) {
    				print('onconnect:');   				
    				//let tstr=JSON.stringify(message_ul);
-				let tstr=DSTORE;
+   				let tstr='['+DSTORE.slice(0,-1)+']';						
 				let siz=tstr.length;
 				print("tstr:",tstr);
 				print("tstr.length",tstr.length);
@@ -343,8 +345,11 @@ MQTT.setEventHandler(function(conn,ev,data){
 
 		// Publish thru MQTT					
 		//let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
-		let okul = MQTT.pub(topic_ul, DSTORE, 1);		
-  		print('Published:', okul, topic_ul, '->', DSTORE);  	
+		
+		let tstr='['+DSTORE.slice(0,-1)+']';		
+		//let siz=tstr.length;
+		let okul = MQTT.pub(topic_ul, tstr, 1);		
+  		print('Published:', okul, topic_ul, '->', tstr);  	
 				  				
   		// Wait for some time for downlink data before sleeping
   		print('Waiting ',DOWNLINK_WINDOW_TIMER_SEG,' seconds for downlink data');	  				  				
@@ -361,7 +366,7 @@ MQTT.setEventHandler(function(conn,ev,data){
 		
 			// Delete data storage
 			DSTORE='';
-			File.write(DSTORE,'datastore.ndjson');	
+			File.write(DSTORE,'datastore.json');	
 			
   			print('Going to sleep for ',MINS_TO_SLEEP,' mins');
   			ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);     

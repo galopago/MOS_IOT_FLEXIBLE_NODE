@@ -654,3 +654,11 @@
   - b
   - true
   - title: Enable testmode
+- - sys
+  - o
+  - title: System settings
+- - sys.tz_spec
+  - s
+  - COT
+  - title: 'See formats for the TZ env var: "man tzset". Formats like ":/path/to/file"
+      are not supported'

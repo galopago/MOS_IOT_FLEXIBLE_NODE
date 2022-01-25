@@ -2,7 +2,7 @@
 "gpioboardled":2,
 "enabledled":1,
 "gpioadc":34, 
-"gpiods18b20":25, 
+"gpiods18b20":26, 
 "adcr1":68, 
 "adcr2":20, 
 "minstosleep":3,
