@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_932266748/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_932266748/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_140520598/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_140520598/build/gen/mos_conf_schema.yml
  */
 
 #include "mgos_config.h"
@@ -279,7 +279,7 @@ const struct mgos_conf_entry *mgos_config_sys_get_schema(void) {
 void mgos_config_sys_set_defaults(struct mgos_config_sys *cfg) {
   cfg->esp32_adc_vref = 0;
   cfg->esp32_adc_width = 3;
-  cfg->tz_spec = "COT";
+  cfg->tz_spec = "<+05>5";
   cfg->wdt_timeout = 30;
   cfg->pref_ota_lib = NULL;
 }
@@ -801,7 +801,7 @@ void mgos_config_set_sys_esp32_adc_width(struct mgos_config *cfg, int v) { cfg->
 
 /* sys.tz_spec */
 const char * mgos_config_get_sys_tz_spec(const struct mgos_config *cfg) { return cfg->sys.tz_spec; }
-const char * mgos_config_get_default_sys_tz_spec(void) { return "COT"; }
+const char * mgos_config_get_default_sys_tz_spec(void) { return "<+05>5"; }
 void mgos_config_set_sys_tz_spec(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->sys.tz_spec, v); }
 
 /* sys.wdt_timeout */
@@ -1859,8 +1859,8 @@ static const char *mgos_config_str_table[] = {
   "192.168.4.100",
   "192.168.4.2",
   "255.255.255.0",
+  "<+05>5",
   "BGN",
-  "COT",
   "Mongoose",
   "Mongoose_??????",
   "RPC",

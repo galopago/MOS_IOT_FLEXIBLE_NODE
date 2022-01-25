@@ -107,9 +107,16 @@ print('TESTMODE:',TESTMODE);
 GPIO.set_pull(GPIOBOARDLED,GPIO.PULL_NONE);
 GPIO.set_mode(GPIOBOARDLED,GPIO.MODE_OUTPUT);
 
-// If enabled stay ON while processor is awake
+// If enabled stay ON while processor is awake during sample and blinking while WiFi tx
 if ( ENABLED_ONBOARD_DEBUG_LED !== 0)
-{GPIO.write(GPIOBOARDLED,1);}
+{
+	if(WIFI_TX_FLAG === 1)
+	{
+		GPIO.blink(GPIOBOARDLED,250,250);
+	}
+	else
+	{GPIO.write(GPIOBOARDLED,1);}
+}
 
 // *** ADC for battery voltage //
 ADC.enable(GPIOADC);
