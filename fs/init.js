@@ -30,6 +30,7 @@ let DEVICE_ARCH;
 let DEVICE_ID;
 let WIFI_TX_FLAG;
 let TESTMODE;
+let DSTORE;
 
 // read self device info
 DEVICE_ID=Cfg.get('device.id');
@@ -41,7 +42,7 @@ let topic_dl =				'/mosiotnode/'+DEVICE_ID+'/downlink';
 let apphost =				'galopago-iotnode.herokuapp.com';
 let appport =				'80';
 
-let message_ul=				{"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0};
+let message_ul=				{"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0,"timestamp":""};
 let message_header =		'POST /dbpost HTTP/1.1'+chr(13)+chr(10); 
 let message_host =			'Host: '+apphost+chr(13)+chr(10); 
 let message_conn =			'Connection: close'+chr(13)+chr(10); 
@@ -80,7 +81,6 @@ print('Actual setup values:');
 print('---------------------------');
 print('DEVICE_ID:                 ',DEVICE_ID);
 print('GPIOBOARDLED:              ',GPIOBOARDLED);
-print('MINS_TO_SLEEP:             ',MINS_TO_SLEEP);
 print('ENABLED_ONBOARD_DEBUG_LED: ',ENABLED_ONBOARD_DEBUG_LED);
 print('GPIOADC:                   ',GPIOADC);	
 print('GPIODS18B20:               ',GPIODS18B20);
@@ -91,6 +91,7 @@ print('NO_NET_TIMEOUT_SEG:        ',NO_NET_TIMEOUT_SEG);
 print('DOWNLINK_WINDOW_TIMER_SEG: ',DOWNLINK_WINDOW_TIMER_SEG);
 print('COUNTS_FOR_TX              ',COUNTS_FOR_TX);
 print('---------------------------');
+
 // Reading samples count from file to determine if a WiFi transmission is needed
 let samplescount = JSON.parse(File.read('samplescount.json'));
 
@@ -108,9 +109,7 @@ GPIO.set_mode(GPIOBOARDLED,GPIO.MODE_OUTPUT);
 
 // If enabled stay ON while processor is awake
 if ( ENABLED_ONBOARD_DEBUG_LED !== 0)
-{
-	GPIO.write(GPIOBOARDLED,1);
-}
+{GPIO.write(GPIOBOARDLED,1);}
 
 // *** ADC for battery voltage //
 ADC.enable(GPIOADC);
@@ -177,16 +176,12 @@ function roundNdigitsTostr(number,digits){
 	{
 		let zeros = digits - actualdecimals;
 		for( let i=0; i<zeros; i++ )
-			{
-				strtempc = strtempc+'0'
-			}
+			{strtempc = strtempc+'0'}
 	}
 	
 	// digits need to be clipped
 	if(actualdecimals > digits)
-	{
-		strtempc=strtempc.slice(0,indexofdot+digits+1);				
-	}
+	{strtempc=strtempc.slice(0,indexofdot+digits+1);}
 	
 	return strtempc	;
 
@@ -246,7 +241,8 @@ function buildMsgUl(){
 	message_ul.temperature_int=intTemperatureCstr;	
 	let batVstr = getBatV();
 	message_ul.battery=roundNdigitsTostr(batVstr,2);
-		
+	let timenow = Timer.now();	
+	message_ul.timestamp = timenow;
 }
 // ************************************************
 // No network connection timeout
@@ -267,11 +263,16 @@ Timer.set(NO_NET_TIMEOUT_SEG*1000, 0, function() {
 // STORE/TRANSMIT LOGIC
 //
 // ************************************************
-if(WIFI_TX_FLAG === 0)
+if(WIFI_TX_FLAG === 0 && TESTMODE === false )
 {
 	print('Sampling and storing data');
 	buildMsgUl();
-			
+	
+	DSTORE = File.read('datastore.ndjson');
+	DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
+	print('DSTORE:',DSTORE);
+	File.write(DSTORE,'datastore.ndjson');	
+					
 	// saving increased counter
 	samplescount.counter = samplescount.counter+1;
 	File.write(JSON.stringify(samplescount),'samplescount.json');	
@@ -299,6 +300,11 @@ MQTT.setEventHandler(function(conn,ev,data){
 		print('got MQTT.EV_CONNACK');
 		buildMsgUl();
 		
+		DSTORE = File.read('datastore.ndjson');
+		DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
+		print('DSTORE:',DSTORE);
+		File.write(DSTORE,'datastore.ndjson');	
+
 		// Sending data thru HTTP POST
 		Net.connect({
    			// Required. Port to listen on, 'tcp://PORT' or `udp://PORT`.
@@ -306,7 +312,8 @@ MQTT.setEventHandler(function(conn,ev,data){
    			// Optional. Called when connection is established.
    			onconnect: function(conn) {
    				print('onconnect:');   				
-   				let tstr=JSON.stringify(message_ul);
+   				//let tstr=JSON.stringify(message_ul);
+				let tstr=DSTORE;
 				let siz=tstr.length;
 				print("tstr:",tstr);
    				Net.send(conn, message_header); 
@@ -333,8 +340,9 @@ MQTT.setEventHandler(function(conn,ev,data){
 		});
 
 		// Publish thru MQTT					
-		let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
-  		print('Published:', okul, topic_ul, '->', message_ul);  	
+		//let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
+		let okul = MQTT.pub(topic_ul, DSTORE, 1);		
+  		print('Published:', okul, topic_ul, '->', DSTORE);  	
 
 		// reset counter
 		samplescount.counter = 0;
@@ -343,6 +351,10 @@ MQTT.setEventHandler(function(conn,ev,data){
 		// disable wifi
 		Cfg.set({wifi:{sta:{enable:false}}});
 		Cfg.set({wifi:{ap:{enable:false}}});
+		
+		// Delete data storage
+		DSTORE='';
+		File.write(DSTORE,'datastore.ndjson');	
 		  				
   		// Wait for some time for downlink data before sleeping
   		print('Waiting ',DOWNLINK_WINDOW_TIMER_SEG,' seconds for downlink data');	  				  				
@@ -416,9 +428,7 @@ MQTT.sub(topic_dl,function(conn,topic,msg){
 	if(conf_dl.reboot !== null)
 	{
 		if(conf_dl.reboot === true)
-		{
-			Sys.reboot(1);
-		}		
+		{Sys.reboot(1);}		
 	}		
 
 	
