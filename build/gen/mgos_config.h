@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_261866506/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_261866506/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_684827138/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_684827138/build/gen/mos_conf_schema.yml
  */
 
 #pragma once
@@ -416,6 +416,33 @@ static inline void mgos_config_mqtt1_free(struct mgos_config_mqtt *cfg) {
   return mgos_conf_free(mgos_config_mqtt1_get_schema(), cfg);
 }
 
+/* sntp type struct mgos_config_sntp */
+struct mgos_config_sntp {
+  int enable;
+  const char * server;
+  int retry_min;
+  int retry_max;
+  int update_interval;
+};
+const struct mgos_conf_entry *mgos_config_sntp_get_schema(void);
+void mgos_config_sntp_set_defaults(struct mgos_config_sntp *cfg);
+static inline bool mgos_config_sntp_parse(struct mg_str json, struct mgos_config_sntp *cfg) {
+  mgos_config_sntp_set_defaults(cfg);
+  return mgos_conf_parse_sub(json, mgos_config_sntp_get_schema(), cfg);
+}
+static inline bool mgos_config_sntp_emit(const struct mgos_config_sntp *cfg, bool pretty, struct json_out *out) {
+  return mgos_conf_emit_json_out(cfg, NULL, mgos_config_sntp_get_schema(), pretty, out);
+}
+static inline bool mgos_config_sntp_emit_f(const struct mgos_config_sntp *cfg, bool pretty, const char *fname) {
+  return mgos_conf_emit_f(cfg, NULL, mgos_config_sntp_get_schema(), pretty, fname);
+}
+static inline bool mgos_config_sntp_copy(const struct mgos_config_sntp *src, struct mgos_config_sntp *dst) {
+  return mgos_conf_copy(mgos_config_sntp_get_schema(), src, dst);
+}
+static inline void mgos_config_sntp_free(struct mgos_config_sntp *cfg) {
+  return mgos_conf_free(mgos_config_sntp_get_schema(), cfg);
+}
+
 /* wifi.ap type struct mgos_config_wifi_ap */
 struct mgos_config_wifi_ap {
   int enable;
@@ -772,6 +799,7 @@ struct mgos_config {
   struct mgos_config_mjs mjs;
   struct mgos_config_mqtt mqtt;
   struct mgos_config_mqtt mqtt1;
+  struct mgos_config_sntp sntp;
   struct mgos_config_wifi wifi;
   struct mgos_config_board board;
   struct mgos_config_testmode testmode;
@@ -2110,6 +2138,62 @@ static inline int mgos_sys_config_get_mqtt1_max_queue_length(void) { return mgos
 static inline int mgos_sys_config_get_default_mqtt1_max_queue_length(void) { return mgos_config_get_default_mqtt1_max_queue_length(); }
 void mgos_config_set_mqtt1_max_queue_length(struct mgos_config *cfg, int v);
 static inline void mgos_sys_config_set_mqtt1_max_queue_length(int v) { mgos_config_set_mqtt1_max_queue_length(&mgos_sys_config, v); }
+
+/* sntp */
+#define MGOS_CONFIG_HAVE_SNTP
+#define MGOS_SYS_CONFIG_HAVE_SNTP
+const struct mgos_config_sntp *mgos_config_get_sntp(const struct mgos_config *cfg);
+static inline const struct mgos_config_sntp *mgos_sys_config_get_sntp(void) { return mgos_config_get_sntp(&mgos_sys_config); }
+
+/* sntp.enable */
+#define MGOS_CONFIG_HAVE_SNTP_ENABLE
+#define MGOS_SYS_CONFIG_HAVE_SNTP_ENABLE
+int mgos_config_get_sntp_enable(const struct mgos_config *cfg);
+int mgos_config_get_default_sntp_enable(void);
+static inline int mgos_sys_config_get_sntp_enable(void) { return mgos_config_get_sntp_enable(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sntp_enable(void) { return mgos_config_get_default_sntp_enable(); }
+void mgos_config_set_sntp_enable(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sntp_enable(int v) { mgos_config_set_sntp_enable(&mgos_sys_config, v); }
+
+/* sntp.server */
+#define MGOS_CONFIG_HAVE_SNTP_SERVER
+#define MGOS_SYS_CONFIG_HAVE_SNTP_SERVER
+const char * mgos_config_get_sntp_server(const struct mgos_config *cfg);
+const char * mgos_config_get_default_sntp_server(void);
+static inline const char * mgos_sys_config_get_sntp_server(void) { return mgos_config_get_sntp_server(&mgos_sys_config); }
+static inline const char * mgos_sys_config_get_default_sntp_server(void) { return mgos_config_get_default_sntp_server(); }
+void mgos_config_set_sntp_server(struct mgos_config *cfg, const char * v);
+static inline void mgos_sys_config_set_sntp_server(const char * v) { mgos_config_set_sntp_server(&mgos_sys_config, v); }
+
+/* sntp.retry_min */
+#define MGOS_CONFIG_HAVE_SNTP_RETRY_MIN
+#define MGOS_SYS_CONFIG_HAVE_SNTP_RETRY_MIN
+int mgos_config_get_sntp_retry_min(const struct mgos_config *cfg);
+int mgos_config_get_default_sntp_retry_min(void);
+static inline int mgos_sys_config_get_sntp_retry_min(void) { return mgos_config_get_sntp_retry_min(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sntp_retry_min(void) { return mgos_config_get_default_sntp_retry_min(); }
+void mgos_config_set_sntp_retry_min(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sntp_retry_min(int v) { mgos_config_set_sntp_retry_min(&mgos_sys_config, v); }
+
+/* sntp.retry_max */
+#define MGOS_CONFIG_HAVE_SNTP_RETRY_MAX
+#define MGOS_SYS_CONFIG_HAVE_SNTP_RETRY_MAX
+int mgos_config_get_sntp_retry_max(const struct mgos_config *cfg);
+int mgos_config_get_default_sntp_retry_max(void);
+static inline int mgos_sys_config_get_sntp_retry_max(void) { return mgos_config_get_sntp_retry_max(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sntp_retry_max(void) { return mgos_config_get_default_sntp_retry_max(); }
+void mgos_config_set_sntp_retry_max(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sntp_retry_max(int v) { mgos_config_set_sntp_retry_max(&mgos_sys_config, v); }
+
+/* sntp.update_interval */
+#define MGOS_CONFIG_HAVE_SNTP_UPDATE_INTERVAL
+#define MGOS_SYS_CONFIG_HAVE_SNTP_UPDATE_INTERVAL
+int mgos_config_get_sntp_update_interval(const struct mgos_config *cfg);
+int mgos_config_get_default_sntp_update_interval(void);
+static inline int mgos_sys_config_get_sntp_update_interval(void) { return mgos_config_get_sntp_update_interval(&mgos_sys_config); }
+static inline int mgos_sys_config_get_default_sntp_update_interval(void) { return mgos_config_get_default_sntp_update_interval(); }
+void mgos_config_set_sntp_update_interval(struct mgos_config *cfg, int v);
+static inline void mgos_sys_config_set_sntp_update_interval(int v) { mgos_config_set_sntp_update_interval(&mgos_sys_config, v); }
 
 /* wifi */
 #define MGOS_CONFIG_HAVE_WIFI

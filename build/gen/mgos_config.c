@@ -1,7 +1,7 @@
 /* clang-format off */
 /*
  * Generated file - do not edit.
- * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_261866506/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_261866506/build/gen/mos_conf_schema.yml
+ * Command: /mongoose-os/tools/mgos_gen_config.py --c_name=mgos_config --c_global_name=mgos_sys_config --dest_dir=/data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_684827138/build/gen/ /mongoose-os/src/mgos_debug_udp_config.yaml /mongoose-os/platforms/esp32/src/esp32_sys_config.yaml /data/fwbuild-volumes/2.19.1/apps/MOS_IOT_FLEXIBLE_NODE/esp32/build_contexts/build_ctx_684827138/build/gen/mos_conf_schema.yml
  */
 
 #include "mgos_config.h"
@@ -13,7 +13,7 @@
 
 /* struct mgos_config */
 static const struct mgos_conf_entry mgos_config_schema_[] = {
-    {.type = CONF_TYPE_OBJECT, .key = "", .offset = 0, .num_desc = 229},
+    {.type = CONF_TYPE_OBJECT, .key = "", .offset = 0, .num_desc = 235},
     {.type = CONF_TYPE_OBJECT, .key = "debug", .offset = offsetof(struct mgos_config, debug), .num_desc = 12},
     {.type = CONF_TYPE_STRING, .key = "udp_log_addr", .offset = offsetof(struct mgos_config, debug.udp_log_addr)},
     {.type = CONF_TYPE_INT, .key = "udp_log_level", .offset = offsetof(struct mgos_config, debug.udp_log_level)},
@@ -151,6 +151,12 @@ static const struct mgos_conf_entry mgos_config_schema_[] = {
     {.type = CONF_TYPE_BOOL, .key = "require_time", .offset = offsetof(struct mgos_config, mqtt1.require_time)},
     {.type = CONF_TYPE_BOOL, .key = "cloud_events", .offset = offsetof(struct mgos_config, mqtt1.cloud_events)},
     {.type = CONF_TYPE_INT, .key = "max_queue_length", .offset = offsetof(struct mgos_config, mqtt1.max_queue_length)},
+    {.type = CONF_TYPE_OBJECT, .key = "sntp", .offset = offsetof(struct mgos_config, sntp), .num_desc = 5},
+    {.type = CONF_TYPE_BOOL, .key = "enable", .offset = offsetof(struct mgos_config, sntp.enable)},
+    {.type = CONF_TYPE_STRING, .key = "server", .offset = offsetof(struct mgos_config, sntp.server)},
+    {.type = CONF_TYPE_INT, .key = "retry_min", .offset = offsetof(struct mgos_config, sntp.retry_min)},
+    {.type = CONF_TYPE_INT, .key = "retry_max", .offset = offsetof(struct mgos_config, sntp.retry_max)},
+    {.type = CONF_TYPE_INT, .key = "update_interval", .offset = offsetof(struct mgos_config, sntp.update_interval)},
     {.type = CONF_TYPE_OBJECT, .key = "wifi", .offset = offsetof(struct mgos_config, wifi), .num_desc = 70},
     {.type = CONF_TYPE_OBJECT, .key = "ap", .offset = offsetof(struct mgos_config, wifi.ap), .num_desc = 17},
     {.type = CONF_TYPE_BOOL, .key = "enable", .offset = offsetof(struct mgos_config, wifi.ap.enable)},
@@ -481,9 +487,22 @@ void mgos_config_mqtt1_set_defaults(struct mgos_config_mqtt *cfg) {
   cfg->max_queue_length = 5;
 }
 
+/* struct mgos_config_sntp */
+const struct mgos_conf_entry *mgos_config_sntp_get_schema(void) {
+  return &mgos_config_schema_[138];
+}
+
+void mgos_config_sntp_set_defaults(struct mgos_config_sntp *cfg) {
+  cfg->enable = true;
+  cfg->server = "time.google.com";
+  cfg->retry_min = 1;
+  cfg->retry_max = 30;
+  cfg->update_interval = 7200;
+}
+
 /* struct mgos_config_wifi_ap */
 const struct mgos_conf_entry *mgos_config_wifi_ap_get_schema(void) {
-  return &mgos_config_schema_[139];
+  return &mgos_config_schema_[145];
 }
 
 void mgos_config_wifi_ap_set_defaults(struct mgos_config_wifi_ap *cfg) {
@@ -508,7 +527,7 @@ void mgos_config_wifi_ap_set_defaults(struct mgos_config_wifi_ap *cfg) {
 
 /* struct mgos_config_wifi_sta */
 const struct mgos_conf_entry *mgos_config_wifi_sta_get_schema(void) {
-  return &mgos_config_schema_[189];
+  return &mgos_config_schema_[195];
 }
 
 void mgos_config_wifi_sta_set_defaults(struct mgos_config_wifi_sta *cfg) {
@@ -531,7 +550,7 @@ void mgos_config_wifi_sta_set_defaults(struct mgos_config_wifi_sta *cfg) {
 
 /* struct mgos_config_wifi_sta */
 const struct mgos_conf_entry *mgos_config_wifi_sta1_get_schema(void) {
-  return &mgos_config_schema_[189];
+  return &mgos_config_schema_[195];
 }
 
 void mgos_config_wifi_sta1_set_defaults(struct mgos_config_wifi_sta *cfg) {
@@ -554,7 +573,7 @@ void mgos_config_wifi_sta1_set_defaults(struct mgos_config_wifi_sta *cfg) {
 
 /* struct mgos_config_wifi_sta */
 const struct mgos_conf_entry *mgos_config_wifi_sta2_get_schema(void) {
-  return &mgos_config_schema_[189];
+  return &mgos_config_schema_[195];
 }
 
 void mgos_config_wifi_sta2_set_defaults(struct mgos_config_wifi_sta *cfg) {
@@ -577,7 +596,7 @@ void mgos_config_wifi_sta2_set_defaults(struct mgos_config_wifi_sta *cfg) {
 
 /* struct mgos_config_wifi */
 const struct mgos_conf_entry *mgos_config_wifi_get_schema(void) {
-  return &mgos_config_schema_[138];
+  return &mgos_config_schema_[144];
 }
 
 void mgos_config_wifi_set_defaults(struct mgos_config_wifi *cfg) {
@@ -593,7 +612,7 @@ void mgos_config_wifi_set_defaults(struct mgos_config_wifi *cfg) {
 
 /* struct mgos_config_board_led1 */
 const struct mgos_conf_entry *mgos_config_board_led1_get_schema(void) {
-  return &mgos_config_schema_[210];
+  return &mgos_config_schema_[216];
 }
 
 void mgos_config_board_led1_set_defaults(struct mgos_config_board_led1 *cfg) {
@@ -603,7 +622,7 @@ void mgos_config_board_led1_set_defaults(struct mgos_config_board_led1 *cfg) {
 
 /* struct mgos_config_board_led2 */
 const struct mgos_conf_entry *mgos_config_board_led2_get_schema(void) {
-  return &mgos_config_schema_[213];
+  return &mgos_config_schema_[219];
 }
 
 void mgos_config_board_led2_set_defaults(struct mgos_config_board_led2 *cfg) {
@@ -613,7 +632,7 @@ void mgos_config_board_led2_set_defaults(struct mgos_config_board_led2 *cfg) {
 
 /* struct mgos_config_board_led3 */
 const struct mgos_conf_entry *mgos_config_board_led3_get_schema(void) {
-  return &mgos_config_schema_[216];
+  return &mgos_config_schema_[222];
 }
 
 void mgos_config_board_led3_set_defaults(struct mgos_config_board_led3 *cfg) {
@@ -623,7 +642,7 @@ void mgos_config_board_led3_set_defaults(struct mgos_config_board_led3 *cfg) {
 
 /* struct mgos_config_board_btn1 */
 const struct mgos_conf_entry *mgos_config_board_btn1_get_schema(void) {
-  return &mgos_config_schema_[219];
+  return &mgos_config_schema_[225];
 }
 
 void mgos_config_board_btn1_set_defaults(struct mgos_config_board_btn1 *cfg) {
@@ -633,7 +652,7 @@ void mgos_config_board_btn1_set_defaults(struct mgos_config_board_btn1 *cfg) {
 
 /* struct mgos_config_board_btn2 */
 const struct mgos_conf_entry *mgos_config_board_btn2_get_schema(void) {
-  return &mgos_config_schema_[222];
+  return &mgos_config_schema_[228];
 }
 
 void mgos_config_board_btn2_set_defaults(struct mgos_config_board_btn2 *cfg) {
@@ -643,7 +662,7 @@ void mgos_config_board_btn2_set_defaults(struct mgos_config_board_btn2 *cfg) {
 
 /* struct mgos_config_board_btn3 */
 const struct mgos_conf_entry *mgos_config_board_btn3_get_schema(void) {
-  return &mgos_config_schema_[225];
+  return &mgos_config_schema_[231];
 }
 
 void mgos_config_board_btn3_set_defaults(struct mgos_config_board_btn3 *cfg) {
@@ -653,7 +672,7 @@ void mgos_config_board_btn3_set_defaults(struct mgos_config_board_btn3 *cfg) {
 
 /* struct mgos_config_board */
 const struct mgos_conf_entry *mgos_config_board_get_schema(void) {
-  return &mgos_config_schema_[209];
+  return &mgos_config_schema_[215];
 }
 
 void mgos_config_board_set_defaults(struct mgos_config_board *cfg) {
@@ -667,7 +686,7 @@ void mgos_config_board_set_defaults(struct mgos_config_board *cfg) {
 
 /* struct mgos_config_testmode */
 const struct mgos_conf_entry *mgos_config_testmode_get_schema(void) {
-  return &mgos_config_schema_[228];
+  return &mgos_config_schema_[234];
 }
 
 void mgos_config_testmode_set_defaults(struct mgos_config_testmode *cfg) {
@@ -693,6 +712,7 @@ void mgos_config_set_defaults(struct mgos_config *cfg) {
   mgos_config_mjs_set_defaults(&cfg->mjs);
   mgos_config_mqtt_set_defaults(&cfg->mqtt);
   mgos_config_mqtt1_set_defaults(&cfg->mqtt1);
+  mgos_config_sntp_set_defaults(&cfg->sntp);
   mgos_config_wifi_set_defaults(&cfg->wifi);
   mgos_config_board_set_defaults(&cfg->board);
   mgos_config_testmode_set_defaults(&cfg->testmode);
@@ -1360,6 +1380,34 @@ int mgos_config_get_mqtt1_max_queue_length(const struct mgos_config *cfg) { retu
 int mgos_config_get_default_mqtt1_max_queue_length(void) { return 5; }
 void mgos_config_set_mqtt1_max_queue_length(struct mgos_config *cfg, int v) { cfg->mqtt1.max_queue_length = v; }
 
+/* sntp */
+const struct mgos_config_sntp *mgos_config_get_sntp(const struct mgos_config *cfg) { return &cfg->sntp; }
+
+/* sntp.enable */
+int mgos_config_get_sntp_enable(const struct mgos_config *cfg) { return cfg->sntp.enable; }
+int mgos_config_get_default_sntp_enable(void) { return true; }
+void mgos_config_set_sntp_enable(struct mgos_config *cfg, int v) { cfg->sntp.enable = v; }
+
+/* sntp.server */
+const char * mgos_config_get_sntp_server(const struct mgos_config *cfg) { return cfg->sntp.server; }
+const char * mgos_config_get_default_sntp_server(void) { return "time.google.com"; }
+void mgos_config_set_sntp_server(struct mgos_config *cfg, const char * v) { mgos_conf_set_str(&cfg->sntp.server, v); }
+
+/* sntp.retry_min */
+int mgos_config_get_sntp_retry_min(const struct mgos_config *cfg) { return cfg->sntp.retry_min; }
+int mgos_config_get_default_sntp_retry_min(void) { return 1; }
+void mgos_config_set_sntp_retry_min(struct mgos_config *cfg, int v) { cfg->sntp.retry_min = v; }
+
+/* sntp.retry_max */
+int mgos_config_get_sntp_retry_max(const struct mgos_config *cfg) { return cfg->sntp.retry_max; }
+int mgos_config_get_default_sntp_retry_max(void) { return 30; }
+void mgos_config_set_sntp_retry_max(struct mgos_config *cfg, int v) { cfg->sntp.retry_max = v; }
+
+/* sntp.update_interval */
+int mgos_config_get_sntp_update_interval(const struct mgos_config *cfg) { return cfg->sntp.update_interval; }
+int mgos_config_get_default_sntp_update_interval(void) { return 7200; }
+void mgos_config_set_sntp_update_interval(struct mgos_config *cfg, int v) { cfg->sntp.update_interval = v; }
+
 /* wifi */
 const struct mgos_config_wifi *mgos_config_get_wifi(const struct mgos_config *cfg) { return &cfg->wifi; }
 
@@ -1818,6 +1866,7 @@ static const char *mgos_config_str_table[] = {
   "ca.pem",
   "esp32_??????",
   "test.mosquitto.org",
+  "time.google.com",
   "wss://mdash.net/api/v2/rpc",
 };
 

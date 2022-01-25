@@ -36,6 +36,7 @@ extern bool mgos_rpc_service_fs_init(void);
 extern bool mgos_rpc_service_i2c_init(void);
 extern bool mgos_rpc_service_ota_init(void);
 extern bool mgos_rpc_uart_init(void);
+extern bool mgos_sntp_init(void);
 extern bool mgos_wifi_init(void);
 
 #ifndef MGOS_LIB_INFO_VERSION
@@ -131,6 +132,9 @@ const struct mgos_lib_info mgos_libs_info[] = {
 
     // "rpc-uart". deps: [ "core" "rpc-common" ]
     {.name = "rpc-uart", .version = "1.0", .init = mgos_rpc_uart_init},
+
+    // "sntp". deps: [ "core" ]
+    {.name = "sntp", .version = "1.0", .init = mgos_sntp_init},
 
     // "wifi". deps: [ "core" ]
     {.name = "wifi", .version = "1.0", .init = mgos_wifi_init},

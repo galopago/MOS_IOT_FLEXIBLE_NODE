@@ -206,7 +206,7 @@ function getTempC(){
 	{
     	if ((owsensors = owSearchSens()) === 0)
     		{
-      			print('No device found');      			
+      			print('No ow device found');      			
       			return DS18B20NF;      		
     		}
   	}
@@ -241,8 +241,9 @@ function buildMsgUl(){
 	message_ul.temperature_int=intTemperatureCstr;	
 	let batVstr = getBatV();
 	message_ul.battery=roundNdigitsTostr(batVstr,2);
-	let timenow = Timer.now();	
-	message_ul.timestamp = timenow;
+	let timeunix = Timer.now();
+	let timestamp = Timer.fmt('%Y-%m-%d %H:%M:%S',timeunix);	
+	message_ul.timestamp = timestamp;
 }
 // ************************************************
 // No network connection timeout
@@ -316,6 +317,7 @@ MQTT.setEventHandler(function(conn,ev,data){
 				let tstr=DSTORE;
 				let siz=tstr.length;
 				print("tstr:",tstr);
+				print("tstr.length",tstr.length);
    				Net.send(conn, message_header); 
  				Net.send(conn, message_host); 
  				Net.send(conn, message_conn); 
@@ -343,23 +345,24 @@ MQTT.setEventHandler(function(conn,ev,data){
 		//let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
 		let okul = MQTT.pub(topic_ul, DSTORE, 1);		
   		print('Published:', okul, topic_ul, '->', DSTORE);  	
-
-		// reset counter
-		samplescount.counter = 0;
-		File.write(JSON.stringify(samplescount),'samplescount.json');	
-		print('samplescount.counter set to:',samplescount.counter);
-		// disable wifi
-		Cfg.set({wifi:{sta:{enable:false}}});
-		Cfg.set({wifi:{ap:{enable:false}}});
-		
-		// Delete data storage
-		DSTORE='';
-		File.write(DSTORE,'datastore.ndjson');	
-		  				
+				  				
   		// Wait for some time for downlink data before sleeping
   		print('Waiting ',DOWNLINK_WINDOW_TIMER_SEG,' seconds for downlink data');	  				  				
   		
   		Timer.set(DOWNLINK_WINDOW_TIMER_SEG*1000, false, function (){
+  			
+  			// reset counter
+			samplescount.counter = 0;
+			File.write(JSON.stringify(samplescount),'samplescount.json');	
+			print('samplescount.counter set to:',samplescount.counter);
+			// disable wifi
+			Cfg.set({wifi:{sta:{enable:false}}});
+			Cfg.set({wifi:{ap:{enable:false}}});
+		
+			// Delete data storage
+			DSTORE='';
+			File.write(DSTORE,'datastore.ndjson');	
+			
   			print('Going to sleep for ',MINS_TO_SLEEP,' mins');
   			ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);     
   		}, null);	       										

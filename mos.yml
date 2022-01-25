@@ -43,6 +43,7 @@ libs:
   - origin: https://github.com/mongoose-os-libs/mqtt
   - origin: https://github.com/mongoose-os-libs/i2c
   - origin: https://github.com/mongoose-os-libs/adc
+  - origin: https://github.com/mongoose-os-libs/sntp
 
 # libs necessary for the current app
   - origin: https://github.com/mongoose-os-libs/arduino-onewire
