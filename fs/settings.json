@@ -1,14 +1,13 @@
 {
 "gpioboardled":2,
 "enabledled":1,
-"gpioadc":34, 
-"gpiods18b20":26, 
+"gpioadc":35, 
+"gpiods18b20":32, 
 "adcr1":68, 
 "adcr2":20, 
-"minstosleep":3,
 "adcalfac":1.337,
 "minstosleep":2,
 "segsnonetimeout":120,
-"segsdownlinktime":7,
+"segsdownlinktime":5,
 "countsfortx":3
 }

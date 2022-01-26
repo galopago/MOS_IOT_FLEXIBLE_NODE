@@ -18,7 +18,7 @@ config_schema:
   - ["mqtt.enable", true ]  
   - ["testmode", "o", {title: "testing mode settings"}]
   - ["testmode.enable", "b", true, {title: "Enable testmode"}]
-  - ["sys.tz_spec", "<+05>5"]
+  - ["sys.tz_spec", "COT5"]
 #  - ["i2c", "o", {title: "I2C settings"}]
 #  - ["i2c.unit_no", "i", 0, {title: "Which hardware unit to use, 0 or 1"}]
 #  - ["i2c.enable", "b", true, {title: "Enable I2C"}]
