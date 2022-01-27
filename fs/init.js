@@ -52,29 +52,29 @@ let message_length =		'Content-Length: ';
 // Reading config values from file, if a key not found, harcoded value used instead
 let settings = JSON.parse(File.read('settings.json'));
 
-if(settings.gpioboardled !== null)
+if(settings.gpioboardled !== undefined)
 { GPIOBOARDLED=settings.gpioboardled;}
-if(settings.minstosleep !== null)
+if(settings.minstosleep !== undefined)
 { MINS_TO_SLEEP=settings.minstosleep;}
-if(settings.enabledled !== null)
+if(settings.enabledled !== undefined)
 { ENABLED_ONBOARD_DEBUG_LED=settings.enabledled;}
-if(settings.gpioadc !== null)
+if(settings.gpioadc !== undefined)
 { GPIOADC=settings.gpioadc;}
-if(settings.gpiods18b20 !== null)
+if(settings.gpiods18b20 !== undefined)
 { GPIODS18B20=settings.gpiods18b20;}
-if(settings.adcr1 !== null)
+if(settings.adcr1 !== undefined)
 { ADCR1=settings.adcr1;}
-if(settings.adcr2 !== null)
+if(settings.adcr2 !== undefined)
 { ADCR2=settings.adcr2;}
-if(settings.adcalfac !== null)
+if(settings.adcalfac !== undefined)
 {ADCALFAC=settings.adcalfac;}
-if(settings.minstosleep !== null)
+if(settings.minstosleep !== undefined)
 {MINS_TO_SLEEP=settings.minstosleep;}
-if(settings.segsnonetimeout !== null)
+if(settings.segsnonetimeout !== undefined)
 {NO_NET_TIMEOUT_SEG=settings.segsnonetimeout;}
-if(settings.segsdownlinktime !== null)
+if(settings.segsdownlinktime !== undefined)
 {DOWNLINK_WINDOW_TIMER_SEG=settings.segsdownlinktime;}
-if(settings.countsfortx !== null)
+if(settings.countsfortx !== undefined)
 {COUNTS_FOR_TX=settings.countsfortx;}
 
 print('Actual setup values:');
@@ -388,44 +388,50 @@ MQTT.setEventHandler(function(conn,ev,data){
 // ************************************************
 
 MQTT.sub(topic_dl,function(conn,topic,msg){
+
 	print('Topic:', topic, 'message:', msg);		
 	let conf_dl = JSON.parse(msg);	
-		
-	if(conf_dl.gpioboardled !== null)
+
+	print('settings at begining',JSON.stringify(settings));
+			
+	if(conf_dl.gpioboardled !== undefined)
 	{settings.gpioboardled = conf_dl.gpioboardled;}
 	
-	if(conf_dl.minstosleep !== null)
+	if(conf_dl.minstosleep !== undefined)
 	{settings.minstosleep = conf_dl.minstosleep;}
 	
-	if(conf_dl.enabledled !== null)
+	if(conf_dl.enabledled !== undefined)
 	{settings.enabledled = conf_dl.enabledled;}
 	
-	if(conf_dl.gpioadc !== null)
+	if(conf_dl.gpioadc !== undefined)
 	{settings.gpioadc=conf_dl.gpioadc;}
 
-	if(conf_dl.gpiods18b20 !== null)
+	if(conf_dl.gpiods18b20 !== undefined)
 	{settings.gpiods18b20=conf_dl.gpiods18b20;}
 
-	if(conf_dl.adcr1 !== null)
+	if(conf_dl.adcr1 !== undefined)
 	{settings.adcr1=conf_dl.adcr1;}
 
-	if(conf_dl.adcr2 !== null)
+	if(conf_dl.adcr2 !== undefined)
 	{settings.adcr2=conf_dl.adcr2;}
 	
-	if(conf_dl.adcalfac !== null)
+	if(conf_dl.adcalfac !== undefined)
 	{settings.adcalfac=conf_dl.adcalfac;}
 
-	if(conf_dl.minstosleep !== null)
+	if(conf_dl.minstosleep !== undefined)
 	{settings.minstosleep=conf_dl.minstosleep;}
 	
-	if(conf_dl.segsnonetimeout !== null)
-	{conf_dl.segsnonetimeout=settings.segsnonetimeout;}
+	if(conf_dl.segsnonetimeout !== undefined)
+	{settings.segsnonetimeout=conf_dl.segsnonetimeout;}
 
-	if(conf_dl.segsdownlinktime !== null)
+	if(conf_dl.segsdownlinktime !== undefined)
 	{settings.segsdownlinktime=conf_dl.segsdownlinktime;}
 	
+	if(conf_dl.countsfortx !== undefined)
+	{settings.countsfortx=conf_dl.countsfortx;}
+		
 	// {"readconf":true} publish actual setup
-	if(conf_dl.readconf !== null )
+	if(conf_dl.readconf !== undefined )
 	{
 		if(conf_dl.readconf === true)
 		{
@@ -435,6 +441,9 @@ MQTT.sub(topic_dl,function(conn,topic,msg){
 			let okul = MQTT.pub(topic_conf_ul, JSON.stringify(settingstmp), 1);
 		}		
 	}		
+	
+	print('Downlink command received');
+	print('settings at end',JSON.stringify(settings));
 	
 	// saving changes to config file
 	File.write(JSON.stringify(settings),'settings.json');
