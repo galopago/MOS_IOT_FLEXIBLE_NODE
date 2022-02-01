@@ -261,6 +261,8 @@ Timer.set(NO_NET_TIMEOUT_SEG*1000, 0, function() {
 	samplescount.counter = 0;
 	File.write(JSON.stringify(samplescount),'samplescount.json');	
 	Cfg.set({wifi:{sta:{enable:false}}});
+	Cfg.set({wifi:{sta1:{enable:false}}});
+	Cfg.set({wifi:{sta2:{enable:false}}});
 	Cfg.set({wifi:{ap:{enable:false}}});
 		
 	ESP32.deepSleep(MINS_TO_SLEEP * 60 * 1000 * 1000);
@@ -289,6 +291,8 @@ if(WIFI_TX_FLAG === 0 && TESTMODE === false )
 	if(samplescount.counter === COUNTS_FOR_TX-1)
 	{
 		Cfg.set({wifi:{sta:{enable:true}}});
+		Cfg.set({wifi:{sta1:{enable:true}}});
+		Cfg.set({wifi:{sta2:{enable:true}}});
 		Cfg.set({wifi:{ap:{enable:false}}});
 	}
 
@@ -369,6 +373,8 @@ MQTT.setEventHandler(function(conn,ev,data){
 			print('samplescount.counter set to:',samplescount.counter);
 			// disable wifi
 			Cfg.set({wifi:{sta:{enable:false}}});
+			Cfg.set({wifi:{sta1:{enable:false}}});
+			Cfg.set({wifi:{sta2:{enable:false}}});
 			Cfg.set({wifi:{ap:{enable:false}}});
 		
 			// Delete data storage
