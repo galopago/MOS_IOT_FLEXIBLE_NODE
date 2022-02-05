@@ -14,8 +14,8 @@ load('ds18b20.js');
 // Default hard coded values settings
 
 let	GPIOBOARDLED =					2;
-let	GPIOADC = 						34;
-let GPIODS18B20 = 					26;
+let	GPIOADC = 						35;
+let GPIODS18B20 = 					32;
 let ADCR1 = 						68;		// ADC voltage divider 'upper' resistor
 let ADCR2 = 						20;		// ADC voltage divider 'lower' resistor
 let ADCRES = 						4095;
@@ -42,7 +42,7 @@ let topic_dl =				'/mosiotnode/'+DEVICE_ID+'/downlink';
 let apphost =				'galopago-iotnode.herokuapp.com';
 let appport =				'80';
 
-let message_ul=				{"sensor_id":"","temperature_ext":0.0,"temperature_int":0.0,"battery":0.0,"timestamp":""};
+let message_ul=				{"sensor_id":"","temperature_ext":0.0,"battery":0.0,"timestamp":""};
 let message_header =		'POST /dbpost HTTP/1.1'+chr(13)+chr(10); 
 let message_host =			'Host: '+apphost+chr(13)+chr(10); 
 let message_conn =			'Connection: close'+chr(13)+chr(10); 
@@ -243,9 +243,7 @@ function buildMsgUl(){
 
 	message_ul.sensor_id=DEVICE_ID;	
 	let extTemperatureCstr = roundNdigitsTostr(getTempC(),2);
-	message_ul.temperature_ext=extTemperatureCstr;
-	let intTemperatureCstr = roundNdigitsTostr((5/9)*(ESP32.temp()-32),2);
-	message_ul.temperature_int=intTemperatureCstr;	
+	message_ul.temperature_ext=extTemperatureCstr;	
 	let batVstr = getBatV();
 	message_ul.battery=roundNdigitsTostr(batVstr,2);
 	let timeunix = Timer.now();
@@ -279,7 +277,6 @@ if(WIFI_TX_FLAG === 0 && TESTMODE === false )
 	buildMsgUl();
 	
 	DSTORE = File.read('datastore.json');
-	//DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
 	DSTORE = DSTORE+JSON.stringify(message_ul)+',';
 	print('DSTORE:',DSTORE);
 	File.write(DSTORE,'datastore.json');	
@@ -313,8 +310,8 @@ MQTT.setEventHandler(function(conn,ev,data){
 		print('got MQTT.EV_CONNACK');
 		buildMsgUl();
 		
+		// Insert in datastore actual readings
 		DSTORE = File.read('datastore.json');
-		//DSTORE = DSTORE+JSON.stringify(message_ul)+chr(13)+chr(10);
 		DSTORE = DSTORE+JSON.stringify(message_ul)+',';
 		print('DSTORE:',DSTORE);
 		File.write(DSTORE,'datastore.json');	
@@ -326,7 +323,7 @@ MQTT.setEventHandler(function(conn,ev,data){
    			// Optional. Called when connection is established.
    			onconnect: function(conn) {
    				print('onconnect:');   				
-   				//let tstr=JSON.stringify(message_ul);
+   				//Making a valid JSON string;
    				let tstr='['+DSTORE.slice(0,-1)+']';						
 				let siz=tstr.length;
 				print("tstr:",tstr);
@@ -355,10 +352,9 @@ MQTT.setEventHandler(function(conn,ev,data){
 		});
 
 		// Publish thru MQTT					
-		//let okul = MQTT.pub(topic_ul, JSON.stringify(message_ul), 1);
 		
+		//Making a valid JSON string
 		let tstr='['+DSTORE.slice(0,-1)+']';		
-		//let siz=tstr.length;
 		let okul = MQTT.pub(topic_ul, tstr, 1);		
   		print('Published:', okul, topic_ul, '->', tstr);  	
 				  				
@@ -377,7 +373,7 @@ MQTT.setEventHandler(function(conn,ev,data){
 			Cfg.set({wifi:{sta2:{enable:false}}});
 			Cfg.set({wifi:{ap:{enable:false}}});
 		
-			// Delete data storage
+			// Empty data storage
 			DSTORE='';
 			File.write(DSTORE,'datastore.json');	
 			
