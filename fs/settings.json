@@ -8,6 +8,6 @@
 "adcalfac":1.337,
 "minstosleep":2,
 "segsnonetimeout":120,
-"segsdownlinktime":5,
+"segsdownlinktime":9,
 "countsfortx":3
 }

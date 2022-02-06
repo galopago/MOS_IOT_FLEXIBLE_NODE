@@ -22,7 +22,7 @@ let ADCRES = 						4095;
 let ADCALFAC = 						1.337;	// Qick and dirty calibration factor
 let MINS_TO_SLEEP =					2;
 let NO_NET_TIMEOUT_SEG = 			120;
-let DOWNLINK_WINDOW_TIMER_SEG = 	7;
+let DOWNLINK_WINDOW_TIMER_SEG = 	9;
 let ENABLED_ONBOARD_DEBUG_LED = 	1;
 let COUNTS_FOR_TX =					5;
 
@@ -394,7 +394,7 @@ MQTT.sub(topic_dl,function(conn,topic,msg){
 	print('Topic:', topic, 'message:', msg);		
 	let conf_dl = JSON.parse(msg);	
 
-	print('settings at begining',JSON.stringify(settings));
+	//print('settings before downlink setup',JSON.stringify(settings));
 			
 	if(conf_dl.gpioboardled !== undefined)
 	{settings.gpioboardled = conf_dl.gpioboardled;}
@@ -445,7 +445,7 @@ MQTT.sub(topic_dl,function(conn,topic,msg){
 	}		
 	
 	print('Downlink command received');
-	print('settings at end',JSON.stringify(settings));
+	//print('settings after downlink setup',JSON.stringify(settings));
 	
 	// saving changes to config file
 	File.write(JSON.stringify(settings),'settings.json');
