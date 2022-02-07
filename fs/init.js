@@ -25,8 +25,8 @@ let NO_NET_TIMEOUT_SEG = 			120;
 let DOWNLINK_WINDOW_TIMER_SEG = 	9;
 let ENABLED_ONBOARD_DEBUG_LED = 	1;
 let COUNTS_FOR_TX =					5;
+let DSTORE_MAX_BYTES =				50000;
 
-let DEVICE_ARCH;
 let DEVICE_ID;
 let WIFI_TX_FLAG;
 let TESTMODE;
@@ -76,6 +76,8 @@ if(settings.segsdownlinktime !== undefined)
 {DOWNLINK_WINDOW_TIMER_SEG=settings.segsdownlinktime;}
 if(settings.countsfortx !== undefined)
 {COUNTS_FOR_TX=settings.countsfortx;}
+if(settings.dstoremaxbytes !== undefined)
+{DSTORE_MAX_BYTES=settings.dstoremaxbytes;}
 
 print('Actual setup values:');
 print('---------------------------');
@@ -268,7 +270,7 @@ Timer.set(NO_NET_TIMEOUT_SEG*1000, 0, function() {
 
 
 // ************************************************
-// STORE/TRANSMIT LOGIC
+// SAMPE/STORE/TRANSMIT LOGIC
 //
 // ************************************************
 if(WIFI_TX_FLAG === 0 && TESTMODE === false )
@@ -277,9 +279,17 @@ if(WIFI_TX_FLAG === 0 && TESTMODE === false )
 	buildMsgUl();
 	
 	DSTORE = File.read('datastore.json');
-	DSTORE = DSTORE+JSON.stringify(message_ul)+',';
+	print('DSTORE size:',DSTORE.length);
+		
+	// Dont grow forever!!
+	if(DSTORE.length < DSTORE_MAX_BYTES )
+	{
+		DSTORE = DSTORE+JSON.stringify(message_ul)+',';
+		File.write(DSTORE,'datastore.json');	
+	}
+		
 	print('DSTORE:',DSTORE);
-	File.write(DSTORE,'datastore.json');	
+	
 					
 	// saving increased counter
 	samplescount.counter = samplescount.counter+1;
@@ -312,9 +322,16 @@ MQTT.setEventHandler(function(conn,ev,data){
 		
 		// Insert in datastore actual readings
 		DSTORE = File.read('datastore.json');
-		DSTORE = DSTORE+JSON.stringify(message_ul)+',';
+		print('DSTORE size:',DSTORE.length);
+		
+		// Dont grow forever!!
+		if(DSTORE.length < DSTORE_MAX_BYTES )
+		{
+			DSTORE = DSTORE+JSON.stringify(message_ul)+',';
+			File.write(DSTORE,'datastore.json');	
+		}								
 		print('DSTORE:',DSTORE);
-		File.write(DSTORE,'datastore.json');	
+
 
 		// Sending data thru HTTP POST
 		Net.connect({
@@ -375,6 +392,7 @@ MQTT.setEventHandler(function(conn,ev,data){
 		
 			// Empty data storage
 			DSTORE='';
+			print('Cleaning DSTORE');
 			File.write(DSTORE,'datastore.json');	
 			
   			print('Going to sleep for ',MINS_TO_SLEEP,' mins');

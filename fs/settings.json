@@ -9,5 +9,6 @@
 "minstosleep":2,
 "segsnonetimeout":120,
 "segsdownlinktime":9,
-"countsfortx":3
+"countsfortx":3,
+"dstoremaxbytes":50000
 }
